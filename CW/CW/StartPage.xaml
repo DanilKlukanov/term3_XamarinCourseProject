@@ -5,17 +5,25 @@
              x:Class="CW.StartPage">
 
     <ContentPage.Content>
-        <Grid>
-            <magic:GradientView VerticalOptions="FillAndExpand">
-                <magic:GradientView.GradientSource>
-                    <magic:LinearGradient Angle="0">
-                        <magic:GradientStop Color="#86c5da" Offset="0" />
-                        <magic:GradientStop Color="#86da9b" Offset="0.8" />
-                    </magic:LinearGradient>
-                </magic:GradientView.GradientSource>
-            </magic:GradientView>
+        <AbsoluteLayout Padding="0"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+            
+            <Grid VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand"
+                  AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                  AbsoluteLayout.LayoutFlags="All">
+                
+                <magic:GradientView VerticalOptions="FillAndExpand">
+                    <magic:GradientView.GradientSource>
+                        <magic:LinearGradient Angle="0">
+                            <magic:GradientStop Color="#86c5da" Offset="0" />
+                            <magic:GradientStop Color="#86da9b" Offset="0.8" />
+                        </magic:LinearGradient>
+                    </magic:GradientView.GradientSource>
+                </magic:GradientView>
 
-            <Label Grid.Row="0"
+                <Label Grid.Row="0"
                    FontSize="36"
                    Text="Bank Name"
                    TextColor="White"
@@ -23,34 +31,34 @@
                    HorizontalOptions="Center"
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"/>
-            
-            <Grid VerticalOptions="Start"
-                  Margin="20,130,20,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
 
-                <Frame Grid.Row="0"
+                <Grid VerticalOptions="Start"
+                  Margin="20,130,20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Frame Grid.Row="0"
                        CornerRadius="20"
                        Margin="0,10,0,10">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
                                               Tapped="Map_Tapped"/>
-                    </Frame.GestureRecognizers>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="8*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Image Grid.Column="0"
+                            <Image Grid.Column="0"
                                Source="map_icon.png"
                                HeightRequest="20"
                                Aspect="AspectFit"/>
-                        <Label Grid.Column="1"
+                            <Label Grid.Column="1"
                                TextColor="Black"
                                FontSize="20"
                                Text="Отделения и банкоматы"
@@ -59,27 +67,27 @@
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
                                x:Name="Map"/>
-                    </Grid>
-                </Frame>
+                        </Grid>
+                    </Frame>
 
-                <Frame Grid.Row="1"
+                    <Frame Grid.Row="1"
                        CornerRadius="20"
                        Margin="0,10,0,10">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
                                               Tapped="ExchangeRates_Tapped"/>
-                    </Frame.GestureRecognizers>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="8*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Image Grid.Column="0"
+                            <Image Grid.Column="0"
                                Source="rates_icon.png"
                                HeightRequest="30"/>
-                        <Label Grid.Column="1"
+                            <Label Grid.Column="1"
                                TextColor="Black"
                                FontSize="20"
                                Text="Курсы валют"
@@ -88,18 +96,18 @@
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
                                x:Name="ExchangeRates"/>
-                    </Grid>
-                </Frame>
+                        </Grid>
+                    </Frame>
 
-                <Frame Grid.Row="2"
+                    <Frame Grid.Row="2"
                        CornerRadius="20"
                        BackgroundColor="#58A0FF"
                        Margin="0,10,0,10">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
                                               Tapped="ComeIn_Tapped"/>
-                    </Frame.GestureRecognizers>
-                    <Label TextColor="White"
+                        </Frame.GestureRecognizers>
+                        <Label TextColor="White"
                            Text="Войти"
                            FontSize="20"
                            VerticalTextAlignment="Center"
@@ -107,10 +115,72 @@
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
                            x:Name="ComeIn"/>
-                </Frame>
-
+                    </Frame>
+                </Grid>
             </Grid>
-        </Grid>
+
+            <ContentView BackgroundColor="#C0808080" x:Name="form" Padding="0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="20,0,20,0">
+                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <Frame BackgroundColor="White"
+                               CornerRadius="20">
+                            <!-- Тут элементы всплывающего окна -->
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.7*"/>
+                                    <RowDefinition Height="0.5*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Text="Авторизация"
+                                       FontSize="20"
+                                       TextColor="Black"
+                                       Padding="50,0"
+                                       Grid.Row="0"
+                                       HorizontalOptions="Center"/>
+
+                                <Label IsVisible="true"
+                                       Grid.Row="1"
+                                       HorizontalOptions="Center"
+                                       x:Name="message"/>
+
+                                <Entry Placeholder="Логин"
+                                       Grid.Row="2"
+                                       x:Name="login"/>
+
+                                <Entry Placeholder="Пароль"
+                                       Grid.Row="3"
+                                       IsPassword="True"
+                                       x:Name="password"/>
+
+                                <Grid Grid.Row="4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Text="Отмена"
+                                            Grid.Column="0"
+                                            Clicked="Hide"/>
+                                    
+                                    <Button Text="Войти"
+                                            Grid.Column="1"
+                                            Clicked="Confirm_Clicked"/>
+                                </Grid>
+
+
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <!-- Обработчик тапов -->
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Hide"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </ContentView>
+        </AbsoluteLayout>
     </ContentPage.Content>
     
 </ContentPage>
