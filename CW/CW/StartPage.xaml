@@ -16,7 +16,7 @@
             </magic:GradientView>
 
             <Label Grid.Row="0"
-                   FontSize="28"
+                   FontSize="36"
                    Text="Bank Name"
                    TextColor="White"
                    VerticalOptions="Start"
@@ -25,7 +25,7 @@
                    HorizontalTextAlignment="Center"/>
             
             <Grid VerticalOptions="Start"
-                  Margin="20,100,20,0">
+                  Margin="20,130,20,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -46,9 +46,16 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
 
+                        <Image Grid.Column="0"
+                               Source="map_icon.png"
+                               HeightRequest="20"
+                               Aspect="AspectFit"/>
                         <Label Grid.Column="1"
                                TextColor="Black"
+                               FontSize="20"
                                Text="Отделения и банкоматы"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
                                x:Name="Map"/>
@@ -69,9 +76,15 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
 
+                        <Image Grid.Column="0"
+                               Source="rates_icon.png"
+                               HeightRequest="30"/>
                         <Label Grid.Column="1"
                                TextColor="Black"
+                               FontSize="20"
                                Text="Курсы валют"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
                                x:Name="ExchangeRates"/>
@@ -88,8 +101,11 @@
                     </Frame.GestureRecognizers>
                     <Label TextColor="White"
                            Text="Войти"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"
+                           FontSize="20"
+                           VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
                            x:Name="ComeIn"/>
                 </Frame>
 
