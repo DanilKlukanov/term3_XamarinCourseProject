@@ -13,13 +13,11 @@ namespace CW
     {
         bool bMap;
         bool bExchangeRates;
-        bool bComeIn;
         public StartPage()
         {
             InitializeComponent();
             bMap = false;
             bExchangeRates = false;
-            bComeIn = false;
         }
 
         private void Map_Tapped(object sender, EventArgs e)
@@ -50,13 +48,35 @@ namespace CW
 
         private void ComeIn_Tapped(object sender, EventArgs e)
         {
-            if (!bComeIn)
-            {
-                bComeIn = true;
+            message.Text = "Введите Ваш логин и пароль";
+            message.TextColor = Color.Black;
+            form.IsVisible = true;
+        }
 
-                // Navigation.PushModalAsync();
-                bComeIn = false;
+        private void Hide(object sender, EventArgs e)
+        {
+            form.IsVisible = false;
+        }
+
+        private void Confirm_Clicked(object sender, EventArgs e)
+        {
+            string test_login = "basov";
+            string test_password = "qwerty";
+            // Check user data
+            bool error = (login.Text != test_login || password.Text != test_password);
+            if (error)
+            {
+                message.Text = "Ошибка, проверьте данные";
+                message.TextColor = Color.Red;
             }
+            else
+            {
+                message.Text = "Успех";
+                message.TextColor = Color.Green;
+            }
+            UserPage page = new UserPage();
+            Navigation.PushModalAsync(page);
+            form.IsVisible = false;
         }
     }
 }
