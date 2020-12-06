@@ -50,6 +50,8 @@ namespace CW
         {
             message.Text = "Введите Ваш логин и пароль";
             message.TextColor = Color.Black;
+            login.Text = "";
+            password.Text = "";
             form.IsVisible = true;
         }
 
@@ -73,10 +75,10 @@ namespace CW
             {
                 message.Text = "Успех";
                 message.TextColor = Color.Green;
+                UserPage page = new UserPage();
+                Navigation.PushModalAsync(page);
+                form.IsVisible = false;
             }
-            UserPage page = new UserPage();
-            Navigation.PushModalAsync(page);
-            form.IsVisible = false;
         }
     }
 }
