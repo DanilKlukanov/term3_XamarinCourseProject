@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
-             x:Class="CW.StartPage">
+             x:Class="CW.Views.StartPage">
 
     <ContentPage.Content>
         <AbsoluteLayout Padding="0"
@@ -44,8 +44,7 @@
                        CornerRadius="20"
                        Margin="0,10,0,10">
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1"
-                                              Tapped="Map_Tapped"/>
+                            <TapGestureRecognizer Command="{Binding OpenMapPageCommand}"/>
                         </Frame.GestureRecognizers>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -74,8 +73,7 @@
                        CornerRadius="20"
                        Margin="0,10,0,10">
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1"
-                                              Tapped="ExchangeRates_Tapped"/>
+                            <TapGestureRecognizer Command="{Binding OpenExchangesRatesPageCommand}"/>
                         </Frame.GestureRecognizers>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -104,8 +102,7 @@
                        BackgroundColor="#58A0FF"
                        Margin="0,10,0,10">
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1"
-                                              Tapped="ComeIn_Tapped"/>
+                            <TapGestureRecognizer Command="{Binding ShowLoginFormCommand}"/>
                         </Frame.GestureRecognizers>
                         <Label TextColor="White"
                            Text="Войти"
@@ -119,7 +116,7 @@
                 </Grid>
             </Grid>
 
-            <ContentView BackgroundColor="#C0808080" x:Name="form" Padding="0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <ContentView BackgroundColor="#C0808080" x:Name="form" Padding="0" IsVisible="{Binding IsLoginFormVisible, Mode=OneWay}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="20,0,20,0">
                     <StackLayout Orientation="Vertical" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                         <Frame BackgroundColor="White"
@@ -144,16 +141,19 @@
                                 <Label IsVisible="true"
                                        Grid.Row="1"
                                        HorizontalOptions="Center"
-                                       x:Name="message"/>
+                                       Text="{Binding AutorizationInfo}"
+                                       TextColor="Black"/>
 
                                 <Entry Placeholder="Логин"
                                        Grid.Row="2"
-                                       x:Name="login"/>
+                                       x:Name="login"
+                                       Text="{Binding UserLogin, Mode=OneWayToSource}"/>
 
                                 <Entry Placeholder="Пароль"
                                        Grid.Row="3"
                                        IsPassword="True"
-                                       x:Name="password"/>
+                                       x:Name="password"
+                                       Text="{Binding UserPassword, Mode=OneWayToSource}"/>
 
                                 <Grid Grid.Row="4">
                                     <Grid.ColumnDefinitions>
@@ -163,11 +163,11 @@
 
                                     <Button Text="Отмена"
                                             Grid.Column="0"
-                                            Clicked="Hide"/>
+                                            Command="{Binding HideLoginFormCommand}"/>
                                     
                                     <Button Text="Войти"
                                             Grid.Column="1"
-                                            Clicked="Confirm_Clicked"/>
+                                            Command="{Binding AuthorizationCommand}"/>
                                 </Grid>
 
 
@@ -176,7 +176,7 @@
                     </StackLayout>
                     <!-- Обработчик тапов -->
                     <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="Hide"></TapGestureRecognizer>
+                        <TapGestureRecognizer Command="{Binding HideLoginFormCommand}"></TapGestureRecognizer>
                     </StackLayout.GestureRecognizers>
                 </StackLayout>
             </ContentView>
