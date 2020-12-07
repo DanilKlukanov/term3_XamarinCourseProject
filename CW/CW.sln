@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CW.Android", "CW.Android\CW.Android.csproj", "{326FF113-BF24-4C56-BA3C-4D079AF9191F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CW", "CW\CW.csproj", "{2C0954EA-FEFC-4C18-9875-BDADE4B0505F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CW", "CW\CW.csproj", "{2C0954EA-FEFC-4C18-9875-BDADE4B0505F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
