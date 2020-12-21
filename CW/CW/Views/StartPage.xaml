@@ -2,8 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
+             xmlns:convert="clr-namespace:CW.Converters"
              x:Class="CW.Views.StartPage">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <AbsoluteLayout Padding="0"
                         HorizontalOptions="FillAndExpand"
@@ -124,11 +131,12 @@
                             <!-- Тут элементы всплывающего окна -->
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.7*"/>
-                                    <RowDefinition Height="0.5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="0.1*"/>
+                                    <RowDefinition Height="0.2*"/>
+                                    <RowDefinition Height="0.1*"/>
+                                    <RowDefinition Height="0.2*"/>
+                                    <RowDefinition Height="0.1*"/>
+                                    <RowDefinition Height="0.2*"/>
                                 </Grid.RowDefinitions>
 
                                 <Label Text="Авторизация"
@@ -138,24 +146,30 @@
                                        Grid.Row="0"
                                        HorizontalOptions="Center"/>
 
-                                <Label IsVisible="true"
-                                       Grid.Row="1"
-                                       HorizontalOptions="Center"
-                                       Text="{Binding AutorizationInfo}"
-                                       TextColor="Black"/>
-
                                 <Entry Placeholder="Логин"
-                                       Grid.Row="2"
+                                       Grid.Row="1"
                                        x:Name="login"
-                                       Text="{Binding UserLogin, Mode=OneWayToSource}"/>
+                                       Text="{Binding UserLogin.Value, Mode=OneWayToSource}"/>
+
+                                <Label Grid.Row="2"
+                                       HorizontalOptions="Center"
+                                       Text="{Binding UserLogin.Errors,
+                                                Converter={StaticResource FirstValidationErrorConverter}}"
+                                       TextColor="Red"/>
 
                                 <Entry Placeholder="Пароль"
                                        Grid.Row="3"
                                        IsPassword="True"
                                        x:Name="password"
-                                       Text="{Binding UserPassword, Mode=OneWayToSource}"/>
+                                       Text="{Binding UserPassword.Value, Mode=OneWayToSource}"/>
+                                
+                                <Label Grid.Row="4"
+                                       HorizontalOptions="Center"
+                                       Text="{Binding UserPassword.Errors,
+                                                Converter={StaticResource FirstValidationErrorConverter}}"
+                                       TextColor="Red"/>
 
-                                <Grid Grid.Row="4">
+                                <Grid Grid.Row="5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
