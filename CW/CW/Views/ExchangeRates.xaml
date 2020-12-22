@@ -14,10 +14,39 @@
                     </magic:LinearGradient>
                 </magic:GradientView.GradientSource>
             </magic:GradientView>
-
-            <Label Text="Welcome to Xamarin.Forms!"
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand"/>
+            <StackLayout>
+                <StackLayout HeightRequest="50" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Label Text="{Binding CurrentDate}"></Label>
+                    <Label Text="Покупка"></Label>
+                    <Label Text="Продажа"></Label>
+                </StackLayout>
+                <ListView ItemsSource="{Binding Rates}" RowHeight="50" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame Margin="0" Padding="0" HorizontalOptions="FillAndExpand">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Text="{Binding CharCode}" FontSize="Medium" Grid.Column="0"/>
+                                                <Label Text="{Binding Name}" FontSize="Medium" Grid.Column="1"/>
+                                                <Label Text="{Binding Buy}" FontSize="Small" Grid.Column="2"/>
+                                                <Label Text="{Binding Sell}" FontSize="Small" Grid.Column="3"/>
+                                            </Grid>
+                                        </Frame>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
