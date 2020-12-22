@@ -4,7 +4,6 @@ using System.Text;
 using CW.Views;
 using System.Windows.Input;
 using Xamarin.Forms;
-using CW.Validations;
 
 namespace CW.ViewModels
 {
@@ -34,22 +33,12 @@ namespace CW.ViewModels
                 IsLoginFormVisible = false;
                 AutorizationInfo = "Введите Ваш логин и пароль";
             });
-
-            UserLogin = new ValidatableObject<string>();
-            UserPassword = new ValidatableObject<string>();
-            AddValidations();
-
         }
 
         private void Authorize(object obj)
         {
-            if (Validate())
-            {
-                IsLoginFormVisible = false;
-                Navigation.PushAsync(new UserPage());
-            }
-            //bool error = (UserLogin != test_login || UserPassword != test_password);
-/*            if (error)
+            bool error = (UserLogin != test_login || UserPassword != test_password);
+            if (error)
             {
                 AutorizationInfo = "Ошибка, проверьте данные";
             }
@@ -57,8 +46,9 @@ namespace CW.ViewModels
             {
                 AutorizationInfo = "Успех";
 
-
-            }*/
+                IsLoginFormVisible = false;
+                Navigation.PushAsync(new UserPage());
+            }
         }
 
         // Enable or disable all buttons on the current page
@@ -84,7 +74,7 @@ namespace CW.ViewModels
             get => _autorizationIngo;
             set
             {
-                if (_autorizationIngo != value)
+                if (value != _autorizationIngo)
                 {
                     _autorizationIngo = value;
                     OnPropertyChanged();
@@ -92,10 +82,8 @@ namespace CW.ViewModels
             }
         }
 
-        //private ValidatableObject<string> _userLogin;
-        public ValidatableObject<string> UserLogin { get; set; }
-
-        public ValidatableObject<string> UserPassword { get; set; }
+        public string UserLogin {get; set;}
+        public string UserPassword { get; set; }
 
 
         private void OpenMapPage()
@@ -114,35 +102,6 @@ namespace CW.ViewModels
         {
             isButtonEnabled_ = true;
             Navigation.PopAsync();
-        }
-
-        private void AddValidations()
-        {
-            UserLogin.Validations.Add(new IsNotNullOrEmptyRule<string>
-            {
-                ValidationMessage = "Username is required."
-            });
-            UserPassword.Validations.Add(new IsNotNullOrEmptyRule<string>
-            {
-                ValidationMessage = "Password is required."
-            });
-        }
-
-        private bool Validate()
-        {
-            bool isValidUser = ValidateUserName();
-            bool isValidPassword = ValidatePassword();
-            return isValidUser && isValidPassword;
-        }
-
-        private bool ValidateUserName()
-        {
-            return UserLogin.Validate();
-        }
-
-        private bool ValidatePassword()
-        {
-            return UserPassword.Validate();
         }
     }
 }

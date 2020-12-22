@@ -31,12 +31,4 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
-<<<<<<< Updated upstream
-
-  <ItemGroup>
-    <Folder Include="Behaviors\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-=======
->>>>>>> Stashed changes
 </Project>
