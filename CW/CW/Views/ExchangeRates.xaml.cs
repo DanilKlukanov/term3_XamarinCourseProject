@@ -1,5 +1,4 @@
-﻿using CW.Models;
-using CW.ViewModels;
+﻿using CW.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
