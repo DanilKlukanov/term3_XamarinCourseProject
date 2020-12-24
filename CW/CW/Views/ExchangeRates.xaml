@@ -15,29 +15,83 @@
                 </magic:GradientView.GradientSource>
             </magic:GradientView>
             <StackLayout>
-                <StackLayout HeightRequest="50" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Label Text="{Binding CurrentDate}"></Label>
-                    <Label Text="Покупка"></Label>
-                    <Label Text="Продажа"></Label>
+                <StackLayout HeightRequest="25" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Label Text="{Binding CurrentDate}"
+                           FontSize="16"
+                           BackgroundColor="#86c5da"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="End"
+                           Padding="12, 0, 0, 5"/>
+                    <Label Text="Покупка"
+                           FontSize="16"
+                           BackgroundColor="#86c5da"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="End"
+                           Padding="90, 0, 0, 5"/>
+                    <Label Text="Продажа"
+                           FontSize="16"
+                           BackgroundColor="#86c5da"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="End"
+                           Padding="15, 0, 5, 5"/>
                 </StackLayout>
-                <ListView ItemsSource="{Binding Rates}" RowHeight="50" SelectionMode="None">
+                <ListView ItemsSource="{Binding Rates}" RowHeight="75" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.View>
                                     <StackLayout Orientation="Horizontal">
                                         <Frame Margin="0" Padding="0" HorizontalOptions="FillAndExpand">
-                                            <Grid>
+                                            <Grid VerticalOptions="Center" Padding="10, 0, 0, 0">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="2*"/>
-                                                    <ColumnDefinition Width="2*"/>
-                                                    <ColumnDefinition Width="2*"/>
-                                                    <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="3.5*"/>
+                                                    <ColumnDefinition Width="1*"/>
+                                                    <ColumnDefinition Width="0.5*"/>
+                                                    <ColumnDefinition Width="1*"/>
+                                                    <ColumnDefinition Width="0.5*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Label Text="{Binding CharCode}" FontSize="Medium" Grid.Column="0"/>
-                                                <Label Text="{Binding Name}" FontSize="Medium" Grid.Column="1"/>
-                                                <Label Text="{Binding Buy}" FontSize="Small" Grid.Column="2"/>
-                                                <Label Text="{Binding Sell}" FontSize="Small" Grid.Column="3"/>
+                                                <Grid Grid.Column="0">
+                                                    <Label Text="{Binding Flag}" 
+                                                           FontSize="35"
+                                                           Grid.Column="0" 
+                                                           Padding="5, 0, 5, 5" 
+                                                           VerticalOptions="Start" 
+                                                           HorizontalOptions="Start"/>
+                                                    <Label Text="{Binding CharCode}"
+                                                           TextColor="Black"
+                                                           FontSize="Large"
+                                                           Padding="55, 8, 0, 0"
+                                                           VerticalOptions="Start"
+                                                           HorizontalOptions="Start"/>
+                                                    <Label Text="{Binding Name}"
+                                                           FontSize="Small"
+                                                           Padding="5, 40, 0, 0"
+                                                           VerticalOptions="Start"
+                                                           HorizontalOptions="Start"/>
+                                                </Grid>
+
+                                                <Label Text="{Binding Buy}"
+                                                       FontSize="Small"
+                                                       Grid.Column="1"
+                                                       Padding="0, 0, 0, 0"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"/>
+                                                <Label Text="{Binding ArrowBuy}"
+                                                       TextColor="{Binding ColorBuy}"
+                                                       FontSize="Small"
+                                                       Grid.Column="2"
+                                                       VerticalOptions="Center"/>
+                                                <Label Text="{Binding Sell}"
+                                                       FontSize="Small"
+                                                       Grid.Column="3"
+                                                       Padding="0, 0, 0, 0"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"/>
+                                                <Label Text="{Binding ArrowSell}"
+                                                       TextColor="{Binding ColorSell}"
+                                                       FontSize="Small"
+                                                       Grid.Column="4"
+                                                       VerticalOptions="Center"/>
                                             </Grid>
                                         </Frame>
                                     </StackLayout>

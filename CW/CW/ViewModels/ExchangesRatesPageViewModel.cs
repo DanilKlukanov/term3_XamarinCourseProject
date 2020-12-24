@@ -25,6 +25,36 @@ namespace CW.ViewModels
             "🇦🇿",
             "🇬🇧",
             "🇦🇲",
+            "🇧🇾",
+            "🇧🇬",
+            "🇧🇷",
+            "🇭🇺",
+            "🇭🇰",
+            "🇩🇰",
+            "🇺🇸",
+            "🇪🇺",
+            "🇮🇳",
+            "🇰🇿",
+            "🇨🇦",
+            "🇰🇬",
+            "🇨🇳",
+            "🇲🇩",
+            "🇳🇴",
+            "🇵🇱",
+            "🇷🇴",
+            "🚫",
+            "🇸🇬",
+            "🇹🇯",
+            "🇹🇷",
+            "🇹🇲",
+            "🇺🇿",
+            "🇺🇦",
+            "🇨🇿",
+            "🇸🇪",
+            "🇨🇭",
+            "🇿🇦",
+            "🇰🇷",
+            "🇯🇵"
         };
         public ExchangesRatesPageViewModel(StartPageViewModel startViewModel)
         {
@@ -38,26 +68,66 @@ namespace CW.ViewModels
             string url = "https://www.cbr-xml-daily.ru/daily_json.js";
             try
             {
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri(url);
+                HttpClient client = new HttpClient
+                {
+                    BaseAddress = new Uri(url)
+                };
                 var response = await client.GetAsync(client.BaseAddress);
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();
                 JObject json = JObject.Parse(content);
                 JObject valutes = json["Valute"].Value<JObject>();
-                foreach (KeyValuePair<string, JToken> sign in valutes)
+                var index = 0;
+                foreach (KeyValuePair<string, JToken>sign in valutes)
                 {
-                    if (valutes[sign.Key]["Nominal"].ToString() == "1")
+                    if (sign.Key != "XDR")
                     {
-                        var about = sign.Value.ToString();
-                        var clear = Decimal.Parse(valutes[sign.Key]["Value"].ToString());
-                        var previousClear = Decimal.Parse(valutes[sign.Key]["Previous"].ToString());
-                        valutes[sign.Key]["Buy"] = Math.Round(clear + (clear * 0.025m), 2, MidpointRounding.AwayFromZero).ToString();
-                        valutes[sign.Key]["Sell"] = Math.Round(clear + (clear * -0.012m), 2, MidpointRounding.AwayFromZero).ToString();
-                        valutes[sign.Key]["PreviousBuy"] = Math.Round(previousClear + (previousClear * 0.025m), 2, MidpointRounding.AwayFromZero).ToString();
-                        valutes[sign.Key]["PreviousSell"] = Math.Round(previousClear + (previousClear * -0.012m), 2, MidpointRounding.AwayFromZero).ToString();
+                        if (sign.Value["Name"].ToString() == "Фунт стерлингов Соединенного королевства")
+                        {
+                            sign.Value["Name"] = "Фунт стерлингов";
+                        }
+                        var clear = Decimal.Parse(sign.Value["Value"].ToString());
+                        var previous = Decimal.Parse(sign.Value["Previous"].ToString());
+                        var buy = clear + (clear * 0.013556m);
+                        var sell = clear + (clear * -0.0260691m);
+                        var previousBuy = previous + (previous * 0.013556m);
+                        var previousSell = previous + (previous * -0.0260691m);
+                        if (sign.Value["Nominal"].ToString() != "1")
+                        {
+                            sign.Value["CharCode"] = sign.Value["Nominal"].ToString() + " " + sign.Value["CharCode"];
+                        }
+                        sign.Value["Buy"] = Math.Round(buy, 2, MidpointRounding.AwayFromZero);
+                        sign.Value["Sell"] = Math.Round(sell, 2, MidpointRounding.AwayFromZero);
+                        sign.Value["Flag"] = FlagCode[index];
+                        if (buy > previousBuy)
+                        {
+                            sign.Value["ArrowBuy"] = "▲";
+                            sign.Value["ColorBuy"] = "Green";
+                        } else if (buy < previousBuy)
+                        {
+                            sign.Value["ArrowBuy"] = "▼";
+                            sign.Value["ColorBuy"] = "Red";
+                        } else if (buy == previousBuy)
+                        {
+                            sign.Value["ArrowBuy"] = "";
+                        }
+                        if (sell > previousSell)
+                        {
+                            sign.Value["ArrowSell"] = "▲";
+                            sign.Value["ColorSell"] = "Green";
+                        }
+                        else if (sell < previousSell)
+                        {
+                            sign.Value["ArrowSell"] = "▼";
+                            sign.Value["ColorSell"] = "Red";
+                        }
+                        else if (sell == previousSell)
+                        {
+                            sign.Value["ArrowSell"] = "";
+                        }
                         Rates.Add(JsonConvert.DeserializeObject<ExchangesRatesPageModel>(sign.Value.ToString()));
                     }
+                    index++;
                 }
             }
             catch (Exception ex)
