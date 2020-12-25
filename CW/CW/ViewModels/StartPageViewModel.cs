@@ -5,6 +5,7 @@ using CW.Views;
 using System.Windows.Input;
 using Xamarin.Forms;
 using CW.Validations;
+using CW.Views.InsideViews;
 
 namespace CW.ViewModels
 {
@@ -46,7 +47,8 @@ namespace CW.ViewModels
             if (Validate())
             {
                 IsLoginFormVisible = false;
-                Navigation.PushAsync(new UserPage());
+                //Navigation.PushAsync(new UserPage());
+                App.Current.MainPage = new RootPageView();
             }
             //bool error = (UserLogin != test_login || UserPassword != test_password);
 /*            if (error)
