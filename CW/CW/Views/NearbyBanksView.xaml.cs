@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CW
+namespace CW.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Map : ContentPage
+    public partial class NearbyBanksView : ContentPage
     {
-        private MapPageViewModel ViewModel { get; set; }
-        public Map()
+        private NearbyBanksViewModel ViewModel { get; set; }
+        public NearbyBanksView()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
 
-        public Map(StartPageViewModel s) : this()
+        public NearbyBanksView(StartPageViewModel s) : this()
         {
-            ViewModel = new MapPageViewModel(s);
+            ViewModel = new NearbyBanksViewModel(s);
             BindingContext = ViewModel;
         }
 

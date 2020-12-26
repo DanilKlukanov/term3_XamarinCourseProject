@@ -5,14 +5,12 @@ using CW.Views;
 using System.Windows.Input;
 using Xamarin.Forms;
 using CW.Validations;
+using CW.Services;
 
 namespace CW.ViewModels
 {
     public class StartPageViewModel : BaseViewModel
     {
-        readonly string test_login = "basov";
-        readonly string test_password = "qwerty";
-
         public ICommand AuthorizationCommand { get; protected set; }
         public ICommand ShowLoginFormCommand { get; protected set; }
         public ICommand HideLoginFormCommand { get; protected set; }
@@ -48,17 +46,6 @@ namespace CW.ViewModels
                 IsLoginFormVisible = false;
                 Navigation.PushAsync(new UserPage());
             }
-            //bool error = (UserLogin != test_login || UserPassword != test_password);
-/*            if (error)
-            {
-                AutorizationInfo = "Ошибка, проверьте данные";
-            }
-            else
-            {
-                AutorizationInfo = "Успех";
-
-
-            }*/
         }
 
         // Enable or disable all buttons on the current page
@@ -101,7 +88,7 @@ namespace CW.ViewModels
         private void OpenMapPage()
         {
             isButtonEnabled_ = false;
-            Navigation.PushAsync(new Map(this));
+            Navigation.PushAsync(new NearbyBanksView(this));
         }
 
         private void OpenExchangesRatesPage()
