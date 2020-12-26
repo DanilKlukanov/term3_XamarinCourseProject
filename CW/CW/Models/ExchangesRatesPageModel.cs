@@ -13,8 +13,10 @@ namespace CW.Models
         public decimal Previous { get; set; }
         public decimal Buy { get; set; }
         public decimal Sell { get; set; }
-        public decimal PreviousBuy { get; set; }
-        public decimal PreviousSell { get; set; }
         public string Flag { get; set; }
+        public string ArrowBuy { get; set; }
+        public string ColorBuy { get; set; }
+        public string ArrowSell { get; set; }
+        public string ColorSell { get; set; }
     }
 }

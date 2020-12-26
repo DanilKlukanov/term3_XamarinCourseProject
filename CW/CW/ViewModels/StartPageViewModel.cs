@@ -1,11 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using CW.Views;
 using System.Windows.Input;
 using Xamarin.Forms;
 using CW.Validations;
+using CW.Views.InsideViews;
+
 using CW.Services;
+
 
 namespace CW.ViewModels
 {
@@ -28,7 +31,7 @@ namespace CW.ViewModels
             ClosePageCommand = new Command(Back);
 
             ShowLoginFormCommand = new Command(() => IsLoginFormVisible = true);
-            HideLoginFormCommand = new Command(() => { 
+            HideLoginFormCommand = new Command(() => {
                 IsLoginFormVisible = false;
                 AutorizationInfo = "Введите Ваш логин и пароль";
             });
@@ -44,8 +47,21 @@ namespace CW.ViewModels
             if (Validate())
             {
                 IsLoginFormVisible = false;
-                Navigation.PushAsync(new UserPage());
+                //Navigation.PushAsync(new UserPage());
+                MessagingCenter.Send(this, "authorized");
             }
+
+            //bool error = (UserLogin != test_login || UserPassword != test_password);
+            /*            if (error)
+                        {
+                            AutorizationInfo = "Ошибка, проверьте данные";
+                        }
+                        else
+                        {
+                            AutorizationInfo = "Успех";
+
+
+                        }*/
         }
 
         // Enable or disable all buttons on the current page
