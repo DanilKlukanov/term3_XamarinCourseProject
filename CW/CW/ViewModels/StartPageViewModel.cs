@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using CW.Views;
@@ -7,13 +7,13 @@ using Xamarin.Forms;
 using CW.Validations;
 using CW.Views.InsideViews;
 
+using CW.Services;
+
+
 namespace CW.ViewModels
 {
     public class StartPageViewModel : BaseViewModel
     {
-        readonly string test_login = "basov";
-        readonly string test_password = "qwerty";
-
         public ICommand AuthorizationCommand { get; protected set; }
         public ICommand ShowLoginFormCommand { get; protected set; }
         public ICommand HideLoginFormCommand { get; protected set; }
@@ -50,6 +50,7 @@ namespace CW.ViewModels
                 //Navigation.PushAsync(new UserPage());
                 MessagingCenter.Send(this, "authorized");
             }
+
             //bool error = (UserLogin != test_login || UserPassword != test_password);
             /*            if (error)
                         {
@@ -103,7 +104,7 @@ namespace CW.ViewModels
         private void OpenMapPage()
         {
             isButtonEnabled_ = false;
-            Navigation.PushAsync(new Map(this));
+            Navigation.PushAsync(new NearbyBanksView(this));
         }
 
         private void OpenExchangesRatesPage()

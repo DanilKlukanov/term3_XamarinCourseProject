@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
+             xmlns:map="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:local="clr-namespace:CW.Models"
+             xmlns:convert="clr-namespace:CW.Converters"
+             x:Class="CW.Views.NearbyBanksView">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:BoolToObjectConverter x:TypeArguments="Color"
+                                            TrueObject="Green"
+                                            FalseObject="Red"
+                                            x:Key="BoolToColorConverter"/>
+            <convert:BoolToObjectConverter x:TypeArguments="x:String"
+                                            TrueObject="Открыто"
+                                            FalseObject="Закрыто"
+                                            x:Key="BoolToStringConverter"/>
+            <convert:OpenPeriodConverter x:Key="OpenPeriodConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <Grid Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.4*" />
+            </Grid.RowDefinitions>
+
+            <magic:GradientView VerticalOptions="FillAndExpand">
+                <magic:GradientView.GradientSource>
+                    <magic:LinearGradient Angle="0">
+                        <magic:GradientStop Color="#86c5da" Offset="0" />
+                        <magic:GradientStop Color="#86da9b" Offset="0.8" />
+                    </magic:LinearGradient>
+                </magic:GradientView.GradientSource>
+            </magic:GradientView>
+
+            <local:BindableMap x:Name="mapicus" 
+                Grid.Row="0"
+                     MapType="Street"
+                     HasZoomEnabled="True"
+                     HasScrollEnabled="True"
+                     ItemsSource="{Binding Places}"
+                               IsShowingUser="True"
+                               FocusPosition="{Binding Position}">
+                <map:Map.ItemTemplate>
+                    <DataTemplate>
+                        <map:Pin Position="{Binding Position}"
+                                 Address="{Binding Address}"
+                                 Label="{Binding PlaceName}" />
+                    </DataTemplate>
+                </map:Map.ItemTemplate>
+            </local:BindableMap>
+            <Frame  Grid.Row="1"
+                    BackgroundColor="LightGray">
+                <Label Text="Отделения и банкоматы"
+                       Margin="1"/>
+            </Frame>
+            <ListView Grid.Row="2"
+                      x:Name="list"
+                      ItemsSource="{Binding Places}"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid Padding="10, 2, 2, 2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0">
+                                        <Label Text="{Binding Address}"
+                                           TextColor="Black"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding OpenNow, Converter={StaticResource Key=BoolToStringConverter}}"
+                                                   VerticalOptions="Center"/>
+                                            <BoxView BackgroundColor="{Binding OpenNow, Converter={StaticResource Key=BoolToColorConverter}}"
+                                                    WidthRequest="10"
+                                                    HeightRequest="10"
+                                                    HorizontalOptions="Start"
+                                                    VerticalOptions="Center"
+                                                    CornerRadius="5"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1">
+                                        <Label Text="{Binding OpenPeriod, Converter={StaticResource Key=OpenPeriodConverter}}"
+                                               VerticalOptions="EndAndExpand"/>
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
