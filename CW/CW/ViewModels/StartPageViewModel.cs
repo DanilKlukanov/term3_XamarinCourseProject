@@ -48,7 +48,7 @@ namespace CW.ViewModels
             {
                 IsLoginFormVisible = false;
                 //Navigation.PushAsync(new UserPage());
-                MessagingCenter.Send<StartPageViewModel>(this, "authorized");
+                MessagingCenter.Send(this, "authorized");
             }
             //bool error = (UserLogin != test_login || UserPassword != test_password);
             /*            if (error)

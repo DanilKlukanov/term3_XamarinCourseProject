@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using CW.Views;
 using CW.ViewModels;
+using CW.Service.MessagingService;
 
 namespace CW
 {
@@ -12,10 +13,12 @@ namespace CW
         public App()
         {
             InitializeComponent();
+
+            MessagingService.Instance.Subscribe();
+
             NavigationPage page = new NavigationPage(new StartPage());
             page.BarBackgroundColor = Color.FromHex("#86c5da");
             MainPage = page;
-            MessagingCenter.Subscribe<StartPageViewModel>(this, "authorized", (_) => OpenInsideApp());
         }
 
         protected override void OnStart()
@@ -28,11 +31,6 @@ namespace CW
 
         protected override void OnResume()
         {
-        }
-
-        private void OpenInsideApp()
-        {
-            MainPage = new Views.InsideViews.RootPageView();
         }
     }
 }

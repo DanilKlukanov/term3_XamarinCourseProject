@@ -25,7 +25,7 @@ namespace CW.Views.InsideViews
 
                 if (result)
                 {
-                    MessagingCenter.Send<Shell>(this, "exit");
+                    MessagingCenter.Send(this, "exit");
                 }
             });
 
