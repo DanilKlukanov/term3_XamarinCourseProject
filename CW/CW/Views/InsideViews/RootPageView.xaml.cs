@@ -15,5 +15,21 @@ namespace CW.Views.InsideViews
         {
             InitializeComponent();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            base.OnBackButtonPressed();
+
+            Device.BeginInvokeOnMainThread(async () => {
+                var result = await DisplayAlert("Выход", "Вы уверены, что хотите выйти?", "Да", "Нет");
+
+                if (result)
+                {
+                    MessagingCenter.Send<Shell>(this, "exit");
+                }
+            });
+
+            return true;
+        }
     }
 }
