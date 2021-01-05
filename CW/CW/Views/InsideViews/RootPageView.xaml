@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:CW.Views.InsideViews"
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.RootPageView">
-    <TabBar>
+    <TabBar x:Name="tabs">
         <Tab x:Name="start" Title="Главный">
             <ShellContent ContentTemplate="{DataTemplate views:MainScreenView}"/>
         </Tab>

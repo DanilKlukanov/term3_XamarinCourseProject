@@ -2,7 +2,7 @@
 using CW.Views.InsideViews;
 using Xamarin.Forms;
 
-namespace CW.Service.MessagingService
+namespace CW.Services.MessagingService
 {
     class MessagingService
     {

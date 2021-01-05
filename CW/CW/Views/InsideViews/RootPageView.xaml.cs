@@ -31,5 +31,23 @@ namespace CW.Views.InsideViews
 
             return true;
         }
+
+        protected override void OnNavigating(ShellNavigatingEventArgs args)
+        {
+            base.OnNavigating(args);
+
+            if (args.Source == ShellNavigationSource.PopToRoot)
+            {
+                return;
+            }
+
+            foreach (var item in tabs.Items)
+            {
+                if (item?.Stack?.Count > 1)
+                {
+                    item.Stack[1].Navigation.PopToRootAsync();
+                }
+            }
+        }
     }
 }
