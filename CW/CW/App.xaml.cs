@@ -3,7 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using CW.Views;
 using CW.ViewModels;
-using CW.Service.MessagingService;
+using CW.Services.MessagingService;
 
 namespace CW
 {
