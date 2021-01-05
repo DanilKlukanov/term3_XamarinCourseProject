@@ -5,13 +5,17 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using CW.Models;
+<<<<<<< HEAD
 using System.Collections.ObjectModel;
+=======
+>>>>>>> dc9f924... Add models for MainScreen, group of bank items
 
 namespace CW.ViewModels.InsideViewModels
 {
     public class MainScreenViewModel : BaseViewModel
     {
         private bool _isEnabled;
+        
 
         public MainScreenViewModel(INavigation navigation)
         {
