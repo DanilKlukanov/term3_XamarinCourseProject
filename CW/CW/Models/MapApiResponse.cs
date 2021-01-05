@@ -78,7 +78,7 @@ namespace CW.Models
     public class Root
     {
         //public List<object> html_attributions { get; set; }
-        //public string next_page_token { get; set; }
+        public string next_page_token { get; set; }
         public List<Result> results { get; set; }
         public string status { get; set; }
     }
