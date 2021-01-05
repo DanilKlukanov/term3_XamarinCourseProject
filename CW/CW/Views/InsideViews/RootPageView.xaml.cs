@@ -18,25 +18,41 @@ namespace CW.Views.InsideViews
 
         protected override bool OnBackButtonPressed()
         {
+
+            bool isRoot = true;
+
+            foreach (var item in tabs.Items)
+            {
+                if (item?.Stack?.Count > 1)
+                {
+                    isRoot = false;
+                    break;
+                }
+            }
+
             base.OnBackButtonPressed();
 
-            Device.BeginInvokeOnMainThread(async () => {
-                var result = await DisplayAlert("Выход", "Вы уверены, что хотите выйти?", "Да", "Нет");
 
-                if (result)
-                {
-                    MessagingCenter.Send(this, "exit");
-                }
-            });
+            if (isRoot)
+            {
+                Device.BeginInvokeOnMainThread(async () => {
+                    var result = await DisplayAlert("Выход", "Вы уверены, что хотите выйти?", "Да", "Нет");
+
+                    if (result)
+                    {
+                        MessagingCenter.Send(this, "exit");
+                    }
+                });
+            }
 
             return true;
         }
 
-        protected override void OnNavigating(ShellNavigatingEventArgs args)
+        protected override void OnNavigating(ShellNavigatingEventArgs e)
         {
-            base.OnNavigating(args);
+            base.OnNavigating(e);
 
-            if (args.Source == ShellNavigationSource.PopToRoot)
+            if (e.Source != ShellNavigationSource.ShellSectionChanged)
             {
                 return;
             }

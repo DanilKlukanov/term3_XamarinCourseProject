@@ -7,20 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CW
+namespace CW.Views.InsideViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UserPage : ContentPage
+    public partial class ApplicationInfoView : ContentPage
     {
-        public UserPage()
+        public ApplicationInfoView()
         {
             InitializeComponent();
-        }
-
-        // block back button
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
         }
     }
 }

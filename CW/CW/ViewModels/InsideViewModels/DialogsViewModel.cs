@@ -6,25 +6,10 @@ using Xamarin.Forms;
 
 namespace CW.ViewModels.InsideViewModels
 {
-    class DialogsViewModel : BaseViewModel
+    public class DialogsViewModel : BaseInsideViewModel
     {
-        private bool _isEnabled;
-
-        public DialogsViewModel(INavigation navigation)
+        public DialogsViewModel(INavigation navigation) : base(navigation)
         {
-            Navigation = navigation;
-            _isEnabled = true;
-
-            BackCommand = new Command(Back, () => _isEnabled);
-        }
-
-        public INavigation Navigation { get; private set; }
-        public ICommand BackCommand { get; private set; }
-
-
-        private void Back()
-        {
-            Navigation.PopAsync();
         }
     }
 }

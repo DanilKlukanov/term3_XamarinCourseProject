@@ -4,6 +4,7 @@ using Xamarin.Forms.Xaml;
 using CW.Views;
 using CW.ViewModels;
 using CW.Services.MessagingService;
+using CW.Views.InsideViews;
 
 namespace CW
 {
@@ -18,7 +19,8 @@ namespace CW
 
             NavigationPage page = new NavigationPage(new StartPage());
             page.BarBackgroundColor = Color.FromHex("#86c5da");
-            MainPage = page;
+            //MainPage = page;
+            MainPage = new RootPageView();
         }
 
         protected override void OnStart()
