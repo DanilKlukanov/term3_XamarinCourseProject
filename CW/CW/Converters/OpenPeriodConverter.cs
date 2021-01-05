@@ -21,9 +21,7 @@ namespace CW.Converters
             }
             string week = DateTime.Now.ToString("dddd", new CultureInfo("ru-RU"));
              
-            var tmp =  preffix + list.Where(x => x.Contains(week)).Select(x => x.Split()[x.Split().Length > 1 ? 1 : 0]).FirstOrDefault();
-            return tmp;
-
+            return preffix + list.Where(x => x.Contains(week)).Select(x => x.Replace(week + ":", String.Empty).Trim()).FirstOrDefault();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
