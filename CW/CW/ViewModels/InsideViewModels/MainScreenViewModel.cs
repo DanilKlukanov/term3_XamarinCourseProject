@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using CW.Models;
 
 namespace CW.ViewModels.InsideViewModels
 {
     class MainScreenViewModel : BaseViewModel
     {
         private bool _isEnabled;
+        
 
         public MainScreenViewModel(INavigation navigation)
         {
