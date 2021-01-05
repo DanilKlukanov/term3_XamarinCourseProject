@@ -5,6 +5,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.MainScreenView">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Button Text="Profile"
+                    HorizontalOptions="EndAndExpand"
+                    Command="{Binding OpenProfilePageCommand}"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Content>
         <StackLayout BackgroundColor="Aquamarine">
             <Label Text="Welcome to Xamarin.Forms!"
