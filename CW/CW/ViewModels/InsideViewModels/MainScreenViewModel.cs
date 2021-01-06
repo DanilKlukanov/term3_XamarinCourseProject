@@ -26,6 +26,7 @@ namespace CW.ViewModels.InsideViewModels
             _isEnabled = true;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
             LoadListBankItems();
 
@@ -34,10 +35,14 @@ namespace CW.ViewModels.InsideViewModels
 >>>>>>> 7927762... Create lists of bank items, delete files for CollectionView
 =======
 >>>>>>> 2b7a9cd... Update MainScreenViewModel
+=======
+>>>>>>> 2359041... Revert "Update MainScreenViewModel"
             OpenProfilePageCommand = new Command(OpenProfilePage);
+=======
 
             LoadListBankItems();
 
+>>>>>>> ed4f674... Create lists of bank items, delete files for CollectionView
             BackCommand = new Command(Back, () => _isEnabled);
             OpenBankCardPageCommand = new Command(OpenBankCardPage);
             OpenBankAccountPageCommand = new Command(OpenBankAccounPage);
