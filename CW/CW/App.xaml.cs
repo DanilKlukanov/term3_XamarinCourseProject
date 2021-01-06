@@ -17,10 +17,16 @@ namespace CW
 
             MessagingService.Instance.Subscribe();
 
+            //MainPage = CreateStartPage();
+            
+            MainPage = new RootPageView();
+        }
+
+        public static Page CreateStartPage()
+        {
             NavigationPage page = new NavigationPage(new StartPage());
             page.BarBackgroundColor = Color.FromHex("#86c5da");
-            //MainPage = page;
-            MainPage = new RootPageView();
+            return page;
         }
 
         protected override void OnStart()
