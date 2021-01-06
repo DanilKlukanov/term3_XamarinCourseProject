@@ -3,8 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:convert="clr-namespace:CW.Converters" 
+             xmlns:models="clr-namespace:CW.Models"
              mc:Ignorable="d"
-             x:Class="CW.Views.InsideViews.MainScreenView">
+             x:Class="CW.Views.InsideViews.MainScreenView"
+             x:Name="page">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:BankNumberConverter x:Key="BankCardNumberConverter"
+                                         TypeName="CW.Models.BankCard"/>
+            <convert:BankNumberConverter x:Key="BankAccountNumberConverter"
+                                         TypeName="CW.Models.BankAccount"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
@@ -14,31 +25,41 @@
         </StackLayout>
     </Shell.TitleView>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="Aquamarine">
+        <StackLayout BackgroundColor="White">
             <Label Text="Мои карты"
+                   TextTransform="Uppercase"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
-                   BackgroundColor="Pink"/>
-            <ListView ItemsSource="{Binding BankCards}">
+                   BackgroundColor="LightGray"/>
+            <ListView ItemsSource="{Binding BankCards}"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer/>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference page},
+                                                                                Path=BindingContext.OpenBankCardPageCommand}"
+                                                              CommandParameter="{Binding}"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Label Text="{Binding Name}" 
-                                   VerticalOptions="Start"
-                                   Padding="10,0,0,10"/>
-                                    <StackLayout Orientation="Horizontal" 
-                                         VerticalOptions="EndAndExpand">
-                                        <Label Text="{Binding ImgUrl}"/>
-                                        <Label Text="{Binding Number}"/>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" 
+                                           VerticalOptions="Start"
+                                           Padding="10,0,0,10"/>
+                                        <StackLayout Orientation="Horizontal" 
+                                                 VerticalOptions="EndAndExpand">
+                                            <Image Source="{Binding ImgUrl}"
+                                                   HeightRequest="10"
+                                                   WidthRequest="10"
+                                                   Margin="10,0,0,0"/>
+                                            <Label Text="{Binding Number, Converter={StaticResource Key=BankCardNumberConverter}}"/>
+                                        </StackLayout>
                                     </StackLayout>
-                                    <Label Text="{Binding Money}" 
+                                    <Label Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
-                                           VerticalOptions="End"/>
+                                           VerticalOptions="Center"
+                                           Padding="0,0,10,0"/>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>
@@ -47,25 +68,35 @@
             </ListView>
 
             <Label Text="Мои счета"
+                   TextTransform="Uppercase"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
-                   BackgroundColor="Pink"/>
-            <ListView ItemsSource="{Binding BankAccounts}">
+                   BackgroundColor="LightGray"/>
+            <ListView ItemsSource="{Binding BankAccounts}"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Name}" 
-                                   VerticalOptions="Start"
-                                   Padding="10,0,0,10"/>
-                                    <StackLayout Orientation="Horizontal" 
-                                         VerticalOptions="EndAndExpand">
-                                        <Label Text="{Binding Number}"/>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference page}, 
+                                                                                Path=BindingContext.OpenBankAccountPageCommand}"
+                                                              CommandParameter="{Binding}"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" 
+                                               VerticalOptions="Start"
+                                               Padding="10,5,0,0"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Number, Converter={StaticResource Key=BankAccountNumberConverter}}"
+                                                   Padding="5,0,0,0"/>
+                                        </StackLayout>
                                     </StackLayout>
-                                    <Label Text="{Binding Money}" 
+                                    <Label Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
-                                           VerticalOptions="End"/>
+                                           VerticalOptions="Center"
+                                           Padding="0,0,10,0"/>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>
@@ -74,26 +105,31 @@
             </ListView>
 
             <Label Text="Мои кредиты"
+                   TextTransform="Uppercase"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
-                   BackgroundColor="Pink"/>
-            <ListView ItemsSource="{Binding BankCredits}">
+                   BackgroundColor="LightGray"/>
+            <ListView ItemsSource="{Binding BankCredits}"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Name}" 
-                                   VerticalOptions="Start"
-                                   Padding="10,0,0,10"/>
-                                    <StackLayout Orientation="Horizontal" 
-                                         VerticalOptions="EndAndExpand">
-                                        <Label Text="{Binding PaymentInfo}"/>
-                                        <Label Text="{Binding Number}"/>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" 
+                                               VerticalOptions="Start"
+                                               Padding="10,5,0,0"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding PaymentInfo}"
+                                                   Padding="10,0,0,0"/>
+                                            <Label Text="{Binding Number}"/>
+                                        </StackLayout>
                                     </StackLayout>
-                                    <Label Text="{Binding Money}" 
+                                    <Label Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
-                                           VerticalOptions="End"/>
+                                           VerticalOptions="Center"
+                                           Padding="0,0,10,0"/>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>

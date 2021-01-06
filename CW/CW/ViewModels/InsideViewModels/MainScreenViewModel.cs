@@ -22,6 +22,8 @@ namespace CW.ViewModels.InsideViewModels
 
             OpenProfilePageCommand = new Command(OpenProfilePage);
             BackCommand = new Command(Back, () => _isEnabled);
+            OpenBankCardPageCommand = new Command(OpenBankCardPage);
+            OpenBankAccountPageCommand = new Command(OpenBankAccounPage);
         }
 
         public ObservableCollection<BankCard> BankCards { get; private set; }
@@ -30,6 +32,9 @@ namespace CW.ViewModels.InsideViewModels
 
         public INavigation Navigation { get; private set; }
         public ICommand BackCommand { get; private set; }
+        public ICommand OpenProfilePageCommand { get; private set; }
+        public ICommand OpenBankCardPageCommand { get; private set; }
+        public ICommand OpenBankAccountPageCommand { get; private set; }
 
         private void LoadListBankItems()
         {
@@ -96,6 +101,24 @@ namespace CW.ViewModels.InsideViewModels
             Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
         }
 
-        public ICommand OpenProfilePageCommand { get; private set; }
+        private void OpenBankAccounPage(object item)
+        {
+            var bankItem = item as BankAccount;
+
+            if (bankItem != null)
+            {
+                Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this, bankItem)));
+            }
+        }
+
+        private void OpenBankCardPage(object item)
+        {
+            var bankItem = item as BankCard;
+            
+            if (bankItem != null)
+            {
+                Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem)));
+            }
+        }
     }
 }

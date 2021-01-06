@@ -7,9 +7,9 @@ using CW.Models;
 
 namespace CW.Converters
 {
-    public class BankNumberConverter<T> : IValueConverter
+    public class BankNumberConverter : IValueConverter
     {
-        private T type { get; set; }
+        public string TypeName { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -20,12 +20,12 @@ namespace CW.Converters
                 return value;
             }
 
-            if (type.GetType() == typeof(BankCard))
+            if (Type.GetType(TypeName) == typeof(BankCard))
             {
                 return ConstructStringToReplace(info, 4, 4);
             }
 
-            if (type.GetType() == typeof(BankAccount))
+            if (Type.GetType(TypeName) == typeof(BankAccount))
             {
                 return ConstructStringToReplace(info, 0, 6);
             }

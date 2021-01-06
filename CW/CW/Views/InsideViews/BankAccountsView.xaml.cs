@@ -11,17 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace CW.Views.InsideViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ProfileView : ContentPage
+    public partial class BankAccountsView : ContentPage
     {
-        public ProfileView(ProfileViewModel viewModel)
+        public BankAccountsView(BankItemViewModel bankItemViewModel)
         {
             InitializeComponent();
-            BindingContext = viewModel;
-        }
-
-        private void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            //Activator.CreateInstance()
+            BindingContext = bankItemViewModel;
         }
     }
 }
