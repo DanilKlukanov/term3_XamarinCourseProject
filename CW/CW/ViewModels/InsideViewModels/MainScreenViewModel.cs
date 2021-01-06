@@ -94,9 +94,13 @@ namespace CW.ViewModels.InsideViewModels
                      Name = "Ипотека",
                      Date = DateTime.Now,
 <<<<<<< HEAD
+<<<<<<< HEAD
                      PaymentInfo = "Платеж",
 =======
 >>>>>>> 7927762... Create lists of bank items, delete files for CollectionView
+=======
+                     PaymentInfo = "Платеж",
+>>>>>>> 3f70ec5... Work on MainScreenView
                      Money = 788
                 },
                 new BankCredit
@@ -104,9 +108,13 @@ namespace CW.ViewModels.InsideViewModels
                     Name = "Кредит наличными",
                     Date = DateTime.Now,
 <<<<<<< HEAD
+<<<<<<< HEAD
                     PaymentInfo = "Платеж",
 =======
 >>>>>>> 7927762... Create lists of bank items, delete files for CollectionView
+=======
+                    PaymentInfo = "Платеж",
+>>>>>>> 3f70ec5... Work on MainScreenView
                     Money = 1020
                 }
             };

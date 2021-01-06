@@ -16,6 +16,9 @@
     <ContentPage.Content>
         <StackLayout BackgroundColor="Aquamarine">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3f70ec5... Work on MainScreenView
             <Label Text="Мои карты"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
@@ -26,10 +29,13 @@
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
+<<<<<<< HEAD
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OpenBankCardPageCommand}"
                                                               CommandParameter="{Binding}"/>
                                     </StackLayout.GestureRecognizers>
+=======
+>>>>>>> 3f70ec5... Work on MainScreenView
                                     <Label Text="{Binding Name}" 
                                    VerticalOptions="Start"
                                    Padding="10,0,0,10"/>
@@ -106,11 +112,14 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+<<<<<<< HEAD
 =======
             <Label Text="Good morning">
                 
             </Label>
 >>>>>>> 7927762... Create lists of bank items, delete files for CollectionView
+=======
+>>>>>>> 3f70ec5... Work on MainScreenView
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
