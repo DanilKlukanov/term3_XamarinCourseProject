@@ -7,5 +7,6 @@ namespace CW.Models
     public class BankCredit : BankItem
     {
         public DateTime Date { get; set; }
+        public string PaymentInfo { get; set; }
     }
 }

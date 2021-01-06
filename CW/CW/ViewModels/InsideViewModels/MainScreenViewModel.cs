@@ -71,12 +71,14 @@ namespace CW.ViewModels.InsideViewModels
                 {
                      Name = "Ипотека",
                      Date = DateTime.Now,
+                     PaymentInfo = "Платеж",
                      Money = 788
                 },
                 new BankCredit
                 {
                     Name = "Кредит наличными",
                     Date = DateTime.Now,
+                    PaymentInfo = "Платеж",
                     Money = 1020
                 }
             };
