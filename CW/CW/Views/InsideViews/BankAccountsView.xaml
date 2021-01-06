@@ -3,8 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:convert="clr-namespace:CW.Converters" 
+             xmlns:models="clr-namespace:CW.Models"
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.BankAccountsView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:BankNumberConverter x:Key="BankAccountNumberConverter"
+                                         TypeName="CW.Models.BankAccount"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <CarouselView ItemsSource="{Binding BankAccounts}"
@@ -22,7 +30,7 @@
                                     <Label Text="{Binding Name}"/>
                                     <Label Text="{Binding Money}"
                                            HorizontalOptions="Center"/>
-                                    <Label Text="{Binding Number}"/>
+                                    <Label Text="{Binding Number, Converter={StaticResource Key=BankAccountNumberConverter}}"/>
                                 </StackLayout>
                             </Frame>
                         </StackLayout>

@@ -3,9 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:convert="clr-namespace:CW.Converters" 
+             xmlns:models="clr-namespace:CW.Models"
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.MainScreenView"
              x:Name="page">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:BankNumberConverter x:Key="BankCardNumberConverter"
+                                         TypeName="CW.Models.BankCard"/>
+            <convert:BankNumberConverter x:Key="BankAccountNumberConverter"
+                                         TypeName="CW.Models.BankAccount"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
@@ -43,7 +53,7 @@
                                                    HeightRequest="10"
                                                    WidthRequest="10"
                                                    Margin="10,0,0,0"/>
-                                            <Label Text="{Binding Number}"/>
+                                            <Label Text="{Binding Number, Converter={StaticResource Key=BankCardNumberConverter}}"/>
                                         </StackLayout>
                                     </StackLayout>
                                     <Label Text="{Binding Money}"
@@ -79,7 +89,7 @@
                                                VerticalOptions="Start"
                                                Padding="10,5,0,0"/>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding Number}"
+                                            <Label Text="{Binding Number, Converter={StaticResource Key=BankAccountNumberConverter}}"
                                                    Padding="5,0,0,0"/>
                                         </StackLayout>
                                     </StackLayout>
