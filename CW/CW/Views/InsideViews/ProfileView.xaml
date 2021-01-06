@@ -4,6 +4,7 @@
              x:Class="CW.Views.InsideViews.ProfileView">
     <ContentPage.Content>
         <StackLayout>
+            
             <Frame>
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ChangePasswordCommand}"/>

@@ -26,7 +26,8 @@
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer/>
+                                        <TapGestureRecognizer Command="{Binding OpenBankCardPageCommand}"
+                                                              CommandParameter="{Binding}"/>
                                     </StackLayout.GestureRecognizers>
                                     <Label Text="{Binding Name}" 
                                    VerticalOptions="Start"
@@ -56,6 +57,10 @@
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OpenBankAccountPageCommand}"
+                                                              CommandParameter="{Binding}"/>
+                                    </StackLayout.GestureRecognizers>
                                     <Label Text="{Binding Name}" 
                                    VerticalOptions="Start"
                                    Padding="10,0,0,10"/>

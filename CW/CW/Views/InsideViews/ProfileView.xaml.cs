@@ -18,5 +18,10 @@ namespace CW.Views.InsideViews
             InitializeComponent();
             BindingContext = viewModel;
         }
+
+        private void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            //Activator.CreateInstance()
+        }
     }
 }
