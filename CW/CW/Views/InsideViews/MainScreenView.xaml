@@ -7,9 +7,9 @@
              x:Class="CW.Views.InsideViews.MainScreenView">
     <ContentPage.Content>
         <StackLayout BackgroundColor="Aquamarine">
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Good morning">
+                
+            </Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
