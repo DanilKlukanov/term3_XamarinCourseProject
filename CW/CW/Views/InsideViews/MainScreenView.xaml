@@ -14,17 +14,20 @@
         </StackLayout>
     </Shell.TitleView>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="Aquamarine">
+        <StackLayout BackgroundColor="White">
             <Label Text="Мои карты"
+                   TextTransform="Uppercase"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
-                   BackgroundColor="Pink"/>
-            <ListView ItemsSource="{Binding BankCards}">
+                   BackgroundColor="LightGray"/>
+            <ListView ItemsSource="{Binding BankCards}"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
+<<<<<<< HEAD
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OpenBankCardPageCommand}"
                                                               CommandParameter="{Binding}"/>
@@ -36,10 +39,22 @@
                                          VerticalOptions="EndAndExpand">
                                         <Label Text="{Binding ImgUrl}"/>
                                         <Label Text="{Binding Number}"/>
+=======
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" 
+                                               VerticalOptions="Start"
+                                               Padding="10,5,0,0"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding ImgUrl}"
+                                                   Padding="5,0,0,0"/>
+                                            <Label Text="{Binding Number}"/>
+                                        </StackLayout>
+>>>>>>> 5dd3f8e... Modify view in main screen
                                     </StackLayout>
-                                    <Label Text="{Binding Money}" 
+                                    <Label Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
-                                           VerticalOptions="End"/>
+                                           VerticalOptions="Center"
+                                           Padding="0,0,10,0"/>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>
@@ -48,15 +63,18 @@
             </ListView>
 
             <Label Text="Мои счета"
+                   TextTransform="Uppercase"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
-                   BackgroundColor="Pink"/>
-            <ListView ItemsSource="{Binding BankAccounts}">
+                   BackgroundColor="LightGray"/>
+            <ListView ItemsSource="{Binding BankAccounts}"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
+<<<<<<< HEAD
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OpenBankAccountPageCommand}"
                                                               CommandParameter="{Binding}"/>
@@ -67,10 +85,21 @@
                                     <StackLayout Orientation="Horizontal" 
                                          VerticalOptions="EndAndExpand">
                                         <Label Text="{Binding Number}"/>
+=======
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" 
+                                               VerticalOptions="Start"
+                                               Padding="10,5,0,0"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Number}"
+                                                   Padding="5,0,0,0"/>
+                                        </StackLayout>
+>>>>>>> 5dd3f8e... Modify view in main screen
                                     </StackLayout>
-                                    <Label Text="{Binding Money}" 
+                                    <Label Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
-                                           VerticalOptions="End"/>
+                                           VerticalOptions="Center"
+                                           Padding="0,0,10,0"/>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>
@@ -79,35 +108,37 @@
             </ListView>
 
             <Label Text="Мои кредиты"
+                   TextTransform="Uppercase"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
-                   BackgroundColor="Pink"/>
-            <ListView ItemsSource="{Binding BankCredits}">
+                   BackgroundColor="LightGray"/>
+            <ListView ItemsSource="{Binding BankCredits}"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Name}" 
-                                   VerticalOptions="Start"
-                                   Padding="10,0,0,10"/>
-                                    <StackLayout Orientation="Horizontal" 
-                                         VerticalOptions="EndAndExpand">
-                                        <Label Text="{Binding PaymentInfo}"/>
-                                        <Label Text="{Binding Number}"/>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" 
+                                               VerticalOptions="Start"
+                                               Padding="10,5,0,0"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding PaymentInfo}"
+                                                   Padding="10,0,0,0"/>
+                                            <Label Text="{Binding Number}"/>
+                                        </StackLayout>
                                     </StackLayout>
-                                    <Label Text="{Binding Money}" 
+                                    <Label Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
-                                           VerticalOptions="End"/>
+                                           VerticalOptions="Center"
+                                           Padding="0,0,10,0"/>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Label Text="Good morning">
-                
-            </Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
