@@ -17,6 +17,9 @@
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer/>
+                                    </StackLayout.GestureRecognizers>
                                     <Label Text="{Binding Name}" 
                                    VerticalOptions="Start"
                                    Padding="10,0,0,10"/>
