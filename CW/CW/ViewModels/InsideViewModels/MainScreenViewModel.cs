@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CW.Views.InsideViews;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
@@ -8,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace CW.ViewModels.InsideViewModels
 {
-    class MainScreenViewModel : BaseViewModel
+    public class MainScreenViewModel : BaseViewModel
     {
         private bool _isEnabled;
 
@@ -19,6 +20,7 @@ namespace CW.ViewModels.InsideViewModels
 
             LoadListBankItems();
 
+            OpenProfilePageCommand = new Command(OpenProfilePage);
             BackCommand = new Command(Back, () => _isEnabled);
         }
 
@@ -88,5 +90,12 @@ namespace CW.ViewModels.InsideViewModels
         {
             Navigation.PopAsync();
         }
+
+        private void OpenProfilePage()
+        {
+            Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+        }
+
+        public ICommand OpenProfilePageCommand { get; private set; }
     }
 }
