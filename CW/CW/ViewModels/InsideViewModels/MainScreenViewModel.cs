@@ -6,25 +6,37 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using CW.Models;
 <<<<<<< HEAD
+<<<<<<< HEAD
 using System.Collections.ObjectModel;
 =======
 >>>>>>> dc9f924... Add models for MainScreen, group of bank items
+=======
+using System.Collections.ObjectModel;
+>>>>>>> 7927762... Create lists of bank items, delete files for CollectionView
 
 namespace CW.ViewModels.InsideViewModels
 {
     public class MainScreenViewModel : BaseViewModel
     {
         private bool _isEnabled;
-        
 
         public MainScreenViewModel(INavigation navigation)
         {
             Navigation = navigation;
             _isEnabled = true;
+<<<<<<< HEAD
 
             LoadListBankItems();
 
+=======
+<<<<<<< HEAD
+>>>>>>> 7927762... Create lists of bank items, delete files for CollectionView
             OpenProfilePageCommand = new Command(OpenProfilePage);
+=======
+
+            LoadListBankItems();
+
+>>>>>>> ed4f674... Create lists of bank items, delete files for CollectionView
             BackCommand = new Command(Back, () => _isEnabled);
             OpenBankCardPageCommand = new Command(OpenBankCardPage);
             OpenBankAccountPageCommand = new Command(OpenBankAccounPage);
@@ -81,14 +93,20 @@ namespace CW.ViewModels.InsideViewModels
                 {
                      Name = "Ипотека",
                      Date = DateTime.Now,
+<<<<<<< HEAD
                      PaymentInfo = "Платеж",
+=======
+>>>>>>> 7927762... Create lists of bank items, delete files for CollectionView
                      Money = 788
                 },
                 new BankCredit
                 {
                     Name = "Кредит наличными",
                     Date = DateTime.Now,
+<<<<<<< HEAD
                     PaymentInfo = "Платеж",
+=======
+>>>>>>> 7927762... Create lists of bank items, delete files for CollectionView
                     Money = 1020
                 }
             };

@@ -15,6 +15,7 @@
     </Shell.TitleView>
     <ContentPage.Content>
         <StackLayout BackgroundColor="Aquamarine">
+<<<<<<< HEAD
             <Label Text="Мои карты"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
@@ -105,6 +106,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+=======
+            <Label Text="Good morning">
+                
+            </Label>
+>>>>>>> 7927762... Create lists of bank items, delete files for CollectionView
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
