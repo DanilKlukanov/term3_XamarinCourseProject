@@ -4,18 +4,41 @@
              x:Class="CW.Views.InsideViews.ApplicationInfoView">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Мобильное приложение BankName Online"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Label Text="Версия 1.0.0"
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" />
-            <StackLayout VerticalOptions="EndAndExpand">
-                <Label Text="Басов Никита"/>
-                <Label Text="Козицкий Михаил"/>
-                <Label Text="Донская Мария"/>
-                <Label Text="Клюканова Диана"/>
-                <Label Text="Уткин Данил"/>
+            <StackLayout HorizontalOptions="Center"
+                         VerticalOptions="CenterAndExpand">
+                <Label Text="Мобильное приложение BankName Online"
+                       TextColor="Black"/>
+                <Label Text="Версия 1.0.0"
+                       TextColor="Black"
+                       HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="End">
+                <Frame BackgroundColor="BlueViolet"
+                       BorderColor="Black">
+                    <Label Text="Разработчики"
+                           FontSize="Large"
+                           TextColor="Black"/>
+                </Frame>
+                <Frame>
+                    <StackLayout HorizontalOptions="Center">
+                        <Label Text="Басов Никита"
+                       TextColor="Black"
+/>
+                        <Label Text="Козицкий Михаил"
+                       TextColor="Black"
+/>
+                        <Label Text="Донская Мария"
+                       TextColor="Black"
+/>
+                        <Label Text="Клюканова Диана"
+                       TextColor="Black"
+/>
+                        <Label Text="Уткин Данил"
+                       TextColor="Black"
+/>
+                    </StackLayout>
+                </Frame>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
