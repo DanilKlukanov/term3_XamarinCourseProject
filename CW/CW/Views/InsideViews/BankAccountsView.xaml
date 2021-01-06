@@ -8,6 +8,7 @@
     <ContentPage.Content>
         <StackLayout>
             <CarouselView ItemsSource="{Binding BankAccounts}"
+                          CurrentItem="{Binding SelectedBankItem}"
                           HeightRequest="300">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>

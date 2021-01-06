@@ -101,14 +101,24 @@ namespace CW.ViewModels.InsideViewModels
             Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
         }
 
-        private void OpenBankAccounPage()
+        private void OpenBankAccounPage(object item)
         {
-            Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this)));
+            var bankItem = item as BankAccount;
+
+            if (bankItem != null)
+            {
+                Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this, bankItem)));
+            }
         }
 
-        private void OpenBankCardPage()
+        private void OpenBankCardPage(object item)
         {
-            Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this)));
+            var bankItem = item as BankCard;
+            
+            if (bankItem != null)
+            {
+                Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem)));
+            }
         }
     }
 }

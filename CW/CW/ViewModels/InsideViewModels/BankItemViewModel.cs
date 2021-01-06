@@ -12,16 +12,16 @@ namespace CW.ViewModels.InsideViewModels
     {
         public ObservableCollection<BankCard> BankCards { get; private set; }
         public ObservableCollection<BankAccount> BankAccounts { get; private set; }
+        public BankItem SelectedBankItem { get; private set; }
         public INavigation Navigation { get; private set; }
 
 
-        public BankItemViewModel(MainScreenViewModel viewModel)
+        public BankItemViewModel(MainScreenViewModel viewModel, BankItem bankItem)
         {
             BankCards = viewModel.BankCards;
             BankAccounts = viewModel.BankAccounts;
             Navigation = viewModel.Navigation;
+            SelectedBankItem = bankItem;
         }
-
-
     }
 }

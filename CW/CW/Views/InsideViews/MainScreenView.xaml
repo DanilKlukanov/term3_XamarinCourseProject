@@ -30,7 +30,8 @@
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference page},
-                                                                                Path=BindingContext.OpenBankCardPageCommand}"/>
+                                                                                Path=BindingContext.OpenBankCardPageCommand}"
+                                                              CommandParameter="{Binding}"/>
                                     </StackLayout.GestureRecognizers>
                                     <StackLayout>
                                         <Label Text="{Binding Name}" 
@@ -70,7 +71,8 @@
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference page}, 
-                                                                                Path=BindingContext.OpenBankAccountPageCommand}"/>
+                                                                                Path=BindingContext.OpenBankAccountPageCommand}"
+                                                              CommandParameter="{Binding}"/>
                                     </StackLayout.GestureRecognizers>
                                     <StackLayout>
                                         <Label Text="{Binding Name}" 

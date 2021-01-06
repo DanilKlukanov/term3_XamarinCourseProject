@@ -15,7 +15,8 @@
     <ContentPage.Content>
         <StackLayout>
             <CarouselView ItemsSource="{Binding BankCards}"
-                      HeightRequest="300">
+                          CurrentItem="{Binding SelectedBankItem}"
+                          HeightRequest="300">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout BackgroundColor="PaleVioletRed">
