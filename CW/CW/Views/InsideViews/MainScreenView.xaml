@@ -15,9 +15,91 @@
     </Shell.TitleView>
     <ContentPage.Content>
         <StackLayout BackgroundColor="Aquamarine">
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Мои карты"
+                   VerticalOptions="Center"
+                   Padding="20,10,0,10"
+                   BackgroundColor="Pink"/>
+            <ListView ItemsSource="{Binding BankCards}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Label Text="{Binding Name}" 
+                                   VerticalOptions="Start"
+                                   Padding="10,0,0,10"/>
+                                    <StackLayout Orientation="Horizontal" 
+                                         VerticalOptions="EndAndExpand">
+                                        <Label Text="{Binding ImgUrl}"/>
+                                        <Label Text="{Binding Number}"/>
+                                    </StackLayout>
+                                    <Label Text="{Binding Money}" 
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="End"/>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label Text="Мои счета"
+                   VerticalOptions="Center"
+                   Padding="20,10,0,10"
+                   BackgroundColor="Pink"/>
+            <ListView ItemsSource="{Binding BankAccounts}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" 
+                                   VerticalOptions="Start"
+                                   Padding="10,0,0,10"/>
+                                    <StackLayout Orientation="Horizontal" 
+                                         VerticalOptions="EndAndExpand">
+                                        <Label Text="{Binding Number}"/>
+                                    </StackLayout>
+                                    <Label Text="{Binding Money}" 
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="End"/>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label Text="Мои кредиты"
+                   VerticalOptions="Center"
+                   Padding="20,10,0,10"
+                   BackgroundColor="Pink"/>
+            <ListView ItemsSource="{Binding BankCredits}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" 
+                                   VerticalOptions="Start"
+                                   Padding="10,0,0,10"/>
+                                    <StackLayout Orientation="Horizontal" 
+                                         VerticalOptions="EndAndExpand">
+                                        <Label Text="{Binding PaymentInfo}"/>
+                                        <Label Text="{Binding Number}"/>
+                                    </StackLayout>
+                                    <Label Text="{Binding Money}" 
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="End"/>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
