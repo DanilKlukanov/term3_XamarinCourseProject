@@ -4,7 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="CW.Views.InsideViews.MainScreenView">
+             x:Class="CW.Views.InsideViews.MainScreenView"
+             x:Name="page">
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
@@ -27,29 +28,22 @@
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
-<<<<<<< HEAD
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OpenBankCardPageCommand}"
-                                                              CommandParameter="{Binding}"/>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference page},
+                                                                                Path=BindingContext.OpenBankCardPageCommand}"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Label Text="{Binding Name}" 
-                                   VerticalOptions="Start"
-                                   Padding="10,0,0,10"/>
-                                    <StackLayout Orientation="Horizontal" 
-                                         VerticalOptions="EndAndExpand">
-                                        <Label Text="{Binding ImgUrl}"/>
-                                        <Label Text="{Binding Number}"/>
-=======
                                     <StackLayout>
                                         <Label Text="{Binding Name}" 
-                                               VerticalOptions="Start"
-                                               Padding="10,5,0,0"/>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding ImgUrl}"
-                                                   Padding="5,0,0,0"/>
+                                           VerticalOptions="Start"
+                                           Padding="10,0,0,10"/>
+                                        <StackLayout Orientation="Horizontal" 
+                                                 VerticalOptions="EndAndExpand">
+                                            <Image Source="{Binding ImgUrl}"
+                                                   HeightRequest="10"
+                                                   WidthRequest="10"
+                                                   Margin="10,0,0,0"/>
                                             <Label Text="{Binding Number}"/>
                                         </StackLayout>
->>>>>>> 5dd3f8e... Modify view in main screen
                                     </StackLayout>
                                     <Label Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
@@ -74,18 +68,10 @@
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
-<<<<<<< HEAD
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OpenBankAccountPageCommand}"
-                                                              CommandParameter="{Binding}"/>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference page}, 
+                                                                                Path=BindingContext.OpenBankAccountPageCommand}"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Label Text="{Binding Name}" 
-                                   VerticalOptions="Start"
-                                   Padding="10,0,0,10"/>
-                                    <StackLayout Orientation="Horizontal" 
-                                         VerticalOptions="EndAndExpand">
-                                        <Label Text="{Binding Number}"/>
-=======
                                     <StackLayout>
                                         <Label Text="{Binding Name}" 
                                                VerticalOptions="Start"
@@ -94,7 +80,6 @@
                                             <Label Text="{Binding Number}"
                                                    Padding="5,0,0,0"/>
                                         </StackLayout>
->>>>>>> 5dd3f8e... Modify view in main screen
                                     </StackLayout>
                                     <Label Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"

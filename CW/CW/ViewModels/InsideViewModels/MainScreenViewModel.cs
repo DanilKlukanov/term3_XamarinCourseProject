@@ -21,8 +21,6 @@ namespace CW.ViewModels.InsideViewModels
             LoadListBankItems();
 
             OpenProfilePageCommand = new Command(OpenProfilePage);
-
-            LoadListBankItems();
             BackCommand = new Command(Back, () => _isEnabled);
             OpenBankCardPageCommand = new Command(OpenBankCardPage);
             OpenBankAccountPageCommand = new Command(OpenBankAccounPage);
@@ -34,6 +32,7 @@ namespace CW.ViewModels.InsideViewModels
 
         public INavigation Navigation { get; private set; }
         public ICommand BackCommand { get; private set; }
+        public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand OpenBankCardPageCommand { get; private set; }
         public ICommand OpenBankAccountPageCommand { get; private set; }
 
@@ -104,14 +103,12 @@ namespace CW.ViewModels.InsideViewModels
 
         private void OpenBankAccounPage()
         {
-            Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this)));
+            Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this)));
         }
 
         private void OpenBankCardPage()
         {
-            Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this)));
+            Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this)));
         }
-
-        public ICommand OpenProfilePageCommand { get; private set; }
     }
 }

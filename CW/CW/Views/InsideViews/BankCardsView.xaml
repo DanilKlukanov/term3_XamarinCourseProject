@@ -5,35 +5,81 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.BankCardsView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="NoDefaultCapsButton">
+                <Setter Property="TextTransform" Value="None"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout BackgroundColor="PaleVioletRed">
-                <Frame CornerRadius="10"
-                       BackgroundColor="LightSkyBlue"
-                       Margin="50">
-                    <StackLayout>
-                        <Label Text="Name"/>
-                    </StackLayout>
-                </Frame>
-            </StackLayout>
+            <CarouselView ItemsSource="{Binding BankCards}"
+                      HeightRequest="300">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout BackgroundColor="PaleVioletRed">
+                            <Frame CornerRadius="20"
+                                   BackgroundColor="LightSkyBlue"
+                                   Margin="50,50,50,0"
+                                   HeightRequest="400"
+                                   WidthRequest="150">
+                                <StackLayout>
+                                    <Label Text="{Binding Name}"/>
+                                    <Label Text="{Binding Number}"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Money}"/>
+                                        <Image Source="{Binding ImgUrl}"
+                                               HeightRequest="20"
+                                               WidthRequest="20"
+                                               HorizontalOptions="EndAndExpand"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                            <FlexLayout JustifyContent="SpaceEvenly"
+                                        Margin="0,5,0,20">
+                                <Button Text="Пополнить"
+                                        Style="{x:StaticResource NoDefaultCapsButton}"
+                                        FontSize="13"
+                                        WidthRequest="130"
+                                        HeightRequest="35"
+                                        CornerRadius="10"
+                                        TextColor="White"
+                                        BackgroundColor="Red"/>
+                                <Button Text="Перевести"
+                                        Style="{x:StaticResource NoDefaultCapsButton}"
+                                        FontSize="13"
+                                        WidthRequest="130"
+                                        HeightRequest="35"
+                                        CornerRadius="10"
+                                        TextColor="White"
+                                        BackgroundColor="Green"/>
+                            </FlexLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
             <StackLayout>
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer/>
                     </Frame.GestureRecognizers>
-                    <Label Text="История операций"/>
+                    <Label Text="История операций"
+                           FontSize="Body"/>
                 </Frame>
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer/>
                     </Frame.GestureRecognizers>
-                    <Label Text="Заблокировать"/>
+                    <Label Text="Заблокировать"
+                           FontSize="Body"/>
                 </Frame>
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer/>
                     </Frame.GestureRecognizers>
-                    <Label Text="Переименовать"/>
+                    <Label Text="Переименовать"
+                           FontSize="Body"/>
                 </Frame>
             </StackLayout>
         </StackLayout>
