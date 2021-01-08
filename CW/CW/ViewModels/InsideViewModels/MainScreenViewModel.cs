@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using CW.Models;
 using System.Collections.ObjectModel;
+using CW.Views.InsideViews.Operations;
 
 namespace CW.ViewModels.InsideViewModels
 {
@@ -53,6 +54,13 @@ namespace CW.ViewModels.InsideViewModels
                     Number = "2202201950501111",
                     ImgUrl = "rates_icon",
                     Money = 800
+                },
+                new BankCard
+                {
+                    Name = "Дебетовая карта",
+                    Number = "2202201945211111",
+                    ImgUrl = "rates_icon",
+                    Money = 232211
                 }
             };
 

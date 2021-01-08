@@ -18,7 +18,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Spacing="0">
-            <CarouselView ItemsSource="{Binding BankCards}"
+            <CarouselView x:Name="Cards" ItemsSource="{Binding BankCards}"
                           CurrentItem="{Binding SelectedBankItem}"
                           HeightRequest="300">
                 <CarouselView.ItemTemplate>
@@ -51,6 +51,7 @@
                         Padding="0,10,0,10"
                         BackgroundColor="PaleVioletRed">
                 <Button Text="Пополнить"
+                        Command="{Binding TopUpCard}"
                         Style="{x:StaticResource NoDefaultCapsButton}"
                         FontSize="13"
                         WidthRequest="130"
@@ -59,6 +60,7 @@
                         TextColor="White"
                         BackgroundColor="Red"/>
                 <Button Text="Перевести"
+                        Command="{Binding TransferCard}"
                         Style="{x:StaticResource NoDefaultCapsButton}"
                         FontSize="13"
                         WidthRequest="130"

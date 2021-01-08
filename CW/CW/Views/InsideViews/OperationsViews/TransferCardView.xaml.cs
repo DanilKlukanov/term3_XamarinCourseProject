@@ -1,7 +1,8 @@
-﻿using CW.ViewModels.InsideViewModels;
+﻿using CW.Models;
 using CW.ViewModels.InsideViewModels.OperationsViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,15 +10,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CW.Views.InsideViews
+namespace CW.Views.InsideViews.Operations
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BankCardsView : ContentPage
+    public partial class TransferCardView : ContentPage
     {
-        public BankCardsView(BankItemViewModel bankItemViewModel)
+        public TransferCardView(TransferCardViewModel info)
         {
             InitializeComponent();
-            BindingContext = bankItemViewModel;
+            BindingContext = info;
         }
     }
 }

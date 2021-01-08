@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CW.Views.InsideViews.Operations.TransferCardView"
+             xmlns:convert="clr-namespace:CW.Converters">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="NoDefaultCapsButton">
+                <Setter Property="TextTransform" Value="None"/>
+            </Style>
+            <convert:BankNumberConverter x:Key="BankCardNumberConverter"
+                                         TypeName="CW.Models.BankCard"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="0" BackgroundColor="PaleVioletRed">
+                <Frame CornerRadius="20"
+                   WidthRequest="100"
+                   HeightRequest="50"
+                   Margin="50, 20, 50, 20">
+                    <Entry Placeholder="Введите номер карты"/>
+                </Frame>
+                <ListView ItemsSource="{Binding BankCards}" RowHeight="200" SelectionMode="None" SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell IsEnabled="false">
+                                <ViewCell.View>
+                                    <Frame CornerRadius="20"
+                                   BackgroundColor="LightSkyBlue"
+                                   Margin="50, 20, 50, 20"
+                                   HeightRequest="200"
+                                   WidthRequest="150">
+                                        <StackLayout>
+                                            <Label Text="{Binding Name}"/>
+                                            <Label Text="{Binding Number, Converter={StaticResource Key=BankCardNumberConverter}}"/>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding Money}"/>
+                                                <Image Source="{Binding ImgUrl}"
+                                               HeightRequest="20"
+                                               WidthRequest="20"
+                                               HorizontalOptions="EndAndExpand"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

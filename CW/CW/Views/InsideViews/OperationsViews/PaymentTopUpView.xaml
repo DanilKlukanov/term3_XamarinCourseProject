@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CW.Views.InsideViews.OperationsViews.PaymentTopUpView"
+             xmlns:convert="clr-namespace:CW.Converters">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:BankNumberConverter x:Key="BankCardNumberConverter"
+                                         TypeName="CW.Models.BankCard"/>
+            <convert:BankNumberConverter x:Key="BankAccountNumberConverter"
+                                         TypeName="CW.Models.BankAccount"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <StackLayout>
+                    <Label Text="Карта отправителя" 
+                           VerticalOptions="Start"
+                           Padding="10,0,0,10"/>
+                    <StackLayout Orientation="Horizontal" 
+                                 VerticalOptions="EndAndExpand">
+                        <Label Text="{Binding SelectedBankItem.Number, Converter={StaticResource Key=BankCardNumberConverter}}"
+                               Padding="10,0,0,10"/>
+                    </StackLayout>
+                </StackLayout>
+                <Label Text="{Binding SelectedBankItem.Money}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"
+                       Padding="0,0,10,0"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsCardVisible}">
+                <StackLayout>
+                    <Label Text="Карта получателя" 
+                           VerticalOptions="Start"
+                           Padding="10,0,0,10"/>
+                    <StackLayout Orientation="Horizontal" 
+                                 VerticalOptions="EndAndExpand">
+                        <Label Text="{Binding ToBankItem.Number, Converter={StaticResource Key=BankCardNumberConverter}}"
+                               Padding="10,0,0,10"/>
+                    </StackLayout>
+                </StackLayout>
+                <Label Text="{Binding ToBankItem.Money}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"
+                       Padding="0,0,10,0"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsAccountVisible}">
+                <StackLayout>
+                    <Label Text="Счет получателя" 
+                           VerticalOptions="Start"
+                           Padding="10,0,0,10"/>
+                    <StackLayout Orientation="Horizontal" 
+                                 VerticalOptions="EndAndExpand">
+                        <Label Text="{Binding ToAccount.Number, Converter={StaticResource Key=BankAccountNumberConverter}}"
+                               Padding="10,0,0,10"/>
+                    </StackLayout>
+                </StackLayout>
+                <Label Text="{Binding ToAccount.Money}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"
+                       Padding="0,0,10,0"/>
+            </StackLayout>
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Entry Text="{Binding Sum}" 
+                       Placeholder="Введите сумму"
+                       Keyboard="Numeric"/>
+                <Button Text="Оплатить"
+                        Command="{Binding ToPayCommand}"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
