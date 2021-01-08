@@ -7,16 +7,16 @@
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.RootPageView">
     <TabBar x:Name="tabs">
-        <Tab x:Name="start" Title="Главный">
+        <Tab x:Name="start" Title="Главный" Icon="main.png">
             <ShellContent ContentTemplate="{DataTemplate views:MainScreenView}"/>
         </Tab>
-        <Tab Title="Платежи">
+        <Tab Title="Платежи" Icon="payment.png">
             <ShellContent ContentTemplate="{DataTemplate views:PaymentsView}"/>
         </Tab>
-        <Tab Title="История">
+        <Tab Title="История" Icon="history.png">
             <ShellContent ContentTemplate="{DataTemplate views:HistoryView}"/>
         </Tab>
-        <Tab Title="Диалоги">
+        <Tab Title="Диалоги" Icon="dialog.png">
             <ShellContent ContentTemplate="{DataTemplate views:DialogsView}"/>
         </Tab>
     </TabBar>
