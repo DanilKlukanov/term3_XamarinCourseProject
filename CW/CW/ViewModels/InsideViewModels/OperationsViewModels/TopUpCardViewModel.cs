@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace CW.ViewModels.InsideViewModels.OperationsViewModels
 {
@@ -23,7 +24,14 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         public TopUpCardViewModel(BankItemViewModel info, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts, BankItem item)
         {
             Navigation = info.Navigation;
-            BankCards = cards;
+            BankCards = new ObservableCollection<BankCard>();
+            foreach(BankCard element in cards)
+            {
+                if (element != item as BankCard)
+                {
+                    BankCards.Add(element);
+                }
+            }
             BankAccounts = accounts;
             SelectedBankItem = item;
             OpenCard = new Command(() => {
