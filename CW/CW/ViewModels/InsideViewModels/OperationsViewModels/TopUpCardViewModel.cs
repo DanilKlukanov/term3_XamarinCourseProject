@@ -20,9 +20,9 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         public ICommand OpenAccount { get; private set; }
         public ICommand OpenTopUp { get; private set; }
         public ICommand OpenTopUpAccount { get; private set; }
-        public TopUpCardViewModel(BankItemViewModel bankItem, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts, BankItem item)
+        public TopUpCardViewModel(BankItemViewModel info, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts, BankItem item)
         {
-            Navigation = bankItem.Navigation;
+            Navigation = info.Navigation;
             BankCards = cards;
             BankAccounts = accounts;
             SelectedBankItem = item;

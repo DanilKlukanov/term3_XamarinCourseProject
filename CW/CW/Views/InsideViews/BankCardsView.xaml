@@ -18,7 +18,8 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Spacing="0">
-            <CarouselView x:Name="Cards" ItemsSource="{Binding BankCards}"
+            <CarouselView x:Name="Cards"
+                          ItemsSource="{Binding BankCards}"
                           CurrentItem="{Binding SelectedBankItem}"
                           HeightRequest="300">
                 <CarouselView.ItemTemplate>
