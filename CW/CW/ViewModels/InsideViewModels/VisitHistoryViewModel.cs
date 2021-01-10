@@ -7,11 +7,11 @@ namespace CW.ViewModels.InsideViewModels
 {
     public class VisitHistoryViewModel : BaseViewModel
     {
-        public ObservableCollection<object> LastVisits { get; protected set; }
+        public ObservableCollection<string> LastVisits { get; protected set; }
 
-        public VisitHistoryViewModel()
+        public VisitHistoryViewModel(List<string> dates)
         {
-            LastVisits = new ObservableCollection<object>();
+            LastVisits = new ObservableCollection<string>(dates);
         }
     }
 }
