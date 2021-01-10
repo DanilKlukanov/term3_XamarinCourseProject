@@ -3,16 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CW.Views.InsideViews.VisitHistoryView">
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding LastVisits}">
+        <ListView ItemsSource="{Binding LastVisits}"
+                  SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.View>
-                            <Frame>
-                                <Label/>
-                            </Frame>
-                        </ViewCell.View>
-                    </ViewCell>
+                    <TextCell Text="{Binding}">
+                        
+                    </TextCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

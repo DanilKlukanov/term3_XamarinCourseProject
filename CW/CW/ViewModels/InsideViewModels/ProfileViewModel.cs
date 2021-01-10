@@ -40,16 +40,19 @@ namespace CW.ViewModels.InsideViewModels
 
         private async void OpenVisitHistoryPage()
         {
-            string json = await userService.GetVisitHistory(App.GetUser().id);
+            try
+            {
+                string json = await userService.GetVisitHistory(App.GetUser().id);
+                await Application.Current.MainPage.DisplayAlert("Message", json, "OK");
 
-            List<string> visits = JsonConvert.DeserializeObject<List<string>>(json);
-            var dates = visits.Select(x => DateTime.Parse(x)).OrderByDescending(x => x).ToList();
+                var dates = JsonConvert.DeserializeObject<List<string>>(json);
+                Navigation.PushAsync(new VisitHistoryView(dates));
+            }
+            catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Message", "Возникла непредвиденная ошибка. Повторите позднее.", "OK");
+            }          
 
-            json = JsonConvert.SerializeObject(dates);
-
-            await Application.Current.MainPage.DisplayAlert("Message", json, "OK");
-
-            Navigation.PushAsync(new VisitHistoryView());
         }
 
         private async void ChangePassword()

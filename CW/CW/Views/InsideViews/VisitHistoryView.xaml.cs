@@ -13,10 +13,10 @@ namespace CW.Views.InsideViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class VisitHistoryView : ContentPage
     {
-        public VisitHistoryView()
+        public VisitHistoryView(List<string> dates)
         {
             InitializeComponent();
-            BindingContext = new VisitHistoryViewModel();
+            BindingContext = new VisitHistoryViewModel(dates);
         }
     }
 }

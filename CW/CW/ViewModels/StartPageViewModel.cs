@@ -47,19 +47,20 @@ namespace CW.ViewModels
 
         private async void Authorize(object obj)
         {
-            var userServise = new UserService();
-            bool b = await userServise.Login(UserLogin.Value, UserPassword.Value);
-
-            if (!b)
+            if (Validate())
             {
-                await Application.Current.MainPage.DisplayAlert("Message", "smth was wrong", "OK");
-            }
+                var userServise = new UserService();
+                Tuple<bool, string> response = await userServise.Login(UserLogin.Value, UserPassword.Value);
 
-            if (b && Validate())
-            {
-                IsLoginFormVisible = false;
-                //Navigation.PushAsync(new UserPage());
-                MessagingCenter.Send(this, "authorized");
+                if (response.Item1 == true)
+                {
+                    IsLoginFormVisible = false;
+                    MessagingCenter.Send(this, "authorized");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", response.Item2, "OK");
+                }
             }
         }
 
