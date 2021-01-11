@@ -20,6 +20,7 @@ namespace CW.ViewModels.InsideViewModels
 
             ListTamplates();
 
+            CreateTemplatesCommand = new Command(OpenCreateTemplates);
             OpenProfilePageCommand = new Command(OpenProfilePage);
             BackCommand = new Command(Back, () => _isEnabled);
         }
@@ -29,6 +30,7 @@ namespace CW.ViewModels.InsideViewModels
         public INavigation Navigation { get; private set; }
         public ICommand BackCommand { get; private set; }
         public ICommand OpenProfilePageCommand { get; private set; }
+        public ICommand CreateTemplatesCommand { get; private set; }
 
         private void Back()
         {
@@ -69,6 +71,10 @@ namespace CW.ViewModels.InsideViewModels
         private void OpenProfilePage()
         {
             Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+        }
+        private void OpenCreateTemplates()
+        {
+            Navigation.PushAsync(new CreateTemplatesView(new CreateTemplatesViewModel(Navigation)));
         }
     }
 }

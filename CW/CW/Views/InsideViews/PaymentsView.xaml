@@ -19,7 +19,8 @@
                          WidthRequest="25"
                          Margin="110, 0, 0, 0"
                          BackgroundColor="Transparent"
-                         HorizontalOptions="EndAndExpand"/>
+                         HorizontalOptions="EndAndExpand"
+                         Command="{Binding CreateTemplatesCommand}"/>
             <ImageButton Source="user.png"
                          HeightRequest="40"
                          WidthRequest="40"
