@@ -111,6 +111,8 @@ namespace CW.ViewModels.InsideViewModels
                 PaymentInfo = "Платеж",
                 Money = 1020
             });
+
+            await Application.Current.MainPage.DisplayAlert("title", "message", "cancel");
         }
 
         private void Back()
