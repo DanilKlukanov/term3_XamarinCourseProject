@@ -8,7 +8,10 @@ using CW.Validations;
 using CW.Views.InsideViews;
 
 using CW.Services;
-
+using System.Net.Http;
+using Newtonsoft.Json;
+using CW.Models;
+using System.IO;
 
 namespace CW.ViewModels
 {
@@ -42,26 +45,23 @@ namespace CW.ViewModels
 
         }
 
-        private void Authorize(object obj)
+        private async void Authorize(object obj)
         {
             if (Validate())
             {
-                IsLoginFormVisible = false;
-                //Navigation.PushAsync(new UserPage());
-                MessagingCenter.Send(this, "authorized");
+                var userServise = new UserService();
+                Tuple<bool, string> response = await userServise.Login(UserLogin.Value, UserPassword.Value);
+
+                if (response.Item1 == true)
+                {
+                    IsLoginFormVisible = false;
+                    MessagingCenter.Send(this, "authorized");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", response.Item2, "OK");
+                }
             }
-
-            //bool error = (UserLogin != test_login || UserPassword != test_password);
-            /*            if (error)
-                        {
-                            AutorizationInfo = "Ошибка, проверьте данные";
-                        }
-                        else
-                        {
-                            AutorizationInfo = "Успех";
-
-
-                        }*/
         }
 
         // Enable or disable all buttons on the current page

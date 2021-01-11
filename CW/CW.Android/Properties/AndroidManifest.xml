@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.cw">
-    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
-    <application android:label="CW.Android" android:theme="@style/MainTheme">
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDwhbUO5TZQY2wnKO00E3OGsIhfqhtVw40" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.cw" android:installLocation="preferExternal">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
+	<application android:label="CW.Android" android:theme="@style/MainTheme" android:usesCleartextTraffic="true">
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDwhbUO5TZQY2wnKO00E3OGsIhfqhtVw40" />	
 	</application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
