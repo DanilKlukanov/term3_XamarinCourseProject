@@ -5,12 +5,12 @@ using System.Text;
 
 using Xamarin.Forms;
 
-namespace CW.ViewModels.InsideViewModels
+namespace CW.ViewModels.InsideViewModels.PaymentsViewsModels
 {
-    public class CreateTemplatesViewModel : BaseViewModel
+    public class TransferToClientViewModel : BaseViewModel
     {
         public INavigation Navigation { get; private set; }
-        public CreateTemplatesViewModel(INavigation navigation)
+        public TransferToClientViewModel(INavigation navigation)
         {
             Navigation = navigation;
         }

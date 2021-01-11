@@ -6,6 +6,8 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using CW.Models;
 using System.Collections.ObjectModel;
+using CW.Views.InsideViews.PaymentsViews;
+using CW.ViewModels.InsideViewModels.PaymentsViewsModels;
 
 namespace CW.ViewModels.InsideViewModels
 {
@@ -18,17 +20,21 @@ namespace CW.ViewModels.InsideViewModels
             Navigation = navigation;
             _isEnabled = true;
 
+
             ListTamplates();
 
+            TransferToClientCommand = new Command(OpenTransferToClient);
+            TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir);
             CreateTemplatesCommand = new Command(OpenCreateTemplates);
             OpenProfilePageCommand = new Command(OpenProfilePage);
             BackCommand = new Command(Back, () => _isEnabled);
         }
 
         public ObservableCollection<NameOperationInTemplate> PayTemplates { get; private set; }
-
         public INavigation Navigation { get; private set; }
         public ICommand BackCommand { get; private set; }
+        public ICommand TransferToClientCommand { get; private set; }
+        public ICommand TransfeBetweenTheirCommand { get; private set; }
         public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand CreateTemplatesCommand { get; private set; }
 
@@ -74,7 +80,16 @@ namespace CW.ViewModels.InsideViewModels
         }
         private void OpenCreateTemplates()
         {
-            Navigation.PushAsync(new CreateTemplatesView(new CreateTemplatesViewModel(Navigation)));
+            Navigation.PushAsync(new PaymentTemplatesView(new PaymentTemplatesViewModel(Navigation)));
+        }
+        
+        private void OpenTransferToClient()
+        {
+            Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation)));
+        }
+        private void OpenTransferBetweenTheir()
+        {
+            Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation)));
         }
     }
 }

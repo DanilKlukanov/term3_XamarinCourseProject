@@ -11,9 +11,9 @@ using Xamarin.Forms.Xaml;
 namespace CW.Views.InsideViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateTemplatesView : ContentPage
+    public partial class PaymentTemplatesView : ContentPage
     {
-        public CreateTemplatesView(CreateTemplatesViewModel info)
+        public PaymentTemplatesView(PaymentTemplatesViewModel info)
         {
             InitializeComponent();
             BindingContext = info;

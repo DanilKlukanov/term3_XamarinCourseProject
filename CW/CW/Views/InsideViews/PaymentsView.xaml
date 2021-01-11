@@ -14,13 +14,13 @@
                    VerticalOptions="Center"
                    FontSize="20"
                    TextColor="White"/>
-            <ImageButton Source="plus.png"
+            <!--<ImageButton Source="plus.png"
                          HeightRequest="25"
                          WidthRequest="25"
                          Margin="110, 0, 0, 0"
                          BackgroundColor="Transparent"
                          HorizontalOptions="EndAndExpand"
-                         Command="{Binding CreateTemplatesCommand}"/>
+                         Command="{Binding CreateTemplatesCommand}"/>-->
             <ImageButton Source="user.png"
                          HeightRequest="40"
                          WidthRequest="40"
@@ -32,48 +32,26 @@
     </Shell.TitleView>
     <ContentPage.Content>
         <StackLayout BackgroundColor="LightGray">
-            <ListView ItemsSource="{Binding PayTemplates}"
-                      RowHeight="55">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <StackLayout Orientation="Horizontal">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.5*"/>
-                                            <ColumnDefinition Width="3.0*"/>
-                                            <ColumnDefinition Width="0.5*"/>
-                                            <ColumnDefinition Width="0.5*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Image Source="passion.png"
-                                               Grid.Column="0"
-                                               HeightRequest="40"
-                                               WidthRequest="40"
-                                               Margin="10, 0, 0, 0"/>
-                                        <Grid Grid.Column="1"
-                                              VerticalOptions="Center">
-                                            <Label Text="{Binding Name}"
-                                                   Padding="10, 0, 0, 0"/>
-                                            <Label Text="{Binding NameOperation}"
-                                                   Padding="10, 30, 0, 0"/>
-                                        </Grid>
-                                        <Label Text="{Binding Money}"
-                                               Grid.Column="2"
-                                               HorizontalOptions="EndAndExpand"
-                                               VerticalOptions="Center"/>
-                                        <Label Text="₽"
-                                               Grid.Column="3"
-                                               HorizontalOptions="StartAndExpand"
-                                               VerticalOptions="Center"
-                                               Padding="10, 0, 0, 0"/>
-                                    </Grid>
-                                </StackLayout>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <StackLayout>
+                <Frame>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TransferToClientCommand}"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Клиенту Банка"/>
+                </Frame>
+                <Frame>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TransfeBetweenTheirCommand}"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Между своими"/>
+                </Frame>
+                <Frame>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CreateTemplatesCommand}"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Шаблоны"/>
+                </Frame>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
     
