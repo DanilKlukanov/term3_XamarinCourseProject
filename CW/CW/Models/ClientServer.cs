@@ -100,5 +100,19 @@ namespace CW.Models
             var json = await response.Content.ReadAsStringAsync();
             return json;
         }
+
+        public async Task<string> get_bills(int id)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("operation", "get_bills"),
+                new KeyValuePair<string, string>("id", id.ToString())
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
     }
 }

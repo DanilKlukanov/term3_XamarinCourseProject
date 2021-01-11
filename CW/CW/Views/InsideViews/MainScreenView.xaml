@@ -127,7 +127,7 @@
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="{Binding PaymentInfo}"
                                                    Padding="10,0,0,0"/>
-                                            <Label Text="{Binding Number}"/>
+                                            <Label Text="{Binding Date}"/>
                                         </StackLayout>
                                     </StackLayout>
                                     <Label Text="{Binding Money}"

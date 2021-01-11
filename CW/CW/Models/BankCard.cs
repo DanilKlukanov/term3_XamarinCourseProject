@@ -8,5 +8,11 @@ namespace CW.Models
     {
         public string Number { get; set; }
         public string ImgUrl { get; set; }
+
+        public BankCard(Bill bill) : base(bill)
+        {
+            ImgUrl = bill.type;
+            Number = bill.number;
+        }
     }
 }

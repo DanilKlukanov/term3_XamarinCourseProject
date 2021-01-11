@@ -7,5 +7,10 @@ namespace CW.Models
     public class BankAccount : BankItem
     {
         public string Number { get; set; }
+
+        public BankAccount(Bill bill) : base(bill)
+        {
+            Number = bill.number;
+        }
     }
 }
