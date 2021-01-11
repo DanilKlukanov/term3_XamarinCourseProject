@@ -1,5 +1,6 @@
 ﻿using CW.Views.InsideViews;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
@@ -7,6 +8,7 @@ using Xamarin.Forms;
 using CW.Models;
 using System.Collections.ObjectModel;
 using CW.Views.InsideViews.Operations;
+using CW.Services;
 
 namespace CW.ViewModels.InsideViewModels
 {
@@ -16,10 +18,15 @@ namespace CW.ViewModels.InsideViewModels
 
         public MainScreenViewModel(INavigation navigation)
         {
+            BankCards = new ObservableCollection<BankCard>();
+            BankAccounts = new ObservableCollection<BankAccount>();
+            BankCredits = new ObservableCollection<BankCredit>();
+
+            LoadListBankItems();
             Navigation = navigation;
             _isEnabled = true;
 
-            LoadListBankItems();
+            
 
             OpenProfilePageCommand = new Command(OpenProfilePage);
             BackCommand = new Command(Back, () => _isEnabled);
@@ -37,9 +44,14 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand OpenBankCardPageCommand { get; private set; }
         public ICommand OpenBankAccountPageCommand { get; private set; }
 
-        private void LoadListBankItems()
+        private async void LoadListBankItems()
         {
-            BankCards = new ObservableCollection<BankCard>
+            BillsService bil= new BillsService();
+            
+            var bankCards = (await bil.GetBills()).Where(x => x.type != "bill").Select(x => new BankCard(x)).ToList();
+            bankCards.ForEach(x => BankCards.Add(x));
+
+            /*BankCards = new ObservableCollection<BankCard>
             {
                 new BankCard
                 {
@@ -62,41 +74,43 @@ namespace CW.ViewModels.InsideViewModels
                     ImgUrl = "rates_icon",
                     Money = 232211
                 }
-            };
+            };*/
 
-            BankAccounts = new ObservableCollection<BankAccount>
-            {
-                new BankAccount
-                {
-                    Name = "Текущий счет",
-                    Number = "2202201948567017",
-                    Money = 9001112
-                },
-                new BankAccount
-                {
-                    Name = "Текущий счет",
-                    Number = "2202201948523232",
-                    Money = 5
-                }
-            };
+            var bankAccounts = (await bil.GetBills()).Where(x => x.type == "bill").Select(x => new BankAccount(x)).ToList();
+            bankAccounts.ForEach(x => BankAccounts.Add(x));
 
-            BankCredits = new ObservableCollection<BankCredit>
+
+            /* BankAccounts = new ObservableCollection<BankAccount>
+             {
+                 new BankAccount
+                 {
+                     Name = "Текущий счет",
+                     Number = "2202201948567017",
+                     Money = 9001112
+                 },
+                 new BankAccount
+                 {
+                     Name = "Текущий счет",
+                     Number = "2202201948523232",
+                     Money = 5
+                 }
+             };*/
+
+            BankCredits.Add(new BankCredit
             {
-                new BankCredit
-                {
-                     Name = "Ипотека",
-                     Date = DateTime.Now,
-                     PaymentInfo = "Платеж",
-                     Money = 788
-                },
-                new BankCredit
-                {
-                    Name = "Кредит наличными",
-                    Date = DateTime.Now,
-                    PaymentInfo = "Платеж",
-                    Money = 1020
-                }
-            };
+                Name = "Ипотека",
+                Date = DateTime.Now,
+                PaymentInfo = "Платеж",
+                Money = 788
+            });
+
+            BankCredits.Add(new BankCredit()
+            {
+                Name = "Кредит наличными",
+                Date = DateTime.Now,
+                PaymentInfo = "Платеж",
+                Money = 1020
+            });
         }
 
         private void Back()
