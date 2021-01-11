@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -10,18 +9,32 @@ namespace CW.Services
 {
     public class BillsService
     {
-        ClientServer client;
+        private static BillsService _instance;
+        private readonly ClientServer _client;
 
-        public BillsService()
+        private BillsService()
         {
-            client = new ClientServer();
+            _client = new ClientServer();
+        }
+
+        public static BillsService Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new BillsService();
+                }
+
+                return _instance;
+            }
         }
 
         public async Task<List<Bill>> GetBills()
         {
             try
             {
-                string json = await client.get_bills(App.GetUser().id);
+                string json = await _client.get_bills(App.GetUser().id);
                 return JsonConvert.DeserializeObject<List<Bill>>(json);
             }
             catch (Exception ex)

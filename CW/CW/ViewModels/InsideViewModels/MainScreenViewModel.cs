@@ -26,8 +26,6 @@ namespace CW.ViewModels.InsideViewModels
             Navigation = navigation;
             _isEnabled = true;
 
-            
-
             OpenProfilePageCommand = new Command(OpenProfilePage);
             BackCommand = new Command(Back, () => _isEnabled);
             OpenBankCardPageCommand = new Command(OpenBankCardPage);
@@ -46,55 +44,13 @@ namespace CW.ViewModels.InsideViewModels
 
         private async void LoadListBankItems()
         {
-            BillsService bil= new BillsService();
-            
-            var bankCards = (await bil.GetBills()).Where(x => x.type != "bill").Select(x => new BankCard(x)).ToList();
+            var bills = await BillsService.Instance.GetBills();
+
+            var bankCards = bills.Where(x => x.type != "bill").Select(x => new BankCard(x)).ToList();
+            var bankAccounts = bills.Where(x => x.type == "bill").Select(x => new BankAccount(x)).ToList();
+
             bankCards.ForEach(x => BankCards.Add(x));
-
-            /*BankCards = new ObservableCollection<BankCard>
-            {
-                new BankCard
-                {
-                    Name = "Дебетовая карта",
-                    Number = "2202201948567017",
-                    ImgUrl = "rates_icon",
-                    Money = 12000
-                },
-                new BankCard
-                {
-                    Name = "Дебетовая карта",
-                    Number = "2202201950501111",
-                    ImgUrl = "rates_icon",
-                    Money = 800
-                },
-                new BankCard
-                {
-                    Name = "Дебетовая карта",
-                    Number = "2202201945211111",
-                    ImgUrl = "rates_icon",
-                    Money = 232211
-                }
-            };*/
-
-            var bankAccounts = (await bil.GetBills()).Where(x => x.type == "bill").Select(x => new BankAccount(x)).ToList();
             bankAccounts.ForEach(x => BankAccounts.Add(x));
-
-
-            /* BankAccounts = new ObservableCollection<BankAccount>
-             {
-                 new BankAccount
-                 {
-                     Name = "Текущий счет",
-                     Number = "2202201948567017",
-                     Money = 9001112
-                 },
-                 new BankAccount
-                 {
-                     Name = "Текущий счет",
-                     Number = "2202201948523232",
-                     Money = 5
-                 }
-             };*/
 
             BankCredits.Add(new BankCredit
             {
@@ -111,8 +67,6 @@ namespace CW.ViewModels.InsideViewModels
                 PaymentInfo = "Платеж",
                 Money = 1020
             });
-
-            await Application.Current.MainPage.DisplayAlert("title", "message", "cancel");
         }
 
         private void Back()

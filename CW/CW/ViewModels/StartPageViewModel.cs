@@ -54,8 +54,7 @@ namespace CW.ViewModels
 
             if (Validate())
             {
-                var userServise = new UserService();
-                Tuple<bool, string> response = await userServise.Login(UserLogin.Value, UserPassword.Value);
+                Tuple<bool, string> response = await UserService.Instance.Login(UserLogin.Value, UserPassword.Value);
 
                 if (response.Item1 == true)
                 {
