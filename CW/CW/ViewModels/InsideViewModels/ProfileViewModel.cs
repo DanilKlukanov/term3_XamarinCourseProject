@@ -20,8 +20,6 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand OpenVisitHistoryPageCommand { get; private set; }
         public ICommand OpenApplicationInfoPageCommand { get; private set; }
 
-        private UserService userService;
-
         public ProfileViewModel(INavigation navigation)
         {
             LogoutCommand = new Command(Logout);
@@ -30,7 +28,6 @@ namespace CW.ViewModels.InsideViewModels
             OpenVisitHistoryPageCommand = new Command(OpenVisitHistoryPage);
             OpenApplicationInfoPageCommand = new Command(OpenApplicationInfoPage);
             Navigation = navigation;
-            userService = new UserService();
         }
 
         private void OpenApplicationInfoPage()
@@ -42,8 +39,7 @@ namespace CW.ViewModels.InsideViewModels
         {
             try
             {
-                string json = await userService.GetVisitHistory(App.GetUser().id);
-                await Application.Current.MainPage.DisplayAlert("Message", json, "OK");
+                string json = await UserService.Instance.GetVisitHistory(App.GetUser().id);
 
                 var dates = JsonConvert.DeserializeObject<List<string>>(json);
                 Navigation.PushAsync(new VisitHistoryView(dates));
@@ -60,7 +56,7 @@ namespace CW.ViewModels.InsideViewModels
             string new_password = await Application.Current.MainPage.DisplayPromptAsync("Изменение пароля", "Введите новый пароль");
             if (new_password != null)
             {
-                var r = await userService.ChangePassword(App.GetUser().login, new_password);
+                var r = await UserService.Instance.ChangePassword(App.GetUser().login, new_password);
                 await Application.Current.MainPage.DisplayAlert("Message", r, "OK");
             }
         }
@@ -70,14 +66,14 @@ namespace CW.ViewModels.InsideViewModels
             string new_login = await Application.Current.MainPage.DisplayPromptAsync("Изменение логина", "Введите новый логин");
             if (new_login != null)
             {
-                var r = await userService.ChangeLogin(App.GetUser().login, new_login);
+                var r = await UserService.Instance.ChangeLogin(App.GetUser().login, new_login);
                 await Application.Current.MainPage.DisplayAlert("Message", r, "OK");
             }
         }
 
         private void Logout()
         {
-            userService.Logout();
+            UserService.Instance.Logout();
             MessagingCenter.Send(this, "logout");
         }
     }

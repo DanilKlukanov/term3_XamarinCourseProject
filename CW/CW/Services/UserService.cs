@@ -9,11 +9,25 @@ namespace CW.Services
 {
     public class UserService
     {
-        ClientServer client;
+        private readonly ClientServer _client;
+        private static UserService _instance;
 
         public UserService()
         {
-            client = new ClientServer();
+            _client = new ClientServer();
+        }
+
+        public static UserService Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new UserService();
+                }
+
+                return _instance;
+            }
         }
 
         public async Task<Tuple<bool, string>> Login(string username, string password)
@@ -22,13 +36,13 @@ namespace CW.Services
                 {
                     string json;
 
-                    json = await client.login(username, password);
+                    json = await _client.login(username, password);
 
                     if (json == "\"0\"")
                     {
-                        json = await client.find_user_with_login(username);
+                        json = await _client.find_user_with_login(username);
                         App.SetUser(JsonConvert.DeserializeObject<User>(json));
-                        json = await client.add_visit(App.GetUser().id);
+                        json = await _client.add_visit(App.GetUser().id);
                         return new Tuple<bool, string>(true, "");
                     }
                     return new Tuple<bool, string>(false, "Неверный логин или пароль");
@@ -48,7 +62,7 @@ namespace CW.Services
         {
             try
             {
-                string json = await client.change_login(login, new_login);
+                string json = await _client.change_login(login, new_login);
 
                 if (json == "\"0\"")
                 {
@@ -78,7 +92,7 @@ namespace CW.Services
         {
             try
             {
-                string json = await client.change_password(login, new_password);
+                string json = await _client.change_password(login, new_password);
 
                 if (json == "\"0\"")
                 {
@@ -103,7 +117,7 @@ namespace CW.Services
 
         public async Task<string> GetVisitHistory(int id)
         {
-            string json = await client.get_auth_history(id);
+            string json = await _client.get_auth_history(id);
             return json;
         }
     }

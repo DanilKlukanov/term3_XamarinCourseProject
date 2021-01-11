@@ -25,12 +25,15 @@ namespace CW.ViewModels
         public ICommand OpenExchangesRatesPageCommand { get; protected set; }
         public INavigation Navigation { get; set; }
 
+        private bool _isButtonEnabled;
+
         public StartPageViewModel()
         {
-            AuthorizationCommand = new Command(Authorize);
+            _isButtonEnabled = true;
+            AuthorizationCommand = new Command(Authorize, (_) => IsButtonEnabled);
 
-            OpenMapPageCommand = new Command(OpenMapPage, () => isButtonEnabled_);
-            OpenExchangesRatesPageCommand = new Command(OpenExchangesRatesPage, () => isButtonEnabled_);
+            OpenMapPageCommand = new Command(OpenMapPage, () => IsButtonEnabled);
+            OpenExchangesRatesPageCommand = new Command(OpenExchangesRatesPage, () => IsButtonEnabled);
             ClosePageCommand = new Command(Back);
 
             ShowLoginFormCommand = new Command(() => IsLoginFormVisible = true);
@@ -47,10 +50,11 @@ namespace CW.ViewModels
 
         private async void Authorize(object obj)
         {
+            IsButtonEnabled = false;
+
             if (Validate())
             {
-                var userServise = new UserService();
-                Tuple<bool, string> response = await userServise.Login(UserLogin.Value, UserPassword.Value);
+                Tuple<bool, string> response = await UserService.Instance.Login(UserLogin.Value, UserPassword.Value);
 
                 if (response.Item1 == true)
                 {
@@ -60,12 +64,32 @@ namespace CW.ViewModels
                 else
                 {
                     await Application.Current.MainPage.DisplayAlert("Message", response.Item2, "OK");
+                    IsButtonEnabled = true;
                 }
+            }
+            else
+            {
+                IsButtonEnabled = true;
             }
         }
 
         // Enable or disable all buttons on the current page
-        private bool isButtonEnabled_ = true;
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
+
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (AuthorizationCommand as Command)?.ChangeCanExecute();
+                    (OpenMapPageCommand as Command)?.ChangeCanExecute();
+                    (OpenExchangesRatesPageCommand as Command)?.ChangeCanExecute();
+                }
+            }
+        }
 
         private bool _isLoginFormVisible;
         public bool IsLoginFormVisible
@@ -103,19 +127,19 @@ namespace CW.ViewModels
 
         private void OpenMapPage()
         {
-            isButtonEnabled_ = false;
+            IsButtonEnabled = false;
             Navigation.PushAsync(new NearbyBanksView(this));
         }
 
         private void OpenExchangesRatesPage()
         {
-            isButtonEnabled_ = false;
+            IsButtonEnabled = false;
             Navigation.PushAsync(new ExchangeRates(this));
         }
 
         private void Back()
         {
-            isButtonEnabled_ = true;
+            IsButtonEnabled = true;
             Navigation.PopAsync();
         }
 
