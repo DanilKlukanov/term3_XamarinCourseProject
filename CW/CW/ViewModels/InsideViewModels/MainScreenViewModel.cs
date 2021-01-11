@@ -52,7 +52,7 @@ namespace CW.ViewModels.InsideViewModels
             bankCards.ForEach(x => BankCards.Add(x));
             bankAccounts.ForEach(x => BankAccounts.Add(x));
 
-            BankCredits.Add(new BankCredit
+            BankCredits.Add(new BankCredit()
             {
                 Name = "Ипотека",
                 Date = DateTime.Now,

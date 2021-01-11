@@ -8,6 +8,8 @@ using CW.Models;
 using System.Collections.ObjectModel;
 using CW.Views.InsideViews.PaymentsViews;
 using CW.ViewModels.InsideViewModels.PaymentsViewsModels;
+using CW.Services;
+using System.Linq;
 
 namespace CW.ViewModels.InsideViewModels
 {
@@ -19,10 +21,11 @@ namespace CW.ViewModels.InsideViewModels
         {
             Navigation = navigation;
             _isEnabled = true;
-
+            BankCards = new ObservableCollection<BankCard>();
+            BankAccounts = new ObservableCollection<BankAccount>();
 
             ListTamplates();
-
+            LoadListBankItems();
             TransferToClientCommand = new Command(OpenTransferToClient);
             TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir);
             CreateTemplatesCommand = new Command(OpenCreateTemplates);
@@ -31,13 +34,24 @@ namespace CW.ViewModels.InsideViewModels
         }
 
         public ObservableCollection<NameOperationInTemplate> PayTemplates { get; private set; }
+        public ObservableCollection<BankCard> BankCards { get; private set; }
+        public ObservableCollection<BankAccount> BankAccounts { get; private set; }
         public INavigation Navigation { get; private set; }
         public ICommand BackCommand { get; private set; }
         public ICommand TransferToClientCommand { get; private set; }
         public ICommand TransfeBetweenTheirCommand { get; private set; }
         public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand CreateTemplatesCommand { get; private set; }
+        private async void LoadListBankItems()
+        {
+            var bills = await BillsService.Instance.GetBills();
 
+            var bankCards = bills.Where(x => x.type != "bill").Select(x => new BankCard(x)).ToList();
+            var bankAccounts = bills.Where(x => x.type == "bill").Select(x => new BankAccount(x)).ToList();
+
+            bankCards.ForEach(x => BankCards.Add(x));
+            bankAccounts.ForEach(x => BankAccounts.Add(x));
+        }
         private void Back()
         {
             Navigation.PopAsync();
@@ -85,11 +99,11 @@ namespace CW.ViewModels.InsideViewModels
         
         private void OpenTransferToClient()
         {
-            Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation)));
+            Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation, BankCards, BankAccounts)));
         }
         private void OpenTransferBetweenTheir()
         {
-            Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation)));
+            Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation, BankCards, BankAccounts)));
         }
     }
 }

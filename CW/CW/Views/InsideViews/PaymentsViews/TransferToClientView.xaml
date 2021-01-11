@@ -1,12 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CW.Views.InsideViews.TransferToClientView">
+             x:Class="CW.Views.InsideViews.TransferToClientView"
+             xmlns:convert="clr-namespace:CW.Converters"
+             x:Name="page">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="NoDefaultCapsButton">
+                <Setter Property="TextTransform" Value="None"/>
+            </Style>
+            <convert:BankNumberConverter x:Key="BankCardNumberConverter"
+                                         TypeName="CW.Models.BankCard"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Spacing="0" BackgroundColor="PaleVioletRed">
+                <ListView ItemsSource="{Binding BankCards}" RowHeight="200" SelectionMode="None" SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Frame CornerRadius="20"
+                                   BackgroundColor="LightSkyBlue"
+                                   Margin="50, 20, 50, 20"
+                                   HeightRequest="200"
+                                   WidthRequest="150">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference page},
+                                                                                Path=BindingContext.TransferCommand}"
+                                                                  CommandParameter="{Binding}"/>
+                                        </Frame.GestureRecognizers>
+                                        <StackLayout>
+                                            <Label Text="{Binding Name}"/>
+                                            <Label Text="{Binding Number, Converter={StaticResource Key=BankCardNumberConverter}}"/>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding Money}"/>
+                                                <Image Source="{Binding ImgUrl}"
+                                               HeightRequest="20"
+                                               WidthRequest="20"
+                                               HorizontalOptions="EndAndExpand"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
