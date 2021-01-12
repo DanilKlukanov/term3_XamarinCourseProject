@@ -15,7 +15,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Spacing="0" BackgroundColor="PaleVioletRed">
+            <StackLayout Spacing="0" BackgroundColor="White">
                 <ListView ItemsSource="{Binding BankCards}" RowHeight="200" SelectionMode="None" SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
