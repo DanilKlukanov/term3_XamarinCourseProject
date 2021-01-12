@@ -114,5 +114,21 @@ namespace CW.Models
 
             return json;
         }
+
+        public async Task<string> do_operation(string number_from, string number_to, int amount)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("operation", "do_operation"),
+                new KeyValuePair<string, string>("from", number_from),
+                new KeyValuePair<string, string>("to", number_to),
+                new KeyValuePair<string, string>("amount", amount.ToString()),
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
     }
 }
