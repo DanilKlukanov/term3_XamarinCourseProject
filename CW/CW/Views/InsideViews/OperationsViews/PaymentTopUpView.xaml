@@ -13,9 +13,41 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsCardVisible}">
                 <StackLayout>
                     <Label Text="Карта отправителя" 
+                           VerticalOptions="Start"
+                           Padding="10,0,0,10"/>
+                    <StackLayout Orientation="Horizontal" 
+                                 VerticalOptions="EndAndExpand">
+                        <Label Text="{Binding FromBankCard.Number, Converter={StaticResource Key=BankCardNumberConverter}}"
+                               Padding="10,0,0,10"/>
+                    </StackLayout>
+                </StackLayout>
+                <Label Text="{Binding FromBankCard.Money}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"
+                       Padding="0,0,10,0"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsAccountVisible}">
+                <StackLayout>
+                    <Label Text="Счет отправителя" 
+                           VerticalOptions="Start"
+                           Padding="10,0,0,10"/>
+                    <StackLayout Orientation="Horizontal" 
+                                 VerticalOptions="EndAndExpand">
+                        <Label Text="{Binding FromAccount.Number, Converter={StaticResource Key=BankAccountNumberConverter}}"
+                               Padding="10,0,0,10"/>
+                    </StackLayout>
+                </StackLayout>
+                <Label Text="{Binding FromAccount.Money}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"
+                       Padding="0,0,10,0"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <StackLayout>
+                    <Label Text="Карта получателя" 
                            VerticalOptions="Start"
                            Padding="10,0,0,10"/>
                     <StackLayout Orientation="Horizontal" 
@@ -29,40 +61,8 @@
                        VerticalOptions="Center"
                        Padding="0,0,10,0"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsCardVisible}">
-                <StackLayout>
-                    <Label Text="Карта получателя" 
-                           VerticalOptions="Start"
-                           Padding="10,0,0,10"/>
-                    <StackLayout Orientation="Horizontal" 
-                                 VerticalOptions="EndAndExpand">
-                        <Label Text="{Binding ToBankItem.Number, Converter={StaticResource Key=BankCardNumberConverter}}"
-                               Padding="10,0,0,10"/>
-                    </StackLayout>
-                </StackLayout>
-                <Label Text="{Binding ToBankItem.Money}"
-                       HorizontalOptions="EndAndExpand"
-                       VerticalOptions="Center"
-                       Padding="0,0,10,0"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsAccountVisible}">
-                <StackLayout>
-                    <Label Text="Счет получателя" 
-                           VerticalOptions="Start"
-                           Padding="10,0,0,10"/>
-                    <StackLayout Orientation="Horizontal" 
-                                 VerticalOptions="EndAndExpand">
-                        <Label Text="{Binding ToAccount.Number, Converter={StaticResource Key=BankAccountNumberConverter}}"
-                               Padding="10,0,0,10"/>
-                    </StackLayout>
-                </StackLayout>
-                <Label Text="{Binding ToAccount.Money}"
-                       HorizontalOptions="EndAndExpand"
-                       VerticalOptions="Center"
-                       Padding="0,0,10,0"/>
-            </StackLayout>
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                <Entry Text="{Binding Sum}" 
+                <Entry Text="{Binding Amount}" 
                        Placeholder="Введите сумму"
                        Keyboard="Numeric"/>
                 <Button Text="Оплатить"
