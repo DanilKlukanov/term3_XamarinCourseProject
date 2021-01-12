@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CW.Views.InsideViews;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
@@ -15,16 +16,23 @@ namespace CW.ViewModels.InsideViewModels
             Navigation = navigation;
             _isEnabled = true;
 
+            OpenProfilePageCommand = new Command(OpenProfilePage);
             BackCommand = new Command(Back, () => _isEnabled);
         }
 
         public INavigation Navigation { get; private set; }
         public ICommand BackCommand { get; private set; }
+        public ICommand OpenProfilePageCommand { get; private set; }
 
 
         private void Back()
         {
             Navigation.PopAsync();
+        }
+
+        private void OpenProfilePage()
+        {
+            Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
         }
     }
 }

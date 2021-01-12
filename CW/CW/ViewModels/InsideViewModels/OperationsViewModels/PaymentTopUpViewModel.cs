@@ -68,11 +68,15 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         private async void TransferFromCard(BankCard toCard)
         {
             string response = await TransactionService.Instance.DoOperation(FromBankCard.Number, toCard.Number, int.Parse(Amount));
+            FromBankCard.Money -= int.Parse(Amount);
+            toCard.Money += int.Parse(Amount);
             await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
         }
         private async void TransferFromAccount(BankCard toCard)
         {
             string response = await TransactionService.Instance.DoOperation(FromAccount.Number, toCard.Number, int.Parse(Amount));
+            FromAccount.Money -= int.Parse(Amount);
+            toCard.Money += int.Parse(Amount);
             await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
         }
     }

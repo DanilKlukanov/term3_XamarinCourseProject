@@ -4,12 +4,56 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:models="clr-namespace:CW.Models"
              x:Class="CW.Views.InsideViews.PaymentsView">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="Платежи"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"
+                   TextColor="White"/>
+            <!--<ImageButton Source="plus.png"
+                         HeightRequest="25"
+                         WidthRequest="25"
+                         Margin="110, 0, 0, 0"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="EndAndExpand"
+                         Command="{Binding CreateTemplatesCommand}"/>-->
+            <ImageButton Source="user.png"
+                         HeightRequest="40"
+                         WidthRequest="40"
+                         Padding="0, 0, 10, 0"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="EndAndExpand"
+                         Command="{Binding OpenProfilePageCommand}"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="MediumVioletRed">
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout BackgroundColor="LightGray">
+            <StackLayout>
+                <Frame>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TransferToClientCommand}"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Клиенту Банка"/>
+                </Frame>
+                <Frame>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TransfeBetweenTheirCommand}"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Между своими"/>
+                </Frame>
+                <Frame>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CreateTemplatesCommand}"/>
+                    </Frame.GestureRecognizers>
+                    <Label Text="Шаблоны"/>
+                </Frame>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
+    
+    
 </ContentPage>

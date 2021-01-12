@@ -55,11 +55,11 @@ namespace CW.ViewModels.InsideViewModels
         }
         private void TopUp()
         {
-            Navigation.PushAsync(new TopUpCardView(new TopUpCardViewModel(this, BankCards, BankAccounts, SelectedBankItem)));
+            Navigation.PushAsync(new TopUpCardView(new TopUpCardViewModel(Navigation, BankCards, BankAccounts, SelectedBankItem)));
         }
         private void Transfer()
         {
-            Navigation.PushAsync(new TransferCardView(new TransferCardViewModel(this, BankCards, SelectedBankItem)));
+            Navigation.PushAsync(new TransferCardView(new TransferCardViewModel(Navigation, BankCards, BankAccounts, SelectedBankItem)));
         }
     }
 }

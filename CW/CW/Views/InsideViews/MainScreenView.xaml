@@ -19,9 +19,13 @@
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
-            <Button Text="Profile"
-                    HorizontalOptions="EndAndExpand"
-                    Command="{Binding OpenProfilePageCommand}"/>
+            <ImageButton Source="user.png"
+                         HeightRequest="40"
+                         WidthRequest="40"
+                         Padding="0, 0, 10, 0"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="EndAndExpand"
+                         Command="{Binding OpenProfilePageCommand}"/>
         </StackLayout>
     </Shell.TitleView>
     <ContentPage.Content>
@@ -32,7 +36,10 @@
                    Padding="20,10,0,10"
                    BackgroundColor="LightGray"/>
             <ListView ItemsSource="{Binding BankCards}"
-                      HasUnevenRows="True">
+                      HasUnevenRows="True"
+                      IsPullToRefreshEnabled="True"
+                      RefreshCommand="{Binding RefreshCommand}"
+                      IsRefreshing="{Binding IsRefreshing}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

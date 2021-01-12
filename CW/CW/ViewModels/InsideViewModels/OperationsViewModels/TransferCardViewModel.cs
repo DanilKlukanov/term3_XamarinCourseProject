@@ -12,14 +12,16 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
     public class TransferCardViewModel : BaseViewModel
     {
         public ObservableCollection<BankCard> BankCards { get; private set; }
+        public ObservableCollection<BankAccount> BankAccounts { get; private set; }
         public BankItem SelectedBankItem { get; private set; }
         public INavigation Navigation { get; private set; }
 
-        public TransferCardViewModel(BankItemViewModel info, ObservableCollection<BankCard> cards, BankItem item)
+        public TransferCardViewModel(INavigation navigation, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts, BankItem item)
         {
-            Navigation = info.Navigation;
+            Navigation = navigation;
             BankCards = cards;
             SelectedBankItem = item;
+            BankAccounts = accounts;
         }
     }
 }

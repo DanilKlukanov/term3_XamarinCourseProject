@@ -30,6 +30,7 @@ namespace CW.ViewModels.InsideViewModels
             BackCommand = new Command(Back, () => _isEnabled);
             OpenBankCardPageCommand = new Command(OpenBankCardPage);
             OpenBankAccountPageCommand = new Command(OpenBankAccounPage);
+           // RefreshCommand = new Command(RefreshListView)
         }
 
         public ObservableCollection<BankCard> BankCards { get; private set; }
@@ -41,6 +42,7 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand OpenBankCardPageCommand { get; private set; }
         public ICommand OpenBankAccountPageCommand { get; private set; }
+        //public ICommand RefreshCommand { get; private set; }
 
         private async void LoadListBankItems()
         {
@@ -52,7 +54,7 @@ namespace CW.ViewModels.InsideViewModels
             bankCards.ForEach(x => BankCards.Add(x));
             bankAccounts.ForEach(x => BankAccounts.Add(x));
 
-            BankCredits.Add(new BankCredit
+            BankCredits.Add(new BankCredit()
             {
                 Name = "Ипотека",
                 Date = DateTime.Now,
@@ -96,6 +98,40 @@ namespace CW.ViewModels.InsideViewModels
             if (bankItem != null)
             {
                 Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem)));
+            }
+        }
+        private bool isRefreshing = false;
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set
+            {
+                isRefreshing = value;
+                OnPropertyChanged();
+            }
+        }
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    IsRefreshing = true;
+
+                    BankCards.Clear();
+                    //BankAccounts.Clear();
+
+                    //LoadListBankItems()
+                    var bills = await BillsService.Instance.GetBills();
+
+                    var bankCards = bills.Where(x => x.type != "bill").Select(x => new BankCard(x)).ToList();
+                    //var bankAccounts = bills.Where(x => x.type == "bill").Select(x => new BankAccount(x)).ToList();
+
+                    bankCards.ForEach(x => BankCards.Add(x));
+                    //bankAccounts.ForEach(x => BankAccounts.Add(x));
+
+                    IsRefreshing = false;
+                });
             }
         }
     }
