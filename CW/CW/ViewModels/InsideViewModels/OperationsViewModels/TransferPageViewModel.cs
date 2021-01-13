@@ -49,8 +49,15 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
                         int.TryParse(Amount.Value, out int amount);
                         if (FromCard.Money - amount >= 0)
                         {
-                            string response = await TransactionService.Instance.DoOperation(FromCard.Number, ToCard.Number, amount);
-                            await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                            if (NumberToCard == null)
+                            {
+                                string response = await TransactionService.Instance.DoOperation(FromCard.Number, ToCard.Number, amount);
+                                await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                            } else
+                            {
+                                string response = await TransactionService.Instance.DoOperation(FromCard.Number, NumberToCard, amount);
+                                await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                            }
                         }
                         else
                         {

@@ -17,6 +17,8 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         public BankItem SelectedBankItem { get; private set; }
         public INavigation Navigation { get; private set; }
         public ICommand OpenTransferTapCommand { get; private set; }
+        public ICommand OpenTransferCommand { get; private set; }
+        private string numberCard { get; set; }
 
         public TransferCardViewModel(INavigation navigation, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts, BankItem item)
         {
@@ -32,12 +34,28 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             SelectedBankItem = item;
             BankAccounts = accounts;
             OpenTransferTapCommand = new Command(OpenTransferTap);
+            OpenTransferCommand = new Command(OpenTransfer);
         }
-
+        public string NumberCard
+        {
+            get { return numberCard; }
+            set
+            {
+                if (numberCard != value)
+                {
+                    numberCard = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private void OpenTransferTap(object item)
         {
             var toCard = item as BankCard;
             Navigation.PushAsync(new TransferPageView(new TransferPageViewModel(SelectedBankItem, toCard)));
+        }
+        private void OpenTransfer()
+        {
+            Navigation.PushAsync(new TransferPageView(new TransferPageViewModel(SelectedBankItem, NumberCard)));
         }
     }
 }
