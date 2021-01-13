@@ -38,7 +38,7 @@ namespace CW.Services
                     return "Операция успешно выполнена";
                 }  else if (json == "\"1\"")
                 {
-                    return "Введены неверные данные";
+                    return "Такого номера не существует";
                 } else
                 {
                     return "Разные валюты";
