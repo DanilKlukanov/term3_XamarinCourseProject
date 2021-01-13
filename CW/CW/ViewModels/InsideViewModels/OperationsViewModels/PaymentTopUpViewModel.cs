@@ -67,17 +67,27 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
 
         private async void TransferFromCard(BankCard toCard)
         {
-            string response = await TransactionService.Instance.DoOperation(FromBankCard.Number, toCard.Number, int.Parse(Amount));
-            FromBankCard.Money -= int.Parse(Amount);
-            toCard.Money += int.Parse(Amount);
-            await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+            int.TryParse(Amount, out int amount);
+            if (FromBankCard.Money - amount >= 0)
+            {
+                string response = await TransactionService.Instance.DoOperation(FromBankCard.Number, toCard.Number, amount);
+                await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+            } else
+            {
+                await Application.Current.MainPage.DisplayAlert("Message", "Недостаточно средств на карте", "OK");
+            }
         }
         private async void TransferFromAccount(BankCard toCard)
         {
-            string response = await TransactionService.Instance.DoOperation(FromAccount.Number, toCard.Number, int.Parse(Amount));
-            FromAccount.Money -= int.Parse(Amount);
-            toCard.Money += int.Parse(Amount);
-            await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+            int.TryParse(Amount, out int amount);
+            if (FromAccount.Money - amount >= 0)
+            {
+                string response = await TransactionService.Instance.DoOperation(FromAccount.Number, toCard.Number, amount);
+                await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+            } else
+            {
+                await Application.Current.MainPage.DisplayAlert("Message", "Недостаточно средств на счету", "OK");
+            }
         }
     }
 }

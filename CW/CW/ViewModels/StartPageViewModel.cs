@@ -8,15 +8,17 @@ using CW.Validations;
 using CW.Views.InsideViews;
 
 using CW.Services;
+using CW.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
-using CW.Models;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace CW.ViewModels
 {
     public class StartPageViewModel : BaseViewModel
     {
+        public ObservableCollection<ExchangeRatesModel> Rates { get; private set; }
         public ICommand AuthorizationCommand { get; protected set; }
         public ICommand ShowLoginFormCommand { get; protected set; }
         public ICommand HideLoginFormCommand { get; protected set; }
@@ -26,6 +28,7 @@ namespace CW.ViewModels
         public INavigation Navigation { get; set; }
 
         private bool _isButtonEnabled;
+        public string CharCode { get; protected set; }
 
         public StartPageViewModel()
         {
@@ -41,11 +44,17 @@ namespace CW.ViewModels
                 IsLoginFormVisible = false;
                 AutorizationInfo = "Введите Ваш логин и пароль";
             });
-
             UserLogin = new ValidatableObject<string>();
             UserPassword = new ValidatableObject<string>();
             AddValidations();
 
+            Rates = new ObservableCollection<ExchangeRatesModel>();
+            LoadExchangeRates();
+        }
+        private async void LoadExchangeRates()
+        {
+            var valutes = await ExchangesRatesService.Instance.GetExchangesRates();
+            valutes.ForEach(x => Rates.Add(x));
         }
 
         private async void Authorize(object obj)

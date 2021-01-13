@@ -30,7 +30,6 @@ namespace CW.ViewModels.InsideViewModels
             BackCommand = new Command(Back, () => _isEnabled);
             OpenBankCardPageCommand = new Command(OpenBankCardPage);
             OpenBankAccountPageCommand = new Command(OpenBankAccounPage);
-           // RefreshCommand = new Command(RefreshListView)
         }
 
         public ObservableCollection<BankCard> BankCards { get; private set; }
@@ -42,7 +41,6 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand OpenBankCardPageCommand { get; private set; }
         public ICommand OpenBankAccountPageCommand { get; private set; }
-        //public ICommand RefreshCommand { get; private set; }
 
         private async void LoadListBankItems()
         {
