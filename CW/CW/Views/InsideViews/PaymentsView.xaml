@@ -33,6 +33,11 @@
     <ContentPage.Content>
         <StackLayout BackgroundColor="LightGray">
             <StackLayout>
+                <Label Text="Платежи"
+                       TextTransform="Uppercase"
+                       VerticalOptions="Center"
+                       Padding="20,10,0,10"
+                       BackgroundColor="LightGray"/>
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding TransferToClientCommand}"/>
@@ -45,6 +50,11 @@
                     </Frame.GestureRecognizers>
                     <Label Text="Между своими"/>
                 </Frame>
+                <Label Text="Шаблоны"
+                       TextTransform="Uppercase"
+                       VerticalOptions="Center"
+                       Padding="20,20,0,10"
+                       BackgroundColor="LightGray"/>
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding CreateTemplatesCommand}"/>
