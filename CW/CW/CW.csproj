@@ -87,12 +87,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Behaviors\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Views\NearbyBanksView.xaml.cs">
       <DependentUpon>NearbyBanksView.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Behaviors\" />
   </ItemGroup>
 </Project>

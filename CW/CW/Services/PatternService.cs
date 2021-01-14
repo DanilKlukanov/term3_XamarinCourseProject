@@ -2,8 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace CW.Services
 {
@@ -30,9 +30,9 @@ namespace CW.Services
             }
         }
 
-        public async Task<string> CreatePattern(int user_id, string pattern_name, string bill_number, int amount)
+        public async Task<string> CreatePattern(string pattern_name, string from, string to, int amount)
         {
-            string json = await _client.create_patterns(user_id, pattern_name, bill_number, amount);
+            string json = await _client.create_pattern(App.GetUser().id, pattern_name, from, to, amount);
             try
             {
                 if (json == "\"0\"")
@@ -51,6 +51,40 @@ namespace CW.Services
             catch (Exception ex)
             {
                 return "Возникла непредвиденная ошибка. Повторите позднее.";
+            }
+        }
+
+        public async Task<List<Pattern>> GetPatterns()
+        {
+            try
+            {
+                string json = await _client.get_patterns(App.GetUser().id);
+                return JsonConvert.DeserializeObject<List<Pattern>>(json);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Ошибка", "Нет связи с сервером", "Ок");
+                return new List<Pattern>();
+            }
+        }
+
+        public async Task<Tuple<bool, string>> RemovePattern(string pattern_name)
+        {
+            string json = await _client.remove_pattern(App.GetUser().id, pattern_name);
+            try
+            {
+                if (json == "\"1\"")
+                {
+                    return new Tuple<bool, string>(true, "Удаление выполнено успешно.");
+                }
+                else
+                {
+                    return new Tuple<bool, string>(false, "Невозможно удалить шаблон");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Tuple<bool, string>(false, "Возникла непредвиденная ошибка. Повторите позднее.");
             }
         }
     }

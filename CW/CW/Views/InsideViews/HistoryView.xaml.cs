@@ -16,6 +16,7 @@ namespace CW.Views.InsideViews
         {
             InitializeComponent();
             BindingContext = new HistoryViewModel(Navigation);
+
         }
     }
 }
