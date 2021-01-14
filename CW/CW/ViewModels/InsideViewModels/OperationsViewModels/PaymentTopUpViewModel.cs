@@ -18,7 +18,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         public bool IsCardVisible { get; private set; }
         public bool IsAccountVisible { get; private set; }
         public ValidatableObject<string> UserPassword { get; set; }
-        public string Amount { get; set; }
+        public ValidationInput Amount { get; set; }
         public ICommand ToPayCommand { get; private set; }
         public PaymentTopUpViewModel(BankItem selectedBankItem, BankCard fromCard)
         {
@@ -27,6 +27,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             IsCardVisible = true;
             IsAccountVisible = false;
             ToPayCommand = new Command(ToPay);
+            Amount = new ValidationInput();
             UserPassword = new ValidatableObject<string>();
         }
         public PaymentTopUpViewModel(BankItem selectedBankItem, BankAccount fromAccount)
@@ -36,11 +37,12 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             IsCardVisible = false;
             IsAccountVisible = true;
             ToPayCommand = new Command(ToPay);
+            Amount = new ValidationInput();
             UserPassword = new ValidatableObject<string>();
         }
         private async void ToPay()
         {
-            if (Amount != null)
+            if (Amount.Validate())
             {
                 UserPassword.Value = await Application.Current.MainPage.DisplayPromptAsync("Подтверждение", "Введите пароль");
                 if (UserPassword.Validate())
@@ -67,8 +69,8 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
 
         private async void TransferFromCard(BankCard toCard)
         {
-            int.TryParse(Amount, out int amount);
-            if (FromBankCard.Money - amount >= 0)
+            int.TryParse(Amount.Value, out int amount);
+            if (FromBankCard.Money - amount >= 0 && FromBankCard.Money > 0)
             {
                 string response = await TransactionService.Instance.DoOperation(FromBankCard.Number, toCard.Number, amount);
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
@@ -79,8 +81,8 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         }
         private async void TransferFromAccount(BankCard toCard)
         {
-            int.TryParse(Amount, out int amount);
-            if (FromAccount.Money - amount >= 0)
+            int.TryParse(Amount.Value, out int amount);
+            if (FromAccount.Money - amount >= 0 && FromBankCard.Money > 0)
             {
                 string response = await TransactionService.Instance.DoOperation(FromAccount.Number, toCard.Number, amount);
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");

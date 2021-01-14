@@ -128,7 +128,6 @@ namespace CW.ViewModels
             }
         }
 
-        //private ValidatableObject<string> _userLogin;
         public ValidatableObject<string> UserLogin { get; set; }
 
         public ValidatableObject<string> UserPassword { get; set; }
@@ -158,6 +157,7 @@ namespace CW.ViewModels
             {
                 ValidationMessage = "Username is required."
             });
+
             UserPassword.Validations.Add(new IsNotNullOrEmptyRule<string>
             {
                 ValidationMessage = "Password is required."

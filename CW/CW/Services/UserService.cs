@@ -98,14 +98,17 @@ namespace CW.Services
                 {
                     return "Успех";
                 }
+
                 if (json == "\"1\"")
                 {
                     return "Пароли совпадают";
                 }
+
                 if (json == "\"2\"")
                 {
                     return "Неверный логин";
                 }
+
                 return "Возникла непредвиденная ошибка. Повторите позднее.";
             }
             catch (Exception ex)
