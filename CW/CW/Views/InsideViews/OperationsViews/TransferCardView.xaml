@@ -24,7 +24,7 @@
                            WidthRequest="170"
                            HeightRequest="50">
                         <Entry.Behaviors>
-                            <!--<behaviors:EntryLengthValidatorBehavior MaxLength="16"/>-->
+                            <behaviors:EntryLengthValidatorBehavior MaxLength="20"/>
                             <behaviors:EntrySymbolValidatorBehavior/>
                         </Entry.Behaviors>
                     </Entry>

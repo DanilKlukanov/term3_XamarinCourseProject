@@ -46,9 +46,27 @@ namespace CW.Services
             }
             catch (Exception ex)
             {
-                return "Возникла непредвиденная ошибка. Повторите позднее.";
+                return "Возникла непредвиденная ошибка. Повторите позднее";
             }
 
+        }
+        public async Task<Tuple<bool, string>> CheckCard(string number)
+        {
+            try
+            {
+                string json = await _client.check_card(number);
+                if (json == "\"0\"")
+                {
+                    return new Tuple<bool, string>(false, "Такого номера не существует");
+                } else
+                {
+                    return new Tuple<bool, string> (true, "Карта существует");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Tuple<bool, string>(false, "Возникла непредвиденная ошибка. Повторите позднее"); ;
+            }
         }
 
     }

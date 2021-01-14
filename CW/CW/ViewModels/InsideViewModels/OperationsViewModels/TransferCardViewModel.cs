@@ -1,4 +1,5 @@
 ﻿using CW.Models;
+using CW.Services;
 using CW.Views.InsideViews.OperationsViews;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,6 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         public INavigation Navigation { get; private set; }
         public ICommand OpenTransferTapCommand { get; private set; }
         public ICommand OpenTransferCommand { get; private set; }
-        private string numberCard { get; set; }
-
         public TransferCardViewModel(INavigation navigation, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts, BankItem item)
         {
             Navigation = navigation;
@@ -36,6 +35,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             OpenTransferTapCommand = new Command(OpenTransferTap);
             OpenTransferCommand = new Command(OpenTransfer);
         }
+        private string numberCard = null;
         public string NumberCard
         {
             get { return numberCard; }
@@ -53,9 +53,24 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             var toCard = item as BankCard;
             Navigation.PushAsync(new TransferPageView(new TransferPageViewModel(SelectedBankItem, toCard)));
         }
-        private void OpenTransfer()
+        private async void OpenTransfer()
         {
-            Navigation.PushAsync(new TransferPageView(new TransferPageViewModel(SelectedBankItem, NumberCard)));
+            if (NumberCard == null)
+            {
+                return;
+            }
+            if (NumberCard.Length != 10 && NumberCard.Length <= 20)
+            {
+                var response = await TransactionService.Instance.CheckCard(NumberCard);
+                if (!response.Item1)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", response.Item2, "OK");
+                }
+                else
+                {
+                    await Navigation.PushAsync(new TransferPageView(new TransferPageViewModel(SelectedBankItem, NumberCard)));
+                }
+            }
         }
     }
 }

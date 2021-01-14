@@ -70,7 +70,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         private async void TransferFromCard(BankCard toCard)
         {
             int.TryParse(Amount.Value, out int amount);
-            if (FromBankCard.Money - amount >= 0)
+            if (FromBankCard.Money - amount >= 0 && FromBankCard.Money > 0)
             {
                 string response = await TransactionService.Instance.DoOperation(FromBankCard.Number, toCard.Number, amount);
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
@@ -82,7 +82,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         private async void TransferFromAccount(BankCard toCard)
         {
             int.TryParse(Amount.Value, out int amount);
-            if (FromAccount.Money - amount >= 0)
+            if (FromAccount.Money - amount >= 0 && FromBankCard.Money > 0)
             {
                 string response = await TransactionService.Instance.DoOperation(FromAccount.Number, toCard.Number, amount);
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
