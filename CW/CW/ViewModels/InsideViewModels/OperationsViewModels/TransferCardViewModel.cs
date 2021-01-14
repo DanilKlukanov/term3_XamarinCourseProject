@@ -51,7 +51,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         private void OpenTransferTap(object item)
         {
             var toCard = item as BankCard;
-            Navigation.PushAsync(new TransferPageView(new TransferPageViewModel(SelectedBankItem, toCard)));
+            Navigation.PushAsync(new TransferPageView(new TransferPageViewModel(SelectedBankItem, toCard, "Карта получателя")));
         }
         private async void OpenTransfer()
         {
@@ -59,7 +59,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             {
                 return;
             }
-            if (NumberCard.Length != 10 && NumberCard.Length <= 20)
+            if (NumberCard.Length == 20 || NumberCard.Length == 16)
             {
                 var response = await TransactionService.Instance.CheckCard(NumberCard);
                 if (!response.Item1)
@@ -68,7 +68,15 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
                 }
                 else
                 {
-                    await Navigation.PushAsync(new TransferPageView(new TransferPageViewModel(SelectedBankItem, NumberCard)));
+                    string type = "";
+                    if (NumberCard.Length == 20)
+                    {
+                        type = "Счет получателя";
+                    } else
+                    {
+                        type = "Карта получателя";
+                    }
+                    await Navigation.PushAsync(new TransferPageView(new TransferPageViewModel(SelectedBankItem, NumberCard, type)));
                 }
             }
         }

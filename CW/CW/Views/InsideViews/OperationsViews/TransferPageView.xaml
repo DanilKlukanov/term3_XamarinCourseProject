@@ -31,7 +31,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <StackLayout>
-                    <Label Text="Карта отправителя" 
+                    <Label Text="{Binding PaymentReceiver}" 
                            VerticalOptions="Start"
                            Padding="10,0,0,10"/>
                     <StackLayout Orientation="Horizontal" 
