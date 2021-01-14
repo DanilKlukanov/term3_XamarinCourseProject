@@ -143,5 +143,75 @@ namespace CW.Models
 
             return json;
         }
+        public async Task<string> create_pattern(int user_id, string pattern_name, string from, string to, int amount)
+        {
+            var content = new FormUrlEncodedContent(new[] 
+            { 
+                new KeyValuePair<string, string>("operation", "create_pattern"),
+                new KeyValuePair<string, string>("id", user_id.ToString()),
+                new KeyValuePair<string, string>("name", pattern_name),
+                new KeyValuePair<string, string>("from", from),
+                new KeyValuePair<string, string>("to", to),
+                new KeyValuePair<string, string>("amount", amount.ToString()),
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+            
+            return json;
+        }
+        public async Task<string> get_patterns(int user_id)
+        {
+            var content = new FormUrlEncodedContent(new[] 
+            {
+                new KeyValuePair<string, string>("operation", "get_patterns"),
+                new KeyValuePair<string, string>("id", user_id.ToString()),
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
+        public async Task<string> remove_pattern(int user_id, string user_name)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("operation", "remove_pattern"),
+                new KeyValuePair<string, string>("id", user_id.ToString()),
+                new KeyValuePair<string, string>("name", user_name),
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
+        public async Task<string> get_bills_history(int user_id)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("operation", "get_bills_history"),
+                new KeyValuePair<string, string>("id", user_id.ToString())
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
+        public async Task<string> get_bill_history(string bill_number)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("operation", "get_bill_history"),
+                new KeyValuePair<string, string>("number", bill_number)
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
     }
 }

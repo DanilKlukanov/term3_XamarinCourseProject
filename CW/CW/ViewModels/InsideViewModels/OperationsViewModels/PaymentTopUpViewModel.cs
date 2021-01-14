@@ -45,6 +45,8 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             if (Amount.Validate())
             {
                 UserPassword.Value = await Application.Current.MainPage.DisplayPromptAsync("Подтверждение", "Введите пароль");
+                if (UserPassword.Value == null)
+                    return;
                 if (UserPassword.Validate())
                 {
                     User user = App.GetUser();

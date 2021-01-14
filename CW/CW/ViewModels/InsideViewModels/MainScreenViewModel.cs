@@ -18,6 +18,8 @@ namespace CW.ViewModels.InsideViewModels
 
         public MainScreenViewModel(INavigation navigation)
         {
+            var user = App.GetUser();
+            NameUser = user.firstname + " " + user.surnamme;
             BankCards = new ObservableCollection<BankCard>();
             BankAccounts = new ObservableCollection<BankAccount>();
             BankCredits = new ObservableCollection<BankCredit>();
@@ -31,7 +33,7 @@ namespace CW.ViewModels.InsideViewModels
             OpenBankCardPageCommand = new Command(OpenBankCardPage);
             OpenBankAccountPageCommand = new Command(OpenBankAccounPage);
         }
-
+        public string NameUser { get; private set; }
         public ObservableCollection<BankCard> BankCards { get; private set; }
         public ObservableCollection<BankAccount> BankAccounts { get; private set; }
         public ObservableCollection<BankCredit> BankCredits { get; private set; }

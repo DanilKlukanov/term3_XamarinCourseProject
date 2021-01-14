@@ -4,7 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="CW.Views.InsideViews.HistoryView">
+             x:Class="CW.Views.InsideViews.HistoryView"
+             x:Name="page">
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
@@ -23,10 +24,44 @@
         </StackLayout>
     </Shell.TitleView>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="Pink">
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding AllHistory}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Создать шаблон"
+                                               BackgroundColor="LightGreen"
+                                               Command="{Binding Source={x:Reference page},
+                                               Path=BindingContext.AddPatternCommand}"
+                                               CommandParameter="{Binding}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Grid HeightRequest="55">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding type}"
+                                           Grid.Column="0"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                <Label Text="{Binding time, StringFormat='{}{0:d}'}"
+                                           Grid.Column="1"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                    <Label Text="{Binding amount}"
+                                           Grid.Column="2"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

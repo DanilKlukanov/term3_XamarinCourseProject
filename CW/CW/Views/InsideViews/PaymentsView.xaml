@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:models="clr-namespace:CW.Models"
-             x:Class="CW.Views.InsideViews.PaymentsView">
+             x:Class="CW.Views.InsideViews.PaymentsView"
+             x:Name="page">
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
@@ -33,6 +34,11 @@
     <ContentPage.Content>
         <StackLayout BackgroundColor="LightGray">
             <StackLayout>
+                <Label Text="Платежи"
+                       TextTransform="Uppercase"
+                       VerticalOptions="Center"
+                       Padding="20,10,0,10"
+                       BackgroundColor="LightGray"/>
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding TransferToClientCommand}"/>
@@ -45,12 +51,60 @@
                     </Frame.GestureRecognizers>
                     <Label Text="Между своими"/>
                 </Frame>
-                <Frame>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding CreateTemplatesCommand}"/>
-                    </Frame.GestureRecognizers>
-                    <Label Text="Шаблоны"/>
-                </Frame>
+                <Label Text="Шаблоны"
+                       TextTransform="Uppercase"
+                       VerticalOptions="Center"
+                       Padding="20,20,0,10"
+                       BackgroundColor="LightGray"/>
+                <StackLayout>
+                    <CollectionView ItemsSource="{Binding AllPatterns}"
+                            SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Изменить"
+                                               BackgroundColor="LightGreen"
+                                               Command="{Binding Source={x:Reference page},
+                                               Path=BindingContext.CreatePatternCommand}"
+                                               CommandParameter="{Binding}"/>
+                                            <SwipeItem Text="Удалить"
+                                               BackgroundColor="IndianRed"
+                                               Command="{Binding Source={x:Reference page},
+                                               Path=BindingContext.DeletePatternCommand}"
+                                               CommandParameter="{Binding}"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <Grid HeightRequest="55">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference page},
+                                                                                Path=BindingContext.ExecutePatternCommand}"
+                                                              CommandParameter="{Binding}"/>
+                                        </Grid.GestureRecognizers>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding name}"
+                                           Grid.Column="0"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                        <Label Text="{Binding from}"
+                                           Grid.Column="1"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                        <Label Text="{Binding amount}"
+                                           Grid.Column="2"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                    </Grid>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

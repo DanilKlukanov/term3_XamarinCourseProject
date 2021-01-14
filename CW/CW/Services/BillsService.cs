@@ -43,5 +43,33 @@ namespace CW.Services
                 return new List<Bill>();
             }
         }
+        public async Task<List<History>> GetBillsHistory()
+        {
+            try
+            {
+                string json = await _client.get_bills_history(App.GetUser().id);
+                return JsonConvert.DeserializeObject<List<History>>(json);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Ошибка", "Нет связи с сервером", "Ок");
+                return new List<History>();
+            }
+        }
+
+        public async Task<List<History>> GetBillHistory(string number)
+        {
+            try
+            {
+                string json = await _client.get_bill_history(number);
+                return JsonConvert.DeserializeObject<List<History>>(json);
+            }
+            catch (Exception ex)
+            {
+                
+                await Application.Current.MainPage.DisplayAlert("Ошибка", "Нет связи с сервером", "Ок");
+                return new List<History>();
+            }
+        }
     }
 }
