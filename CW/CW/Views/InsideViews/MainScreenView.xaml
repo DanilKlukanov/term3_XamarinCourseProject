@@ -19,6 +19,11 @@
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
+            <Label Text="{Binding NameUser}"
+                   TextColor="White"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"/>
             <ImageButton Source="user.png"
                          HeightRequest="40"
                          WidthRequest="40"

@@ -66,8 +66,6 @@ namespace CW.ViewModels.InsideViewModels
                 string namePattern = await Application.Current.MainPage.DisplayPromptAsync("Создание шаблона", "Введите название");
                 if (namePattern != null)
                 {
-                    //byte[] bytes = Encoding.Default.GetBytes(namePattern);
-                    //namePattern = Encoding.UTF8.GetString(bytes);
                     string response = await PatternService.Instance.CreatePattern(namePattern, payment.from, payment.to, payment.amount);
                     await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
                 }

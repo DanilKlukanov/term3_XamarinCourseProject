@@ -77,6 +77,11 @@
                                         </SwipeItems>
                                     </SwipeView.RightItems>
                                     <Grid HeightRequest="55">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference page},
+                                                                                Path=BindingContext.ExecutePatternCommand}"
+                                                              CommandParameter="{Binding}"/>
+                                        </Grid.GestureRecognizers>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="3*"/>

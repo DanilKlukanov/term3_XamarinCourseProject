@@ -10,6 +10,7 @@ using CW.Views.InsideViews.PaymentsViews;
 using CW.ViewModels.InsideViewModels.PaymentsViewsModels;
 using CW.Services;
 using System.Linq;
+using CW.Validations;
 
 namespace CW.ViewModels.InsideViewModels
 {
@@ -24,6 +25,7 @@ namespace CW.ViewModels.InsideViewModels
             BankCards = new ObservableCollection<BankCard>();
             BankAccounts = new ObservableCollection<BankAccount>();
             AllPatterns = new ObservableCollection<Pattern>();
+            UserPassword = new ValidatableObject<string>();
 
             LoadListBankItems();
             TransferToClientCommand = new Command(OpenTransferToClient);
@@ -31,12 +33,14 @@ namespace CW.ViewModels.InsideViewModels
             CreatePatternCommand = new Command(OpenCreatePattern);
             OpenProfilePageCommand = new Command(OpenProfilePage);
             DeletePatternCommand = new Command(DeletePattern);
+            ExecutePatternCommand = new Command(ExecutePatternAsync);
             BackCommand = new Command(Back, () => _isEnabled);
         }
 
         public ObservableCollection<Pattern> AllPatterns { get; private set; }
         public ObservableCollection<BankCard> BankCards { get; private set; }
         public ObservableCollection<BankAccount> BankAccounts { get; private set; }
+        public ValidatableObject<string> UserPassword { get; set; }
         public INavigation Navigation { get; private set; }
         public ICommand BackCommand { get; private set; }
         public ICommand TransferToClientCommand { get; private set; }
@@ -44,6 +48,7 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand CreatePatternCommand { get; private set; }
         public ICommand DeletePatternCommand { get; private set; }
+        public ICommand ExecutePatternCommand { get; private set; }
         private async void LoadListBankItems()
         {
             var bills = await BillsService.Instance.GetBills();
@@ -82,8 +87,6 @@ namespace CW.ViewModels.InsideViewModels
                 await Application.Current.MainPage.DisplayAlert("Message", response.Item2, "OK");
             }
         }
-
-
         private void OpenTransferToClient()
         {
             Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation, BankCards, BankAccounts)));
@@ -91,6 +94,46 @@ namespace CW.ViewModels.InsideViewModels
         private void OpenTransferBetweenTheir()
         {
             Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation, BankCards, BankAccounts)));
+        }
+        private async void ExecutePatternAsync(object item)
+        {
+            Pattern selectedPattern = item as Pattern;
+            UserPassword.Value = await Application.Current.MainPage.DisplayPromptAsync("Подтверждение перевода", "Введите пароль");
+            if (UserPassword.Value == null)
+                return;
+            if (UserPassword.Validate())
+            {
+                User user = App.GetUser();
+                Tuple<bool, string> responseCheck = await UserService.Instance.Login(user.login, UserPassword.Value);
+                if (responseCheck.Item1 == true)
+                {
+                    int balance = GetMoney(selectedPattern);
+                    if (balance - selectedPattern.amount >= 0)
+                    {
+                        string response = await TransactionService.Instance.DoOperation(selectedPattern.from, selectedPattern.to, selectedPattern.amount);
+                        await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Message", "Недостаточно средств на карте", "OK");
+                    }
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", "Неправильно введен пароль", "OK");
+                }
+            }
+        }
+        private int GetMoney(Pattern pattern)
+        {
+            if (pattern.from.Length == 16)
+            {
+                return decimal.ToInt32(BankCards.Where(card => card.Number == pattern.from).FirstOrDefault().Money);
+            }
+            else
+            {
+                return decimal.ToInt32(BankAccounts.Where(card => card.Number == pattern.from).FirstOrDefault().Money);
+            }
         }
     }
 }

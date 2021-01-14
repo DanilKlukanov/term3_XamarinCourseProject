@@ -1,9 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:convert="clr-namespace:CW.Converters"
              x:Class="CW.Views.InsideViews.PaymentsViews.CreatePatternView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:BankNumberConverter x:Key="BankCardNumberConverter"
+                                         TypeName="CW.Models.BankCard"/>
+            <convert:BankNumberConverter x:Key="BankAccountNumberConverter"
+                                         TypeName="CW.Models.BankAccount"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand">
+                <Label Text="{Binding Name}"
+                       FontSize="Medium"
+                       Margin="10"/>
+            </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <StackLayout>
                     <Label Text="Карта отправителя" 
@@ -22,7 +37,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <StackLayout>
-                    <Label Text="{Binding PaymentReceiver}" 
+                    <Label Text="{Binding TypeReceiver}" 
                            VerticalOptions="Start"
                            Padding="10,0,0,10"/>
                     <StackLayout Orientation="Horizontal" 
@@ -36,7 +51,7 @@
                 <Entry Text="{Binding Amount.Value}" 
                        Placeholder="Введите сумму"
                        Keyboard="Numeric"/>
-                <Button Text="Оплатить"
+                <Button Text="Изменить"
                         Command="{Binding ChangePatternCommand}"></Button>
             </StackLayout>
         </StackLayout>
