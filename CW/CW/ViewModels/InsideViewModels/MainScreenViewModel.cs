@@ -117,16 +117,16 @@ namespace CW.ViewModels.InsideViewModels
                     IsRefreshing = true;
 
                     BankCards.Clear();
-                    //BankAccounts.Clear();
+                    BankAccounts.Clear();
 
-                    //LoadListBankItems()
+                    //LoadListBankItems();
                     var bills = await BillsService.Instance.GetBills();
 
                     var bankCards = bills.Where(x => x.type != "bill").Select(x => new BankCard(x)).ToList();
-                    //var bankAccounts = bills.Where(x => x.type == "bill").Select(x => new BankAccount(x)).ToList();
+                    var bankAccounts = bills.Where(x => x.type == "bill").Select(x => new BankAccount(x)).ToList();
 
                     bankCards.ForEach(x => BankCards.Add(x));
-                    //bankAccounts.ForEach(x => BankAccounts.Add(x));
+                    bankAccounts.ForEach(x => BankAccounts.Add(x));
 
                     IsRefreshing = false;
                 });
