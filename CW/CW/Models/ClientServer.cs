@@ -130,7 +130,19 @@ namespace CW.Models
 
             return json;
         }
+        public async Task<string> check_card(string number)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                 new KeyValuePair<string, string>("operation", "check_card"),
+                 new KeyValuePair<string, string>("number", number),
+            });
 
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
         public async Task<string> create_pattern(int user_id, string pattern_name, string from, string to, int amount)
         {
             var content = new FormUrlEncodedContent(new[] 
@@ -148,7 +160,6 @@ namespace CW.Models
             
             return json;
         }
-
         public async Task<string> get_patterns(int user_id)
         {
             var content = new FormUrlEncodedContent(new[] 
@@ -162,7 +173,6 @@ namespace CW.Models
 
             return json;
         }
-
         public async Task<string> remove_pattern(int user_id, string user_name)
         {
             var content = new FormUrlEncodedContent(new[]
@@ -177,7 +187,6 @@ namespace CW.Models
 
             return json;
         }
-
         public async Task<string> get_bills_history(int user_id)
         {
             var content = new FormUrlEncodedContent(new[]

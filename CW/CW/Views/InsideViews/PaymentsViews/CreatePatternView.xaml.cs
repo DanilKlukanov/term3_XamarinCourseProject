@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CW.Views.InsideViews
+namespace CW.Views.InsideViews.PaymentsViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PaymentTemplatesView : ContentPage
+    public partial class CreatePatternView : ContentPage
     {
-        public PaymentTemplatesView(PaymentTemplatesViewModel info)
+        public CreatePatternView(CreatePatternViewModel info)
         {
             InitializeComponent();
             BindingContext = info;

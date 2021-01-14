@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CW.Views.InsideViews.PaymentsViews.CreatePatternView">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <StackLayout>
+                    <Label Text="Карта отправителя" 
+                           VerticalOptions="Start"
+                           Padding="10,0,0,10"/>
+                    <StackLayout Orientation="Horizontal" 
+                                 VerticalOptions="EndAndExpand">
+                        <Label Text="{Binding Pattern.from, Converter={StaticResource Key=BankCardNumberConverter}}"
+                               Padding="10,0,0,10"/>
+                    </StackLayout>
+                </StackLayout>
+                <Label Text="{Binding FromCard.Money}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"
+                       Padding="0,0,10,0"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <StackLayout>
+                    <Label Text="{Binding PaymentReceiver}" 
+                           VerticalOptions="Start"
+                           Padding="10,0,0,10"/>
+                    <StackLayout Orientation="Horizontal" 
+                                 VerticalOptions="EndAndExpand">
+                        <Label Text="{Binding Pattern.to, Converter={StaticResource Key=BankCardNumberConverter}}"
+                               Padding="10,0,0,10"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Entry Text="{Binding Amount.Value}" 
+                       Placeholder="Введите сумму"
+                       Keyboard="Numeric"/>
+                <Button Text="Оплатить"
+                        Command="{Binding ChangePatternCommand}"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -56,7 +56,6 @@ namespace CW.ViewModels.InsideViewModels
 
             var patterns = await PatternService.Instance.GetPatterns();
             patterns.ForEach(x => AllPatterns.Add(x));
-            Pattern trash = AllPatterns.Last();
         }
         private void Back()
         {
@@ -69,7 +68,7 @@ namespace CW.ViewModels.InsideViewModels
         private void OpenCreatePattern(object item)
         {
             var selectedPattern = item as Pattern;
-            Navigation.PushAsync(new PaymentTemplatesView(new PaymentTemplatesViewModel(Navigation)));
+            Navigation.PushAsync(new CreatePatternView(new CreatePatternViewModel(selectedPattern)));
         }
         private async void DeletePattern(object item)
         {

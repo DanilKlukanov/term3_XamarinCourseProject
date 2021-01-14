@@ -58,7 +58,7 @@
     <EmbeddedResource Update="Views\InsideViews\PaymentsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\InsideViews\PaymentsViews\PaymentTemplatesView.xaml">
+    <EmbeddedResource Update="Views\InsideViews\PaymentsViews\CreatePatternView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\InsideViews\PaymentsViews\TransferBetweenView.xaml">
