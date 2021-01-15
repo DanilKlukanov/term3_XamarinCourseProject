@@ -41,7 +41,7 @@
                             <ViewCell>
                                 <ViewCell.View>
                                     <Frame CornerRadius="20"
-                                           BackgroundColor="LightSkyBlue"
+                                           BackgroundColor="White"
                                            Margin="50, 20, 50, 20"
                                            HeightRequest="200"
                                            WidthRequest="150">
@@ -55,11 +55,13 @@
                                             <Label Text="{Binding Number, Converter={StaticResource Key=BankCardNumberConverter}}"/>
                                             <StackLayout Orientation="Horizontal">
                                                 <Label Text="{Binding Money}"/>
-                                                <Image Source="{Binding ImgUrl}"
-                                                       HeightRequest="20"
-                                                       WidthRequest="20"
-                                                       HorizontalOptions="EndAndExpand"/>
+                                                <Label Text="{Binding Currency}"/>
                                             </StackLayout>
+                                            <Image Source="{Binding ImgUrl}"
+                                                   HeightRequest="40"
+                                                   WidthRequest="50"
+                                                   HorizontalOptions="EndAndExpand"
+                                                   VerticalOptions="EndAndExpand"/>
                                         </StackLayout>
                                     </Frame>
                                 </ViewCell.View>

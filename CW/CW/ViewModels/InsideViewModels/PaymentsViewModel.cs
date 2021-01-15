@@ -53,8 +53,8 @@ namespace CW.ViewModels.InsideViewModels
         {
             var bills = await BillsService.Instance.GetBills();
 
-            var bankCards = bills.Where(x => x.type != "bill").Select(x => new BankCard(x)).ToList();
-            var bankAccounts = bills.Where(x => x.type == "bill").Select(x => new BankAccount(x)).ToList();
+            var bankCards = bills.Where(x => x.type != "bill" && x.type != "cred").Select(x => new BankCard(x)).ToList();
+            var bankAccounts = bills.Where(x => x.type == "bill" && x.type != "cred").Select(x => new BankAccount(x)).ToList();
 
             bankCards.ForEach(x => BankCards.Add(x));
             bankAccounts.ForEach(x => BankAccounts.Add(x));
