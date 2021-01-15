@@ -6,14 +6,12 @@ namespace CW.Models
 {
     public class BankCard : BankItem
     {
-        public string Number { get; set; }
         public string ImgUrl { get; set; }
 
         public BankCard(Bill bill) : base(bill)
         {
             Name = "Дебетовая карта";
             ImgUrl = bill.type;
-            Number = bill.number;
         }
     }
 }
