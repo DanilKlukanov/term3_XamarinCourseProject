@@ -48,27 +48,12 @@ namespace CW.ViewModels.InsideViewModels
         {
             var bills = await BillsService.Instance.GetBills();
 
-            var bankCards = bills.Where(x => x.type != "bill").Select(x => new BankCard(x)).ToList();
-            var bankAccounts = bills.Where(x => x.type == "bill").Select(x => new BankAccount(x)).ToList();
+            var bankCards = bills.Where(x => x.type != "bill" && x.type != "cred").Select(x => new BankCard(x)).ToList();
+            var bankAccounts = bills.Where(x => x.type == "bill" && x.type != "cred").Select(x => new BankAccount(x)).ToList();
+            var bankCredits = bills.Where(x => x.type == "cred").Select(x => new BankCredit(x)).ToList();
 
             bankCards.ForEach(x => BankCards.Add(x));
             bankAccounts.ForEach(x => BankAccounts.Add(x));
-
-            BankCredits.Add(new BankCredit()
-            {
-                Name = "Ипотека",
-                Date = DateTime.Now,
-                PaymentInfo = "Платеж",
-                Money = 788
-            });
-
-            BankCredits.Add(new BankCredit()
-            {
-                Name = "Кредит наличными",
-                Date = DateTime.Now,
-                PaymentInfo = "Платеж",
-                Money = 1020
-            });
         }
 
         private void Back()
