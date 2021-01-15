@@ -79,7 +79,7 @@ namespace CW.ViewModels.InsideViewModels
                 }
                 if (item.type == "get")
                 {
-                    item.type = "Получение на карту";
+                    item.type = "Входящий перевод";
                 }
             }
         }
