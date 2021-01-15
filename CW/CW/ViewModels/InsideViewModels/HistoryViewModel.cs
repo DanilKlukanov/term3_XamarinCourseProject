@@ -39,7 +39,7 @@ namespace CW.ViewModels.InsideViewModels
         }
         private void ChangeAllHistory()
         {
-            foreach (var item in AllHistory.OrderBy(item => item.time.Date))
+            foreach (var item in AllHistory)
             {
                 if (item.type == "give")
                 {
