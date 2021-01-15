@@ -54,6 +54,7 @@ namespace CW.ViewModels.InsideViewModels
 
             bankCards.ForEach(x => BankCards.Add(x));
             bankAccounts.ForEach(x => BankAccounts.Add(x));
+            bankCredits.ForEach(x => BankCredits.Add(x));
         }
 
         private void Back()
@@ -85,6 +86,7 @@ namespace CW.ViewModels.InsideViewModels
                 Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem)));
             }
         }
+
         private bool isRefreshing = false;
         public bool IsRefreshing
         {

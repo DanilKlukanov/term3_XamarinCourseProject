@@ -200,12 +200,12 @@ namespace CW.Models
 
             return json;
         }
-        public async Task<string> get_bill_history(string bill_number)
+        public async Task<string> get_bill_history(string number)
         {
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", "get_bill_history"),
-                new KeyValuePair<string, string>("number", bill_number)
+                new KeyValuePair<string, string>("number", number)
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
