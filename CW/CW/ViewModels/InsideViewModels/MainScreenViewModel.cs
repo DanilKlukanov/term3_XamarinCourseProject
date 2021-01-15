@@ -52,23 +52,6 @@ namespace CW.ViewModels.InsideViewModels
 
             bankCards.ForEach(x => BankCards.Add(x));
             bankAccounts.ForEach(x => BankAccounts.Add(x));
-            bankCredits.ForEach(x => BankCredits.Add(x));
-
-           /* BankCredits.Add(new BankCredit()
-            {
-                Name = "Ипотека",
-                Date = DateTime.Now,
-                PaymentInfo = "Платеж",
-                Money = 788
-            });
-
-            BankCredits.Add(new BankCredit()
-            {
-                Name = "Кредит наличными",
-                Date = DateTime.Now,
-                PaymentInfo = "Платеж",
-                Money = 1020
-            });*/
         }
 
         private void Back()

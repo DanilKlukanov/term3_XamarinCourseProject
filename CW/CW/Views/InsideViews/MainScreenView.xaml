@@ -57,16 +57,23 @@
                                         <StackLayout Orientation="Horizontal" 
                                                  VerticalOptions="EndAndExpand">
                                             <Image Source="{Binding ImgUrl}"
-                                                   HeightRequest="10"
-                                                   WidthRequest="10"
+                                                   HeightRequest="20"
+                                                   WidthRequest="30"
                                                    Margin="10,0,0,0"/>
                                             <Label Text="{Binding Number, Converter={StaticResource Key=BankCardNumberConverter}}"/>
                                         </StackLayout>
                                     </StackLayout>
-                                    <Label Text="{Binding Money}"
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="EndAndExpand"
+                                                 Padding="10">
+                                        <Label Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
-                                           Padding="0,0,10,0"/>
+                                           Padding="0,0,2,0"/>
+                                        <Label  Text="{Binding Currency}"
+                                                HorizontalOptions="EndAndExpand"
+                                                VerticalOptions="Center"/>
+                                    </StackLayout>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>
@@ -100,10 +107,17 @@
                                                    Padding="5,0,0,0"/>
                                         </StackLayout>
                                     </StackLayout>
-                                    <Label Text="{Binding Money}"
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="EndAndExpand"
+                                                 Padding="10">
+                                        <Label Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
-                                           Padding="0,0,10,0"/>
+                                           Padding="0,0,2,0"/>
+                                        <Label  Text="{Binding Currency}"
+                                                HorizontalOptions="EndAndExpand"
+                                                VerticalOptions="Center"/>
+                                    </StackLayout>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>

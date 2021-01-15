@@ -11,6 +11,7 @@ namespace CW.Models
 
         public BankCard(Bill bill) : base(bill)
         {
+            Name = "Дебетовая карта";
             ImgUrl = bill.type;
             Number = bill.number;
         }

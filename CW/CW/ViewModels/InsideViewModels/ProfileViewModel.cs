@@ -33,6 +33,9 @@ namespace CW.ViewModels.InsideViewModels
             OpenApplicationInfoPageCommand = new Command(OpenApplicationInfoPage);
             Navigation = navigation;
 
+            _newLogin = new ValidatableObject<string>();
+            _newPassword = new ValidatableObject<string>();
+
             AddValidations();
         }
 
