@@ -124,13 +124,12 @@
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout>
-                                        <Label Text="{Binding Name}" 
+                                        <Label Text="{Binding Number}" 
                                                VerticalOptions="Start"
                                                Padding="10,5,0,0"/>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding PaymentInfo}"
+                                            <Label Text="{Binding Currency}"
                                                    Padding="10,0,0,0"/>
-                                            <Label Text="{Binding Date}"/>
                                         </StackLayout>
                                     </StackLayout>
                                     <Label Text="{Binding Money}"
