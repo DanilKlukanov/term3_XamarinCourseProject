@@ -8,14 +8,13 @@ namespace CW.Models
     {
         public string Name { get; set; } //  TODO (dma117)
         public decimal Money { get; set; }
-        public string Cur { get; set; }
+        public string Currency { get; set; }
 
         public BankItem() { }
         public BankItem(Bill bill)
         {
-            Name = "Дебетова карта";
             Money = bill.bal;
-            Cur = bill.cur;
+            Currency = bill.cur;
         }
     }
 }
