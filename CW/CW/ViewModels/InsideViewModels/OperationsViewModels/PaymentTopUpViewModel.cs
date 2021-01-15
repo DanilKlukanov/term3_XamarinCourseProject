@@ -84,7 +84,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         private async void TransferFromAccount(BankCard toCard)
         {
             int.TryParse(Amount.Value, out int amount);
-            if (FromAccount.Money - amount >= 0 && FromBankCard.Money > 0)
+            if (FromAccount.Money - amount >= 0 && FromAccount.Money > 0)
             {
                 string response = await TransactionService.Instance.DoOperation(FromAccount.Number, toCard.Number, amount);
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");

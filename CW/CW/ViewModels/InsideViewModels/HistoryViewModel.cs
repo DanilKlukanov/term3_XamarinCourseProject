@@ -71,7 +71,7 @@ namespace CW.ViewModels.InsideViewModels
 
         private void ChangeHistory()
         {
-            foreach (var item in AllHistory.OrderBy(item => item.time.Date))
+            foreach (var item in AllHistory)
             {
                 if (item.type == "give")
                 {
@@ -79,7 +79,7 @@ namespace CW.ViewModels.InsideViewModels
                 }
                 if (item.type == "get")
                 {
-                    item.type = "Получение на карту";
+                    item.type = "Входящий перевод";
                 }
             }
         }

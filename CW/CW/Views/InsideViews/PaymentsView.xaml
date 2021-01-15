@@ -64,24 +64,24 @@
                                 <SwipeView>
                                     <SwipeView.RightItems>
                                         <SwipeItems>
+                                            <SwipeItem Text="Выполнить"
+                                                       BackgroundColor="AliceBlue"
+                                                       Command="{Binding Source={x:Reference page},
+                                                       Path=BindingContext.ExecutePatternCommand}"
+                                                       CommandParameter="{Binding}"/>
                                             <SwipeItem Text="Изменить"
-                                               BackgroundColor="LightGreen"
-                                               Command="{Binding Source={x:Reference page},
-                                               Path=BindingContext.CreatePatternCommand}"
-                                               CommandParameter="{Binding}"/>
+                                                       BackgroundColor="LightGreen"
+                                                       Command="{Binding Source={x:Reference page},
+                                                       Path=BindingContext.CreatePatternCommand}"
+                                                       CommandParameter="{Binding}"/>
                                             <SwipeItem Text="Удалить"
-                                               BackgroundColor="IndianRed"
-                                               Command="{Binding Source={x:Reference page},
-                                               Path=BindingContext.DeletePatternCommand}"
-                                               CommandParameter="{Binding}"/>
+                                                       BackgroundColor="IndianRed"
+                                                       Command="{Binding Source={x:Reference page},
+                                                       Path=BindingContext.DeletePatternCommand}"
+                                                       CommandParameter="{Binding}"/>
                                         </SwipeItems>
                                     </SwipeView.RightItems>
                                     <Grid HeightRequest="55">
-                                        <Grid.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference page},
-                                                                                Path=BindingContext.ExecutePatternCommand}"
-                                                              CommandParameter="{Binding}"/>
-                                        </Grid.GestureRecognizers>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="3*"/>
