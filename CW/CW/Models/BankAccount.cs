@@ -10,6 +10,7 @@ namespace CW.Models
 
         public BankAccount(Bill bill) : base(bill)
         {
+            Name = "Текущий счет";
             Number = bill.number;
         }
     }
