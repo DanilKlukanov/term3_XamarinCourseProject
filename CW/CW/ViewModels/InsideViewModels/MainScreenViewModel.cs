@@ -54,6 +54,7 @@ namespace CW.ViewModels.InsideViewModels
 
             bankCards.ForEach(x => BankCards.Add(x));
             bankAccounts.ForEach(x => BankAccounts.Add(x));
+            bankCredits.ForEach(x => BankCredits.Add(x));
         }
 
         private void Back()
@@ -88,7 +89,7 @@ namespace CW.ViewModels.InsideViewModels
 
         private async void LoadListHistory()
         {
-            var history = await BillsService.Instance.GetBillHistory();
+            //var history = await BillsService.Instance.GetBillHistory();
 
             //var bankItemhHistory = history.Where(x => x.type != "history").Select(x => new BankCard(x)).ToList();
         }

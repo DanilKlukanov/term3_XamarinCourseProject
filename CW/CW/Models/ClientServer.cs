@@ -130,7 +130,6 @@ namespace CW.Models
 
             return json;
         }
-<<<<<<< HEAD
         public async Task<string> check_card(string number)
         {
             var content = new FormUrlEncodedContent(new[]
@@ -201,20 +200,11 @@ namespace CW.Models
 
             return json;
         }
-        public async Task<string> get_bill_history(string bill_number)
-        {
-            var content = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("operation", "get_bill_history"),
-                new KeyValuePair<string, string>("number", bill_number)
-=======
-
         public async Task<string> get_bill_history(string number)
         {
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", number),
->>>>>>> 2c85df9... Start making get_bill_history
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
