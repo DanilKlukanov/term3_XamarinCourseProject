@@ -36,7 +36,7 @@
             <StackLayout Spacing="0">
                 <Label Text="Платежи"
                        VerticalOptions="Center"
-                       Padding="20,10,0,10"
+                       Padding="20,10,10,10"
                        BackgroundColor="LightGray"/>
                 <Frame Margin="0">
                     <Frame.GestureRecognizers>
