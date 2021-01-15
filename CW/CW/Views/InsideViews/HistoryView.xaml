@@ -47,9 +47,9 @@
                                     </Grid.ColumnDefinitions>
                                     <Label Text="{Binding type}"
                                            Grid.Column="0"
-                                           HorizontalOptions="Center"
+                                           HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"/>
-                                <Label Text="{Binding time, StringFormat='{}{0:d}'}"
+                                    <Label Text="{Binding time}"
                                            Grid.Column="1"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"/>

@@ -33,32 +33,30 @@
     </Shell.TitleView>
     <ContentPage.Content>
         <StackLayout BackgroundColor="LightGray">
-            <StackLayout>
+            <StackLayout Spacing="0">
                 <Label Text="Платежи"
-                       TextTransform="Uppercase"
                        VerticalOptions="Center"
                        Padding="20,10,0,10"
                        BackgroundColor="LightGray"/>
-                <Frame>
+                <Frame Margin="0">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding TransferToClientCommand}"/>
                     </Frame.GestureRecognizers>
                     <Label Text="Клиенту Банка"/>
                 </Frame>
-                <Frame>
+                <Frame Margin="0">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding TransfeBetweenTheirCommand}"/>
                     </Frame.GestureRecognizers>
                     <Label Text="Между своими"/>
                 </Frame>
                 <Label Text="Шаблоны"
-                       TextTransform="Uppercase"
                        VerticalOptions="Center"
-                       Padding="20,20,0,10"
+                       Padding="20,10,0,10"
                        BackgroundColor="LightGray"/>
                 <StackLayout>
                     <CollectionView ItemsSource="{Binding AllPatterns}"
-                            SelectionMode="None">
+                                    SelectionMode="None">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <SwipeView>
@@ -79,8 +77,8 @@
                                     <Grid HeightRequest="55">
                                         <Grid.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference page},
-                                                                                Path=BindingContext.ExecutePatternCommand}"
-                                                              CommandParameter="{Binding}"/>
+                                                                  Path=BindingContext.ExecutePatternCommand}"
+                                                                  CommandParameter="{Binding}"/>
                                         </Grid.GestureRecognizers>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="2*"/>
