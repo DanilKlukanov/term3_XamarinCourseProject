@@ -204,7 +204,8 @@ namespace CW.Models
         {
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("operation", number),
+                new KeyValuePair<string, string>("operation", "get_bill_history"),
+                new KeyValuePair<string, string>("number", number)
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);

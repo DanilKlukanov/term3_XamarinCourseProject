@@ -6,12 +6,14 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using CW.Services;
-
+using CW.Views.InsideViews;
 
 namespace CW.ViewModels.InsideViewModels
 {
     public class BankItemViewModel : BaseViewModel
     {
+        private string _path = "CW.ViewModels.InsideViewModels.";
+
         private ObservableCollection<BankCard> bankCards { get; set; }
         public ObservableCollection<BankAccount> BankAccounts { get; private set; }
         public ObservableCollection<History> BankItemHistory { get; set; }
@@ -21,6 +23,7 @@ namespace CW.ViewModels.InsideViewModels
         public INavigation Navigation { get; private set; }
         public ICommand TopUpCard { get; private set; }
         public ICommand TransferCard { get; private set; }
+        public ICommand HistoryCommand { get; private set; }
 
         public BankItemViewModel(MainScreenViewModel viewModel, BankItem bankItem)
         {
@@ -33,6 +36,7 @@ namespace CW.ViewModels.InsideViewModels
 
             TopUpCard = new Command(TopUp);
             TransferCard = new Command(Transfer);
+            HistoryCommand = new Command(OpenHistory);
         }
 
         public ObservableCollection<BankCard> BankCards
@@ -71,6 +75,9 @@ namespace CW.ViewModels.InsideViewModels
             Navigation.PushAsync(new TransferCardView(new TransferCardViewModel(Navigation, BankCards, BankAccounts, SelectedBankItem)));
         }
 
-       
+        private void OpenHistory()
+        {
+            Navigation.PushAsync(new HistoryView(new HistoryViewModel(Navigation, _path + "BankItemViewModel", this)));
+        }
     }
 }
