@@ -143,7 +143,7 @@
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout>
-                                        <Label Text="{Binding Number}" 
+                                        <Label Text="{Binding Number, StringFormat='Договор №: {0}'}" 
                                                VerticalOptions="Start"
                                                Padding="10,5,0,0"/>
                                         <StackLayout Orientation="Horizontal">
