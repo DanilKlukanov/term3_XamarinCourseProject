@@ -14,6 +14,9 @@ namespace CW.ViewModels.InsideViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
+        private ValidatableObject<string> _newPassword;
+        private ValidatableObject<string> _newLogin;
+
         public INavigation Navigation { get; set; }
         public ICommand LogoutCommand { get; private set; }
         public ICommand ChangeLoginCommand { get; private set; }
@@ -29,6 +32,8 @@ namespace CW.ViewModels.InsideViewModels
             OpenVisitHistoryPageCommand = new Command(OpenVisitHistoryPage);
             OpenApplicationInfoPageCommand = new Command(OpenApplicationInfoPage);
             Navigation = navigation;
+
+            AddValidations();
         }
 
         private void OpenApplicationInfoPage()
@@ -54,57 +59,37 @@ namespace CW.ViewModels.InsideViewModels
 
         private async void ChangePassword()
         {
-            var new_password = new ValidatableObject<string>();
-            new_password.Validations.Add(new IncorrectStringLenghtRule<string>()
-            {
-                ValidationMessage = "Некорректный ввод. Длина пароля должна составлять от 6 до 16 символов"
-            });
-            new_password.Validations.Add(new IncorrectSymbolsRule<string>()
-            {
-                ValidationMessage = "Некорректный ввод. Пароль содержит недопустимые символы."
-            });
+            _newPassword.Value = await Application.Current.MainPage.DisplayPromptAsync("Изменение пароля", "Введите новый пароль");
 
-            new_password.Value = await Application.Current.MainPage.DisplayPromptAsync("Изменение пароля", "Введите новый пароль");
-
-            if (new_password.Value == null)
+            if (_newPassword.Value == null)
                 return;
 
-            if (ValidateInput(new_password))
+            if (ValidateInput(_newPassword))
             {
-                var r = await UserService.Instance.ChangePassword(App.GetUser().login, new_password.Value);
+                var r = await UserService.Instance.ChangePassword(App.GetUser().login, _newPassword.Value);
                 await Application.Current.MainPage.DisplayAlert("Message", r, "OK");
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Message", new_password.Errors[0], "OK");
+                await Application.Current.MainPage.DisplayAlert("Message", _newPassword.Errors[0], "OK");
             }
         }
 
         private async void ChangeLogin()
         {
-            var new_login = new ValidatableObject<string>();
-            new_login.Validations.Add(new IncorrectStringLenghtRule<string>()
-            {
-                ValidationMessage = "Некорректный ввод. Длина логина должна составлять от 6 до 16 символов"
-            });
-            new_login.Validations.Add(new IncorrectSymbolsRule<string>()
-            {
-                ValidationMessage = "Некорректный ввод. Логин содержит недопустимые символы."
-            });
-            
-            new_login.Value = await Application.Current.MainPage.DisplayPromptAsync("Изменение логина", "Введите новый логин");
+            _newLogin.Value = await Application.Current.MainPage.DisplayPromptAsync("Изменение логина", "Введите новый логин");
 
-            if (new_login.Value == null)
+            if (_newLogin.Value == null)
                 return;
 
-            if (ValidateInput(new_login))
+            if (ValidateInput(_newLogin))
             {
-                var response = await UserService.Instance.ChangeLogin(App.GetUser().login, new_login.Value);
+                var response = await UserService.Instance.ChangeLogin(App.GetUser().login, _newLogin.Value);
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Message", new_login.Errors[0], "OK");
+                await Application.Current.MainPage.DisplayAlert("Message", _newLogin.Errors[0], "OK");
             }
         }
 
@@ -117,6 +102,27 @@ namespace CW.ViewModels.InsideViewModels
         private bool ValidateInput<T>(ValidatableObject<T> validatableObject)
         {
             return validatableObject.Validate();
+        }
+
+        private void AddValidations()
+        {
+            _newPassword.Validations.Add(new IncorrectStringLenghtRule<string>()
+            {
+                ValidationMessage = "Некорректный ввод. Длина пароля должна составлять от 6 до 16 символов"
+            });
+            _newPassword.Validations.Add(new IncorrectSymbolsRule<string>()
+            {
+                ValidationMessage = "Некорректный ввод. Пароль содержит недопустимые символы."
+            });
+
+            _newLogin.Validations.Add(new IncorrectStringLenghtRule<string>()
+            {
+                ValidationMessage = "Некорректный ввод. Длина логина должна составлять от 6 до 16 символов"
+            });
+            _newLogin.Validations.Add(new IncorrectSymbolsRule<string>()
+            {
+                ValidationMessage = "Некорректный ввод. Логин содержит недопустимые символы."
+            });
         }
     }
 }
