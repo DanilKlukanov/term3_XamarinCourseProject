@@ -75,7 +75,7 @@
             <StackLayout>
                 <Frame>
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer/>
+                        <TapGestureRecognizer Command="{Binding HistoryCommand}"/>
                     </Frame.GestureRecognizers>
                     <Label Text="История операций"
                            FontSize="Body"/>

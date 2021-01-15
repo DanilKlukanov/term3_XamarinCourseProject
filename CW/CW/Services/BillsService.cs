@@ -66,7 +66,6 @@ namespace CW.Services
             }
             catch (Exception ex)
             {
-                
                 await Application.Current.MainPage.DisplayAlert("Ошибка", "Нет связи с сервером", "Ок");
                 return new List<History>();
             }

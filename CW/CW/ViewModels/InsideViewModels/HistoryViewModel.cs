@@ -9,35 +9,67 @@ using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CW.ViewModels.InsideViewModels.PaymentsViewsModels;
+using System.Threading.Tasks;
 
 namespace CW.ViewModels.InsideViewModels
 {
-    class HistoryViewModel : BaseViewModel
+    public class HistoryViewModel : BaseViewModel
     {
         private bool _isEnabled;
+        
+        public string TypeName { get; set; }
 
-        public HistoryViewModel(INavigation navigation)
+        public HistoryViewModel(INavigation navigation, string type, BankItemViewModel viewModel = null)
         {
             Navigation = navigation;
             _isEnabled = true;
+
             OpenProfilePageCommand = new Command(OpenProfilePage);
             AddPatternCommand = new Command(OnAddPatternAsync);
             BackCommand = new Command(Back, () => _isEnabled);
+
             AllHistory = new ObservableCollection<History>();
-            LoadAllHistory();
+
+            TypeName = type;
+
+            LoadAllHistory(viewModel);
         }
         public ObservableCollection<History> AllHistory { get; private set; }
         public INavigation Navigation { get; private set; }
         public ICommand BackCommand { get; private set; }
         public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand AddPatternCommand { get; private set; }
-        private async void LoadAllHistory()
+
+        private async Task<List<History>> GetHistoryBill(BankItemViewModel viewModel)
         {
-            var historyBills = await BillsService.Instance.GetBillsHistory();
-            historyBills.ForEach(x => AllHistory.Add(x));
-            ChangeAllHistory();
+            return await BillsService.Instance.GetBillHistory(viewModel.SelectedBankItem.Number);
         }
-        private void ChangeAllHistory()
+
+        private async Task<List<History>> GetHistoryBills()
+        {
+            return await BillsService.Instance.GetBillsHistory();
+        }
+
+        private async void LoadAllHistory(BankItemViewModel viewModel)
+        {
+            List<History> histories = new List<History>();
+
+            if (Type.GetType(TypeName) == typeof(BankItemViewModel))
+            {
+                histories = await GetHistoryBill(viewModel);
+            }
+
+            if (Type.GetType(TypeName) == typeof(HistoryView))
+            {
+                histories = await GetHistoryBills();
+            }
+
+            histories.ForEach(x => AllHistory.Add(x));
+
+            ChangeHistory();
+        }
+
+        private void ChangeHistory()
         {
             foreach (var item in AllHistory)
             {
@@ -47,7 +79,7 @@ namespace CW.ViewModels.InsideViewModels
                 }
                 if (item.type == "get")
                 {
-                    item.type = "Получение на карту";
+                    item.type = "Входящий перевод";
                 }
             }
         }

@@ -12,7 +12,7 @@ namespace CW.Services
         private readonly ClientServer _client;
         private static UserService _instance;
 
-        public UserService()
+        private UserService()
         {
             _client = new ClientServer();
         }

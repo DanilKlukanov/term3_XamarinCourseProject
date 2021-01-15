@@ -123,9 +123,19 @@
                 </Grid>
             </Grid>
 
-            <ContentView BackgroundColor="#C0808080" x:Name="form" Padding="0" IsVisible="{Binding IsLoginFormVisible, Mode=OneWay}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="20,0,20,0">
-                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <ContentView BackgroundColor="#C0808080" 
+                         x:Name="form" 
+                         Padding="0" 
+                         IsVisible="{Binding IsLoginFormVisible, Mode=OneWay}" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="FillAndExpand" 
+                             HorizontalOptions="FillAndExpand" 
+                             Margin="20,0,20,0">
+                    <StackLayout Orientation="Vertical" 
+                                 BackgroundColor="Transparent" 
+                                 VerticalOptions="CenterAndExpand" 
+                                 HorizontalOptions="CenterAndExpand">
                         <Frame BackgroundColor="White"
                                CornerRadius="20">
                             <!-- Тут элементы всплывающего окна -->
