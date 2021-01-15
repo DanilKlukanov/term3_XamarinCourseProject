@@ -43,6 +43,7 @@ namespace CW.Services
                 return new List<Bill>();
             }
         }
+<<<<<<< HEAD
         public async Task<List<History>> GetBillsHistory()
         {
             try
@@ -58,10 +59,15 @@ namespace CW.Services
         }
 
         public async Task<List<History>> GetBillHistory(string number)
+=======
+
+        public async Task<List<Bill>> GetBillHistory(string number)
+>>>>>>> 2c85df9... Start making get_bill_history
         {
             try
             {
                 string json = await _client.get_bill_history(number);
+<<<<<<< HEAD
                 return JsonConvert.DeserializeObject<List<History>>(json);
             }
             catch (Exception ex)
@@ -69,6 +75,14 @@ namespace CW.Services
                 
                 await Application.Current.MainPage.DisplayAlert("Ошибка", "Нет связи с сервером", "Ок");
                 return new List<History>();
+=======
+                return JsonConvert.DeserializeObject<List<Operation>>(json);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Ошибка", "Нет связи с сервером", "Ок");
+                return new List<Bill>();
+>>>>>>> 2c85df9... Start making get_bill_history
             }
         }
     }

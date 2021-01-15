@@ -51,36 +51,6 @@ namespace CW.ViewModels
             Rates = new ObservableCollection<ExchangeRatesModel>();
             LoadExchangeRates();
         }
-        private async void LoadExchangeRates()
-        {
-            var valutes = await ExchangesRatesService.Instance.GetExchangesRates();
-            valutes.ForEach(x => Rates.Add(x));
-        }
-
-        private async void Authorize(object obj)
-        {
-            IsButtonEnabled = false;
-
-            if (Validate())
-            {
-                Tuple<bool, string> response = await UserService.Instance.Login(UserLogin.Value, UserPassword.Value);
-
-                if (response.Item1 == true)
-                {
-                    IsLoginFormVisible = false;
-                    MessagingCenter.Send(this, "authorized");
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Message", response.Item2, "OK");
-                    IsButtonEnabled = true;
-                }
-            }
-            else
-            {
-                IsButtonEnabled = true;
-            }
-        }
 
         // Enable or disable all buttons on the current page
         private bool IsButtonEnabled
@@ -132,6 +102,36 @@ namespace CW.ViewModels
 
         public ValidatableObject<string> UserPassword { get; set; }
 
+        private async void LoadExchangeRates()
+        {
+            var valutes = await ExchangesRatesService.Instance.GetExchangesRates();
+            valutes.ForEach(x => Rates.Add(x));
+        }
+
+        private async void Authorize(object obj)
+        {
+            IsButtonEnabled = false;
+
+            if (Validate())
+            {
+                Tuple<bool, string> response = await UserService.Instance.Login(UserLogin.Value, UserPassword.Value);
+
+                if (response.Item1 == true)
+                {
+                    IsLoginFormVisible = false;
+                    MessagingCenter.Send(this, "authorized");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", response.Item2, "OK");
+                    IsButtonEnabled = true;
+                }
+            }
+            else
+            {
+                IsButtonEnabled = true;
+            }
+        }
 
         private void OpenMapPage()
         {
