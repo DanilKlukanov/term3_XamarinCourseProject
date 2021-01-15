@@ -9,6 +9,7 @@ using CW.Models;
 using System.Collections.ObjectModel;
 using CW.Views.InsideViews.Operations;
 using CW.Services;
+using System.Threading.Tasks;
 
 namespace CW.ViewModels.InsideViewModels
 {
@@ -44,7 +45,7 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand OpenBankCardPageCommand { get; private set; }
         public ICommand OpenBankAccountPageCommand { get; private set; }
 
-        private async void LoadListBankItems()
+        private async Task LoadListBankItems()
         {
             var bills = await BillsService.Instance.GetBills();
 
@@ -107,16 +108,9 @@ namespace CW.ViewModels.InsideViewModels
 
                     BankCards.Clear();
                     BankAccounts.Clear();
+                    BankCredits.Clear();
 
-                    //LoadListBankItems();
-                    var bills = await BillsService.Instance.GetBills();
-
-                    var bankCards = bills.Where(x => x.type != "bill").Select(x => new BankCard(x)).ToList();
-                    var bankAccounts = bills.Where(x => x.type == "bill").Select(x => new BankAccount(x)).ToList();
-
-                    bankCards.ForEach(x => BankCards.Add(x));
-                    bankAccounts.ForEach(x => BankAccounts.Add(x));
-
+                    await LoadListBankItems();
                     IsRefreshing = false;
                 });
             }
