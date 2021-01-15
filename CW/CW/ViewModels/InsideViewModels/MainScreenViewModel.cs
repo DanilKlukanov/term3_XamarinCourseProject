@@ -85,6 +85,14 @@ namespace CW.ViewModels.InsideViewModels
                 Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem)));
             }
         }
+
+        private async void LoadListHistory()
+        {
+            var history = await BillsService.Instance.GetBillHistory();
+
+            //var bankItemhHistory = history.Where(x => x.type != "history").Select(x => new BankCard(x)).ToList();
+        }
+
         private bool isRefreshing = false;
         public bool IsRefreshing
         {
