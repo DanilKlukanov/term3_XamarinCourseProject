@@ -6,7 +6,6 @@ namespace CW.Models
 {
     public class User
     {
-        public string login { get; set; }
         public string firstname { get; set; }
         public string surnamme { get; set; }
         public string patronymic { get; set; }
@@ -15,6 +14,7 @@ namespace CW.Models
         public string pseries { get; set; }
         public string pnumber { get; set; }
         public int id { get; set; }
+        public string login { get; set; }
 
         public User()
         {

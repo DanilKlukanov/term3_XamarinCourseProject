@@ -47,14 +47,22 @@ namespace CW.ViewModels.InsideViewModels
 
         private async Task LoadListBankItems()
         {
+            var cards = await BillsService.Instance.GetCards();
             var bills = await BillsService.Instance.GetBills();
+            var credits = await BillsService.Instance.GetCredits();
 
-            var bankCards = bills.Where(x => x.type != "bill" && x.type != "cred").Select(x => new BankCard(x)).ToList();
-            var bankAccounts = bills.Where(x => x.type == "bill" && x.type != "cred").Select(x => new BankAccount(x)).ToList();
-            var bankCredits = bills.Where(x => x.type == "cred").Select(x => new BankCredit(x)).ToList();
+            var bankCards = cards.Select(x => new BankCard(x)).ToList();
+            var bankBills = bills.Select(x => new BankAccount(x)).ToList();
+            var bankCredits = credits.Select(x => new BankCredit(x)).ToList();
+
+
+
+            // bankCards = bills.Where(x => x.type != "bill" && x.type != "cred").Select(x => new BankCard(x)).ToList();
+            //var bankAccounts = bills.Where(x => x.type == "bill" && x.type != "cred").Select(x => new BankAccount(x)).ToList();
+            //var bankCredits = bills.Where(x => x.type == "cred").Select(x => new BankCredit(x)).ToList();
 
             bankCards.ForEach(x => BankCards.Add(x));
-            bankAccounts.ForEach(x => BankAccounts.Add(x));
+            bankBills.ForEach(x => BankAccounts.Add(x));
             bankCredits.ForEach(x => BankCredits.Add(x));
         }
 

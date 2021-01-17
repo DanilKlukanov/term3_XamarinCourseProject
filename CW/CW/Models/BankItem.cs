@@ -7,16 +7,17 @@ namespace CW.Models
     public abstract class BankItem
     {
         public string Name { get; set; } //  TODO (dma117)
-        public decimal Money { get; set; }
+        public double Money { get; set; }
         public string Currency { get; set; }
         public string Number { get; set; }
 
         public BankItem() { }
-        public BankItem(Bill bill)
+        public BankItem(Card card)
         {
-            Money = bill.bal;
-            Currency = bill.cur;
-            Number = bill.number;
+            Money = card.balance;
+            Currency = card.card_currency;
+            Number = card.card_number;
+            Name = card.card_name;
         }
     }
 }

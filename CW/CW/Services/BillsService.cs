@@ -30,19 +30,48 @@ namespace CW.Services
             }
         }
 
-        public async Task<List<Bill>> GetBills()
+        public async Task<List<Card>> GetCards()
         {
             try
             {
-                string json = await _client.get_bills(App.GetUser().id);
-                return JsonConvert.DeserializeObject<List<Bill>>(json);
+                string json = await _client.get_cards(App.GetUser().login);
+                return JsonConvert.DeserializeObject<List<Card>>(json);
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Ошибка", "Нет связи с сервером", "Ок");
-                return new List<Bill>();
+                return new List<Card>();
             }
         }
+
+        public async Task<List<Card>> GetBills()
+        {
+            try
+            {
+                string json = await _client.get_bills(App.GetUser().login);
+                return JsonConvert.DeserializeObject<List<Card>>(json);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Ошибка", "Нет связи с сервером", "Ок");
+                return new List<Card>();
+            }
+        }
+
+        public async Task<List<Credit>> GetCredits()
+        {
+            try
+            {
+                string json = await _client.get_credits(App.GetUser().login);
+                return JsonConvert.DeserializeObject<List<Credit>>(json);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Ошибка", "Нет связи с сервером", "Ок");
+                return new List<Credit>();
+            }
+        }
+
         public async Task<List<History>> GetBillsHistory()
         {
             try

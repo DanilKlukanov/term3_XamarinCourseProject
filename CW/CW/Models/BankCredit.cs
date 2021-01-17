@@ -6,8 +6,15 @@ namespace CW.Models
 {
     public class BankCredit : BankItem
     {
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public string PaymentInfo { get; set; }
-        public BankCredit(Bill bill) : base(bill) { }
+        public BankCredit(Card bill) : base(bill) { }
+
+        public BankCredit(Credit credit)
+        {
+            Number = credit.credit_number;
+            Money = credit.balance;
+            Date = credit.pay_time;
+        }
     }
 }
