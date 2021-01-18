@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Globalization;
+using CW.Views;
 
 namespace CW.Services
 {
@@ -31,7 +32,7 @@ namespace CW.Services
 
         public Task InitializeAsync()
         {
-            throw new NotImplementedException();
+            return NavigateToAsync<LoginViewModel>();
         }
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel
@@ -49,17 +50,49 @@ namespace CW.Services
             throw new NotImplementedException();
         }
 
-        public Task RemoveLastFromBackStackAsync()
+        public async Task RemoveLastFromBackStackAsync()
         {
-            throw new NotImplementedException();
+            var currentPage = (Shell.Current?.CurrentItem?.CurrentItem as IShellSectionController)?.PresentedPage as Page;
+
+            if (currentPage != null)
+            {
+                await currentPage.Navigation.PopAsync();
+            }
+            else
+            {
+                await Application.Current.MainPage.Navigation.PopAsync();
+            }
+
+            return;
         }
 
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
         {
             var page = CreatePage(viewModelType);
-            var currentPage = (Shell.Current.CurrentItem.CurrentItem as IShellSectionController).PresentedPage as Page;
-            await currentPage.Navigation.PushAsync(page);
-            //(page.BindingContext as BaseViewModel).InitializeAsync(parameter);
+
+            if (page is LoginView)
+            {
+                Application.Current.MainPage = new NavigationPage(page);
+            } 
+            else
+            {
+                var currentPage = (Shell.Current?.CurrentItem?.CurrentItem as IShellSectionController)?.PresentedPage as Page;
+
+                if (currentPage != null)
+                {
+                    await currentPage.Navigation.PushAsync(page);
+                }
+                else if (Application.Current.MainPage.Navigation.NavigationStack.Count > 0)
+                {
+                    await Application.Current.MainPage.Navigation.PushAsync(page);
+                }
+                else
+                {
+                    Application.Current.MainPage = new NavigationPage(page);
+                }
+            }
+
+            await (page.BindingContext as BaseViewModel).InitializeAsync(parameter);
         }
 
         private Page CreatePage(Type viewModelType)

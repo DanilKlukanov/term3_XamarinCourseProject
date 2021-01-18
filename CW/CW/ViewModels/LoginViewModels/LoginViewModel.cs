@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 
 namespace CW.ViewModels
 {
-    public class StartPageViewModel : BaseViewModel
+    public class LoginViewModel : BaseViewModel
     {
         public ObservableCollection<ExchangeRatesModel> Rates { get; private set; }
         public ICommand AuthorizationCommand { get; protected set; }
@@ -30,7 +30,7 @@ namespace CW.ViewModels
         private bool _isButtonEnabled;
         public string CharCode { get; protected set; }
 
-        public StartPageViewModel()
+        public LoginViewModel()
         {
             _isButtonEnabled = true;
             AuthorizationCommand = new Command(Authorize, (_) => IsButtonEnabled);
@@ -46,9 +46,8 @@ namespace CW.ViewModels
             });
             UserLogin = new ValidatableObject<string>();
             UserPassword = new ValidatableObject<string>();
-            AddValidations();
 
-            Rates = new ObservableCollection<ExchangeRatesModel>();
+            AddValidations();
             LoadExchangeRates();
         }
 
@@ -105,7 +104,9 @@ namespace CW.ViewModels
         private async void LoadExchangeRates()
         {
             var valutes = await ExchangesRatesService.Instance.GetExchangesRates();
-            valutes.ForEach(x => Rates.Add(x));
+            Rates = new ObservableCollection<ExchangeRatesModel>(valutes);
+            //valutes.ForEach(x => Rates.Add(x));
+
         }
 
         private async void Authorize(object obj)
@@ -119,7 +120,7 @@ namespace CW.ViewModels
                 if (response.Item1 == true)
                 {
                     IsLoginFormVisible = false;
-                    MessagingCenter.Send(this, "authorized");
+                    //MessagingCenter.Send(this, "authorized");
                 }
                 else
                 {
@@ -136,19 +137,19 @@ namespace CW.ViewModels
         private void OpenMapPage()
         {
             IsButtonEnabled = false;
-            Navigation.PushAsync(new NearbyBanksView(this));
+            NavigationService.Instance.NavigateToAsync<NearbyBanksViewModel>(this);
         }
 
         private void OpenExchangesRatesPage()
         {
             IsButtonEnabled = false;
-            Navigation.PushAsync(new ExchangeRates(this));
+            NavigationService.Instance.NavigateToAsync<ExchangesRatesViewModel>(this);
         }
 
         private void Back()
         {
             IsButtonEnabled = true;
-            Navigation.PopAsync();
+            NavigationService.Instance.RemoveLastFromBackStackAsync();
         }
 
         private void AddValidations()
