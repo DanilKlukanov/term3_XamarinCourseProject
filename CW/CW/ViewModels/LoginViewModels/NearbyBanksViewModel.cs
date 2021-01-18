@@ -11,7 +11,7 @@ namespace CW.ViewModels
 {
     public class NearbyBanksViewModel : BaseViewModel
     {
-        public StartPageViewModel StartViewModel { get; private set; }
+        public LoginViewModel StartViewModel { get; private set; }
 
         private ObservableCollection<Place> _places;
         public ObservableCollection<Place> Places
@@ -41,7 +41,7 @@ namespace CW.ViewModels
             }
         }
 
-        public NearbyBanksViewModel(StartPageViewModel startViewModel)
+        public NearbyBanksViewModel(LoginViewModel startViewModel)
         {
             StartViewModel = startViewModel;
             _places = new ObservableCollection<Place>();
@@ -50,7 +50,25 @@ namespace CW.ViewModels
             GetUserLocation();
         }
 
-        
+        public NearbyBanksViewModel()
+        {
+            _places = new ObservableCollection<Place>();
+
+            // TODO (kekouke): Catch exception
+            GetUserLocation();
+        }
+
+
+        public override Task InitializeAsync(object parameter)
+        {
+            if (parameter != null)
+            {
+                var viewModel = parameter as LoginViewModel;
+                StartViewModel = viewModel;
+            }
+
+            return base.InitializeAsync(parameter);
+        }
 
         private async void GetUserLocation()
         {

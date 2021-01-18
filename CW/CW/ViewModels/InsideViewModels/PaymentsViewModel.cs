@@ -53,14 +53,14 @@ namespace CW.ViewModels.InsideViewModels
         {
             var bills = await BillsService.Instance.GetBills();
 
-            var bankCards = bills.Where(x => x.type != "bill" && x.type != "cred").Select(x => new BankCard(x)).ToList();
-            var bankAccounts = bills.Where(x => x.type == "bill" && x.type != "cred").Select(x => new BankAccount(x)).ToList();
+            //var bankCards = bills.Where(x => x.type != "bill" && x.type != "cred").Select(x => new BankCard(x)).ToList();
+            //var bankAccounts = bills.Where(x => x.type == "bill" && x.type != "cred").Select(x => new BankAccount(x)).ToList();
 
-            bankCards.ForEach(x => BankCards.Add(x));
-            bankAccounts.ForEach(x => BankAccounts.Add(x));
+            //bankCards.ForEach(x => BankCards.Add(x));
+            //bankAccounts.ForEach(x => BankAccounts.Add(x));
 
-            var patterns = await PatternService.Instance.GetPatterns();
-            patterns.ForEach(x => AllPatterns.Add(x));
+            //var patterns = await PatternService.Instance.GetPatterns();
+            //patterns.ForEach(x => AllPatterns.Add(x));
         }
         private void Back()
         {
@@ -126,14 +126,15 @@ namespace CW.ViewModels.InsideViewModels
         }
         private int GetMoney(Pattern pattern)
         {
-            if (pattern.from.Length == 16)
-            {
-                return decimal.ToInt32(BankCards.Where(card => card.Number == pattern.from).FirstOrDefault().Money);
-            }
-            else
-            {
-                return decimal.ToInt32(BankAccounts.Where(card => card.Number == pattern.from).FirstOrDefault().Money);
-            }
+            /*            if (pattern.from.Length == 16)
+                        {
+                            return decimal.ToInt32(BankCards.Where(card => card.Number == pattern.from).FirstOrDefault().Money);
+                        }
+                        else
+                        {
+                            return decimal.ToInt32(BankAccounts.Where(card => card.Number == pattern.from).FirstOrDefault().Money);
+                        }*/
+            return 1;
         }
     }
 }

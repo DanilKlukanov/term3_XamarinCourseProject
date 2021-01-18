@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\ExchangeRates.xaml">
+    <EmbeddedResource Update="Views\LoginViews\ExchangesRatesView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\InsideViews\ApplicationInfoView.xaml">
@@ -81,17 +81,23 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Map.xaml">
 	</EmbeddedResource>
-    <EmbeddedResource Update="Views\NearbyBanksView.xaml">
+    <EmbeddedResource Update="Views\LoginViews\NearbyBanksView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\StartPage.xaml">
+    <EmbeddedResource Update="Views\LoginViews\LoginView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\NearbyBanksView.xaml.cs">
+    <Compile Update="Views\LoginViews\ExchangesRatesView.xaml.cs">
+      <DependentUpon>ExchangesRatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\LoginViews\NearbyBanksView.xaml.cs">
       <DependentUpon>NearbyBanksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\LoginViews\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

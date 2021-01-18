@@ -51,7 +51,7 @@ namespace CW.ViewModels.InsideViewModels
         }
 
         private async void LoadAllHistory(BankItemViewModel viewModel)
-        {
+        {      
             List<History> histories = new List<History>();
 
             if (Type.GetType(TypeName) == typeof(BankItemViewModel))

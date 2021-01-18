@@ -10,7 +10,6 @@ using Xamarin.Forms.Xaml;
 
 namespace CW.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NearbyBanksView : ContentPage
     {
         private NearbyBanksViewModel ViewModel { get; set; }
@@ -19,12 +18,12 @@ namespace CW.Views
             InitializeComponent();
         }
 
-        public NearbyBanksView(StartPageViewModel s) : this()
+/*        public NearbyBanksView(LoginViewModel s) : this()
         {
             ViewModel = new NearbyBanksViewModel(s);
             BindingContext = ViewModel;
-        }
+        }*/
 
-        protected override void OnDisappearing() => ViewModel.StartViewModel.ClosePageCommand.Execute(null);
+        protected override void OnDisappearing() => (BindingContext as NearbyBanksViewModel).StartViewModel.ClosePageCommand.Execute(null);
     }
 }

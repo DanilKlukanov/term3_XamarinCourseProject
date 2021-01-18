@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
              xmlns:convert="clr-namespace:CW.Converters"
-             x:Class="CW.Views.StartPage">
+             x:Class="CW.Views.LoginView"
+             xmlns:viewModelBase="clr-namespace:CW.ViewModels.ViewModelBase"
+             viewModelBase:ViewModelLocator.AutoWireViewModel="True">
 
     <ContentPage.Resources>
         <ResourceDictionary>

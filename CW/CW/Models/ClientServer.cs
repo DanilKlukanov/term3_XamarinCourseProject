@@ -21,9 +21,9 @@ namespace CW.Models
            var content = new FormUrlEncodedContent(new[]
            {
 
-                new KeyValuePair<string, string>("operation", "login"),
+                new KeyValuePair<string, string>("operation", nameof(login)),
                 new KeyValuePair<string, string>("login", username),
-                new KeyValuePair<string, string>("pass", password)
+                new KeyValuePair<string, string>("password", password)
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -32,11 +32,11 @@ namespace CW.Models
             return json;
         }
 
-        public async Task<string> find_user_with_login(string username)
+        public async Task<string> get_user_data(string username)
         {
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("operation", "find_user_with_login"),
+                new KeyValuePair<string, string>("operation", nameof(get_user_data)),
                 new KeyValuePair<string, string>("login", username)
 
             });
@@ -47,12 +47,12 @@ namespace CW.Models
             return json;
         }
 
-        public async Task<string> add_visit(int id)
+        public async Task<string> add_visit(string login)
         {
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("operation", "add_visit"),
-                new KeyValuePair<string, string>("id", id.ToString())
+                new KeyValuePair<string, string>("operation", nameof(add_visit)),
+                new KeyValuePair<string, string>("login", login)
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -64,9 +64,9 @@ namespace CW.Models
         {
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("operation", "change_password"),
+                new KeyValuePair<string, string>("operation", nameof(change_password)),
                 new KeyValuePair<string, string>("login", login),
-                new KeyValuePair<string, string>("new", new_password)
+                new KeyValuePair<string, string>("new_password", new_password)
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -78,9 +78,9 @@ namespace CW.Models
         {
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("operation", "change_login"),
+                new KeyValuePair<string, string>("operation", nameof(change_login)),
                 new KeyValuePair<string, string>("login", login),
-                new KeyValuePair<string, string>("new", new_login)
+                new KeyValuePair<string, string>("new_login", new_login)
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -88,12 +88,12 @@ namespace CW.Models
             return json;
         }
 
-        public async Task<string> get_auth_history(int id)
+        public async Task<string> get_auth_history(string login)
         {
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("operation", "get_auth_history"),
-                new KeyValuePair<string, string>("id", id.ToString())
+                new KeyValuePair<string, string>("operation", nameof(get_auth_history)),
+                new KeyValuePair<string, string>("login", login)
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -101,12 +101,40 @@ namespace CW.Models
             return json;
         }
 
-        public async Task<string> get_bills(int id)
+        public async Task<string> get_cards(string login)
         {
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("operation", "get_bills"),
-                new KeyValuePair<string, string>("id", id.ToString())
+                new KeyValuePair<string, string>("operation", nameof(get_cards)),
+                new KeyValuePair<string, string>("login", login)
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
+
+        public async Task<string> get_bills(string login)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("operation", nameof(get_bills)),
+                new KeyValuePair<string, string>("login", login)
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
+
+        public async Task<string> get_credits(string login)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("operation", nameof(get_credits)),
+                new KeyValuePair<string, string>("login", login)
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);

@@ -6,6 +6,8 @@ using CW.ViewModels;
 using CW.Services.MessagingService;
 using CW.Views.InsideViews;
 using CW.Models;
+using System.Threading.Tasks;
+using CW.Services;
 
 namespace CW
 {
@@ -18,14 +20,14 @@ namespace CW
 
             MessagingService.Instance.Subscribe();
 
-            MainPage = CreateStartPage();
-            
+            //MainPage = CreateStartPage();
+            InitNavigation();
             //MainPage = new RootPageView();
         }
 
         public static Page CreateStartPage()
         {
-            NavigationPage page = new NavigationPage(new StartPage());
+            NavigationPage page = new NavigationPage(new LoginView());
             page.BarBackgroundColor = Color.FromHex("#86c5da");
             return page;
         }
@@ -38,6 +40,11 @@ namespace CW
         public static void SetUser(User u)
         {
             user = u;
+        }
+
+        private Task InitNavigation()
+        {
+            return NavigationService.Instance.InitializeAsync();
         }
 
         private static User user;

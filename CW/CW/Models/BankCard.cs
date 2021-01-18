@@ -6,12 +6,14 @@ namespace CW.Models
 {
     public class BankCard : BankItem
     {
+        public bool IsBlocked { get; set; }
+        public float Balance { get; set; }
         public string ImgUrl { get; set; }
 
-        public BankCard(Bill bill) : base(bill)
+        public BankCard(Card card) : base(card)
         {
-            Name = "Дебетовая карта";
-            ImgUrl = bill.type;
+            ImgUrl = card.card_type;
+            IsBlocked = card.card_blocked;
         }
     }
 }

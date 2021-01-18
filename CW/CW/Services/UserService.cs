@@ -38,11 +38,14 @@ namespace CW.Services
 
                     json = await _client.login(username, password);
 
-                    if (json == "\"0\"")
+                    if (json == "\"1\"")
                     {
-                        json = await _client.find_user_with_login(username);
-                        App.SetUser(JsonConvert.DeserializeObject<User>(json));
-                        json = await _client.add_visit(App.GetUser().id);
+                        json = await _client.get_user_data(username);
+                        var user = JsonConvert.DeserializeObject<User>(json);
+                        user.login = username;
+
+                        App.SetUser(user);
+                        json = await _client.add_visit(username);
                         return new Tuple<bool, string>(true, "");
                     }
                     return new Tuple<bool, string>(false, "Неверный логин или пароль");
@@ -64,7 +67,7 @@ namespace CW.Services
             {
                 string json = await _client.change_login(login, new_login);
 
-                if (json == "\"0\"")
+                if (json == "\"1\"")
                 {
                     User user = App.GetUser();
                     user.login = new_login;
@@ -72,14 +75,7 @@ namespace CW.Services
 
                     return "Успех.";
                 }
-                if (json == "\"1\"")
-                {
-                    return "Ошибка. Логин совпадает";
-                }
-                if (json == "\"2\"")
-                {
-                    return "Неверный логин";
-                }
+                
                 return "Ошибка.";
             }
             catch (Exception ex)
@@ -94,19 +90,9 @@ namespace CW.Services
             {
                 string json = await _client.change_password(login, new_password);
 
-                if (json == "\"0\"")
-                {
-                    return "Успех";
-                }
-
                 if (json == "\"1\"")
                 {
-                    return "Пароли совпадают";
-                }
-
-                if (json == "\"2\"")
-                {
-                    return "Неверный логин";
+                    return "Успех";
                 }
 
                 return "Возникла непредвиденная ошибка. Повторите позднее.";
@@ -118,9 +104,9 @@ namespace CW.Services
             
         }
 
-        public async Task<string> GetVisitHistory(int id)
+        public async Task<string> GetVisitHistory(string login)
         {
-            string json = await _client.get_auth_history(id);
+            string json = await _client.get_auth_history(login);
             return json;
         }
     }

@@ -5,7 +5,9 @@
              xmlns:map="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              xmlns:local="clr-namespace:CW.Models"
              xmlns:convert="clr-namespace:CW.Converters"
-             x:Class="CW.Views.NearbyBanksView">
+             x:Class="CW.Views.NearbyBanksView"
+             xmlns:viewModelBase="clr-namespace:CW.ViewModels.ViewModelBase"
+             viewModelBase:ViewModelLocator.AutoWireViewModel="True">
 
     <ContentPage.Resources>
         <ResourceDictionary>
