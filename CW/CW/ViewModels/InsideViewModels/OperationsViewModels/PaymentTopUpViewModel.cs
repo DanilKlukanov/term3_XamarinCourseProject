@@ -74,7 +74,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             int.TryParse(Amount.Value, out int amount);
             if (FromBankCard.Money - amount >= 0 && FromBankCard.Money > 0)
             {
-                string response = await TransactionService.Instance.DoOperation(FromBankCard.Number, toCard.Number, amount);
+                string response = await TransactionService.Instance.DoTransfer(FromBankCard.Number, toCard.Number, amount);
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
             } else
             {
@@ -86,7 +86,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             int.TryParse(Amount.Value, out int amount);
             if (FromAccount.Money - amount >= 0 && FromAccount.Money > 0)
             {
-                string response = await TransactionService.Instance.DoOperation(FromAccount.Number, toCard.Number, amount);
+                string response = await TransactionService.Instance.DoTransfer(FromAccount.Number, toCard.Number, amount);
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
             } else
             {

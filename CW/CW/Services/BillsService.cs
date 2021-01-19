@@ -72,11 +72,11 @@ namespace CW.Services
             }
         }
 
-        public async Task<List<History>> GetBillsHistory()
+        public async Task<List<History>> GetHistory()
         {
             try
             {
-                string json = await _client.get_bills_history(App.GetUser().id);
+                string json = await _client.get_history(App.GetUser().login);
                 return JsonConvert.DeserializeObject<List<History>>(json);
             }
             catch (Exception ex)
@@ -86,11 +86,11 @@ namespace CW.Services
             }
         }
 
-        public async Task<List<History>> GetBillHistory(string number)
+        public async Task<List<History>> GetPartHistory(string number)
         {
             try
             {
-                string json = await _client.get_bill_history(number);
+                string json = await _client.get_part_history(number);
                 return JsonConvert.DeserializeObject<List<History>>(json);
             }
             catch (Exception ex)

@@ -28,20 +28,17 @@ namespace CW.Services
                 return _instance;
             }
         }
-        public async Task<string> DoOperation(string number_from, string number_to, int amount)
+        public async Task<string> DoTransfer(string number_from, string number_to, int amount)
         {
             try
             {
-                string json = await _client.do_operation(number_from, number_to, amount);
+                string json = await _client.do_transfer(number_from, number_to, amount);
                 if (json == "\"0\"")
                 {
-                    return "Операция успешно выполнена";
-                }  else if (json == "\"1\"")
-                {
-                    return "Такого номера не существует";
+                    return "Неудача";
                 } else
                 {
-                    return "Разные валюты";
+                    return "Операция успешно выполнена";
                 }
             }
             catch (Exception ex)
@@ -50,11 +47,11 @@ namespace CW.Services
             }
 
         }
-        public async Task<Tuple<bool, string>> CheckCard(string number)
+        public async Task<Tuple<bool, string>> CanTransferTo(string number)
         {
             try
             {
-                string json = await _client.check_card(number);
+                string json = await _client.can_transfer_to(number);
                 if (json == "\"0\"")
                 {
                     return new Tuple<bool, string>(false, "Такого номера не существует");

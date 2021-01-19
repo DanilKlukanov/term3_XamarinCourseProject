@@ -120,7 +120,7 @@ namespace CW.ViewModels
                 if (response.Item1 == true)
                 {
                     IsLoginFormVisible = false;
-                    //MessagingCenter.Send(this, "authorized");
+                    MessagingCenter.Send(this, "authorized");
                 }
                 else
                 {

@@ -56,11 +56,11 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
                         {
                             if (NumberToCard == null)
                             {
-                                string response = await TransactionService.Instance.DoOperation(FromCard.Number, ToCard.Number, amount);
+                                string response = await TransactionService.Instance.DoTransfer(FromCard.Number, ToCard.Number, amount);
                                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
                             } else
                             {
-                                string response = await TransactionService.Instance.DoOperation(FromCard.Number, NumberToCard, amount);
+                                string response = await TransactionService.Instance.DoTransfer(FromCard.Number, NumberToCard, amount);
                                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
                             }
                         }

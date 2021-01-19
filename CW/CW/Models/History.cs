@@ -6,10 +6,11 @@ namespace CW.Models
 {
     public class History
     {
-        public int amount { get; set; }
-        public string from { get; set; }
-        public DateTime time { get; set; }
-        public string to { get; set; }
-        public string type { get; set; }
+        public string user_number { get; set; }
+        public string other_number { get; set; }
+        public double amount { get; set; }
+        public string operation_currency { get; set; }
+        public string operation_type { get; set; }
+        public DateTime operation_time { get; set; }
     }
 }
