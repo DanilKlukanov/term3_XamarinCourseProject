@@ -66,11 +66,22 @@ namespace CW.ViewModels.InsideViewModels
 
             histories.ForEach(x => AllHistory.Add(x));
 
-            //ChangeHistory();
+            ChangeHistory();
         }
 
         private void ChangeHistory()
         {
+            foreach(History item in AllHistory)
+            {
+                if (item.operation_type == "give")
+                {
+                    item.operation_type = "Перевод";
+                }
+                if (item.operation_type == "get")
+                {
+                    item.operation_type = "Входящий перевод";
+                }
+            }
 
         }
         private void Back()
