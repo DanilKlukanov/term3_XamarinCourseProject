@@ -34,7 +34,7 @@
         </StackLayout>
     </Shell.TitleView>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="White">
+        <StackLayout BackgroundColor="White" Spacing="0">
             <Label Text="Мои карты"
                    TextTransform="Uppercase"
                    VerticalOptions="Center"
@@ -49,13 +49,19 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
-                                <StackLayout Orientation="Horizontal">
-                                    <StackLayout.GestureRecognizers>
+                                <Grid HeightRequest="54">
+                                    <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference page},
-                                                                                Path=BindingContext.OpenBankCardPageCommand}"
+                                                              Path=BindingContext.OpenBankCardPageCommand}"
                                                               CommandParameter="{Binding}"/>
-                                    </StackLayout.GestureRecognizers>
-                                    <StackLayout>
+                                    </Grid.GestureRecognizers>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="1.45*"/>
+                                        <ColumnDefinition Width="0.55*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0">
                                         <Label Text="{Binding Name}" 
                                            VerticalOptions="Start"
                                            Padding="10,0,0,10"/>
@@ -67,19 +73,18 @@
                                                    Margin="10,0,0,0"/>
                                             <Label Text="{Binding Number, Converter={StaticResource Key=BankCardNumberConverter}}"/>
                                         </StackLayout>
-                                    </StackLayout>
-                                    <StackLayout Orientation="Horizontal"
-                                                 HorizontalOptions="EndAndExpand"
-                                                 Padding="10">
-                                        <Label Text="{Binding Money}"
+                                    </Grid>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
-                                           Padding="0,0,2,0"/>
-                                        <Label  Text="{Binding Currency}"
-                                                HorizontalOptions="EndAndExpand"
-                                                VerticalOptions="Center"/>
-                                    </StackLayout>
-                                </StackLayout>
+                                           Padding="40,0,0,0"/>
+                                    <Label Grid.Column="2"
+                                           Padding="0,0,10,0"
+                                           Text="{Binding Currency}"
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="Center"/>
+                                </Grid>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
@@ -97,33 +102,35 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
-                                <StackLayout Orientation="Horizontal">
-                                    <StackLayout.GestureRecognizers>
+                                <Grid HeightRequest="54">
+                                    <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference page}, 
-                                                                                Path=BindingContext.OpenBankAccountPageCommand}"
+                                                              Path=BindingContext.OpenBankAccountPageCommand}"
                                                               CommandParameter="{Binding}"/>
-                                    </StackLayout.GestureRecognizers>
-                                    <StackLayout>
+                                    </Grid.GestureRecognizers>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="1.45*"/>
+                                        <ColumnDefinition Width="0.55*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
                                         <Label Text="{Binding Name}" 
                                                VerticalOptions="Start"
-                                               Padding="10,5,0,0"/>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding Number, Converter={StaticResource Key=BankAccountNumberConverter}}"
-                                                   Padding="5,0,0,0"/>
-                                        </StackLayout>
-                                    </StackLayout>
-                                    <StackLayout Orientation="Horizontal"
-                                                 HorizontalOptions="EndAndExpand"
-                                                 Padding="10">
-                                        <Label Text="{Binding Money}"
+                                               Padding="10,0,0,10"/>
+                                        <Label Text="{Binding Number, Converter={StaticResource Key=BankAccountNumberConverter}}"
+                                               Padding="10,30,0,0"/>
+                                    </Grid>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Money}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
-                                           Padding="0,0,2,0"/>
-                                        <Label  Text="{Binding Currency}"
-                                                HorizontalOptions="EndAndExpand"
-                                                VerticalOptions="Center"/>
-                                    </StackLayout>
-                                </StackLayout>
+                                           Padding="40,0,0,0"/>
+                                    <Label Grid.Column="2"
+                                           Padding="0,0,10,0"
+                                           Text="{Binding Currency}"
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="Center"/>
+                                </Grid>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
@@ -136,30 +143,36 @@
                    Padding="20,10,0,10"
                    BackgroundColor="LightGray"/>
             <ListView ItemsSource="{Binding BankCredits}"
-                      HasUnevenRows="True">
+                      HasUnevenRows="True"
+                      SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
-                                <StackLayout Orientation="Horizontal">
-                                    <StackLayout>
+                                <Grid HeightRequest="54">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="1.45*"/>
+                                        <ColumnDefinition Width="0.55*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
                                         <Label Text="{Binding Number, StringFormat='Договор №: {0}'}" 
                                                VerticalOptions="Start"
-                                               Padding="10,5,0,0"/>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding Date}"
-                                                   Padding="10,0,0,0"/>
-                                        </StackLayout>
-                                    </StackLayout>
-                                    <Label Text="{Binding Money}"
+                                               Padding="10,0,0,10"/>
+                                        <Label Text="{Binding Date}"
+                                               Padding="10,30,0,0"/>
+                                    </Grid>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Money}"
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="Center"
+                                           Padding="40,0,0,0"/>
+                                    <Label Grid.Column="2"
+                                           Text="{Binding Currency}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
                                            Padding="0,0,10,0"/>
-                                    <Label Text="{Binding Currency}"
-                                           HorizontalOptions="EndAndExpand"
-                                           VerticalOptions="Center"
-                                           Padding="0,0,10,0"/>
-                                </StackLayout>
+                                </Grid>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>

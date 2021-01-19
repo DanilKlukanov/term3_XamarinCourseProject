@@ -13,37 +13,44 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <StackLayout>
+            <Grid HeightRequest="54">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1.45*"/>
+                    <ColumnDefinition Width="0.55*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
                     <Label Text="Карта отправителя" 
                            VerticalOptions="Start"
                            Padding="10,0,0,10"/>
-                    <StackLayout Orientation="Horizontal" 
-                                 VerticalOptions="EndAndExpand">
-                        <Label Text="{Binding FromCard.Number, Converter={StaticResource Key=BankCardNumberConverter}}"
-                               Padding="10,0,0,10"/>
-                    </StackLayout>
-                </StackLayout>
-                <Label Text="{Binding FromCard.Money}"
+                    <Label Text="{Binding FromCard.Number, Converter={StaticResource Key=BankCardNumberConverter}}"
+                           Padding="10,30,0,0"/>
+                </Grid>
+                <Label Grid.Column="1"
+                       Text="{Binding FromCard.Money}"
                        HorizontalOptions="EndAndExpand"
                        VerticalOptions="Center"
-                       Padding="0,0,5,0"/>
-                <Label  Text="{Binding FromCard.Currency}"
-                        HorizontalOptions="EndAndExpand"
-                        VerticalOptions="Center"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <StackLayout>
+                       Padding="40,0,0,0"/>
+                <Label Grid.Column="2"
+                       Padding="0,0,10,0"
+                       Text="{Binding FromCard.Currency}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"/>
+            </Grid>
+            <Grid HeightRequest="54">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1.45*"/>
+                    <ColumnDefinition Width="0.55*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
                     <Label Text="{Binding PaymentReceiver}" 
                            VerticalOptions="Start"
                            Padding="10,0,0,10"/>
-                    <StackLayout Orientation="Horizontal" 
-                                 VerticalOptions="EndAndExpand">
-                        <Label Text="{Binding NumberToCard, Converter={StaticResource Key=BankCardNumberConverter}}"
-                               Padding="10,0,0,10"/>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
+                    <Label Text="{Binding NumberToCard, Converter={StaticResource Key=BankCardNumberConverter}}"
+                           Padding="10,30,0,0"/>
+                </Grid>
+            </Grid>
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                 <Entry Text="{Binding Amount.Value}" 
                        Placeholder="Введите сумму"

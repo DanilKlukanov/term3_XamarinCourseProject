@@ -13,63 +13,80 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsCardVisible}">
-                <StackLayout>
+            <Grid IsVisible="{Binding IsCardVisible}"
+                  HeightRequest="54">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1.45*"/>
+                    <ColumnDefinition Width="0.55*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
                     <Label Text="Карта отправителя" 
                            VerticalOptions="Start"
                            Padding="10,0,0,10"/>
-                    <StackLayout Orientation="Horizontal" 
-                                 VerticalOptions="EndAndExpand">
-                        <Label Text="{Binding FromBankCard.Number, Converter={StaticResource Key=BankCardNumberConverter}}"
-                               Padding="10,0,0,10"/>
-                    </StackLayout>
-                </StackLayout>
-                <Label Text="{Binding FromBankCard.Money}"
+                    <Label Text="{Binding FromBankCard.Number, Converter={StaticResource Key=BankCardNumberConverter}}"
+                           Padding="10,30,0,0"/>
+                </Grid>
+                <Label Grid.Column="1"
+                       Text="{Binding FromBankCard.Money}"
                        HorizontalOptions="EndAndExpand"
                        VerticalOptions="Center"
-                       Padding="0,0,5,0"/>
-                <Label  Text="{Binding FromBankCard.Currency}"
-                        HorizontalOptions="EndAndExpand"
-                        VerticalOptions="Center"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsAccountVisible}">
-                <StackLayout>
+                       Padding="40,0,0,0"/>
+                <Label Grid.Column="2"
+                       Padding="0,0,10,0"
+                       Text="{Binding FromBankCard.Currency}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"/>
+            </Grid>
+            <Grid IsVisible="{Binding IsAccountVisible}"
+                  HeightRequest="54">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1.45*"/>
+                    <ColumnDefinition Width="0.55*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
                     <Label Text="Счет отправителя" 
                            VerticalOptions="Start"
                            Padding="10,0,0,10"/>
-                    <StackLayout Orientation="Horizontal" 
-                                 VerticalOptions="EndAndExpand">
-                        <Label Text="{Binding FromAccount.Number, Converter={StaticResource Key=BankAccountNumberConverter}}"
-                               Padding="10,0,0,10"/>
-                    </StackLayout>
-                </StackLayout>
-                <Label Text="{Binding FromAccount.Money}"
+                    <Label Text="{Binding FromAccount.Number, Converter={StaticResource Key=BankAccountNumberConverter}}"
+                           Padding="10,30,0,0"/>
+                </Grid>
+                <Label Grid.Column="1"
+                       Text="{Binding FromAccount.Money}"
                        HorizontalOptions="EndAndExpand"
                        VerticalOptions="Center"
-                       Padding="0,0,5,0"/>
-                <Label  Text="{Binding FromAccount.Currency}"
-                        HorizontalOptions="EndAndExpand"
-                        VerticalOptions="Center"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <StackLayout>
+                       Padding="40,0,0,0"/>
+                <Label Grid.Column="2"
+                       Padding="0,0,10,0"
+                       Text="{Binding FromAccount.Currency}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"/>
+            </Grid>
+            <Grid HeightRequest="54">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1.45*"/>
+                    <ColumnDefinition Width="0.55*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
                     <Label Text="Карта получателя" 
                            VerticalOptions="Start"
                            Padding="10,0,0,10"/>
-                    <StackLayout Orientation="Horizontal" 
-                                 VerticalOptions="EndAndExpand">
-                        <Label Text="{Binding SelectedBankItem.Number, Converter={StaticResource Key=BankCardNumberConverter}}"
-                               Padding="10,0,0,10"/>
-                    </StackLayout>
-                </StackLayout>
-                <Label Text="{Binding SelectedBankItem.Money}"
+                    <Label Text="{Binding SelectedBankItem.Number, Converter={StaticResource Key=BankCardNumberConverter}}"
+                           Padding="10,30,0,0"/>
+                </Grid>
+                <Label Grid.Column="1"
+                       Text="{Binding SelectedBankItem.Money}"
                        HorizontalOptions="EndAndExpand"
                        VerticalOptions="Center"
-                       Padding="0,0,5,0"/>
-                <Label  Text="{Binding SelectedBankItem.Currency}"
-                        HorizontalOptions="EndAndExpand"
-                        VerticalOptions="Center"/>
-            </StackLayout>
+                       Padding="40,0,0,0"/>
+                <Label Grid.Column="2"
+                       Padding="0,0,10,0"
+                       Text="{Binding SelectedBankItem.Currency}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"/>
+            </Grid>
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                 <Entry Text="{Binding Amount.Value}" 
                        Placeholder="Введите сумму"
