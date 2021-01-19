@@ -241,5 +241,34 @@ namespace CW.Models
 
             return json;
         }
+
+        public async Task<string> block_card(string number)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            { 
+                new KeyValuePair<string, string>("operation", nameof(block_card)),
+                new KeyValuePair<string, string>("number", number)
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
+
+        public async Task<string> rename_card(string number, string name)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("operation", nameof(rename_card)),
+                new KeyValuePair<string, string>("number", number),
+                new KeyValuePair<string, string>("name", name)
+            });
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
     }
 }

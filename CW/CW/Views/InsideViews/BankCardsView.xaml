@@ -52,7 +52,8 @@
             <FlexLayout JustifyContent="SpaceEvenly"
                         HeightRequest="50"
                         Padding="0,10,0,10"
-                        BackgroundColor="LightSkyBlue">
+                        BackgroundColor="LightSkyBlue"
+                        IsVisible="{Binding IsCardInterfaceActive}">
                 <Button Text="Пополнить"
                         Command="{Binding TopUpCard}"
                         Style="{x:StaticResource NoDefaultCapsButton}"
@@ -72,7 +73,7 @@
                         TextColor="White"
                         BackgroundColor="Green"/>
             </FlexLayout>
-            <StackLayout>
+            <StackLayout IsVisible="{Binding IsCardInterfaceActive}">
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding HistoryCommand}"/>
@@ -82,14 +83,14 @@
                 </Frame>
                 <Frame>
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer/>
+                        <TapGestureRecognizer Command="{Binding BlockCardCommand}"/>
                     </Frame.GestureRecognizers>
                     <Label Text="Заблокировать"
                            FontSize="Body"/>
                 </Frame>
                 <Frame>
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer/>
+                        <TapGestureRecognizer Command="{Binding RenameCardCommand}"/>
                     </Frame.GestureRecognizers>
                     <Label Text="Переименовать"
                            FontSize="Body"/>

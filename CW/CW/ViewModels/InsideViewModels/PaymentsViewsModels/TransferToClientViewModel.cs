@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using CW.Models;
 using CW.Converters;
 using CW.ViewModels.InsideViewModels.OperationsViewModels;
+using CW.Commands;
 
 namespace CW.ViewModels.InsideViewModels.PaymentsViewsModels
 {
@@ -25,11 +26,12 @@ namespace CW.ViewModels.InsideViewModels.PaymentsViewsModels
             Navigation = navigation;
             BankCards = cards;
             BankAccounts = accounts;
-            TransferCommand = new Command(Transfer);
+            TransferCommand = new TapCardCommand(Transfer);
         }
         private void Transfer(object item)
         {
-            var selectedItem = item as BankItem;
+            var selectedItem = item as BankCard;
+
             Navigation.PushAsync(new TransferCardView(new TransferCardViewModel(Navigation, BankCards, BankAccounts,selectedItem)));
         }
 
