@@ -18,12 +18,6 @@ namespace CW.Views
             InitializeComponent();
         }
 
-/*        public NearbyBanksView(LoginViewModel s) : this()
-        {
-            ViewModel = new NearbyBanksViewModel(s);
-            BindingContext = ViewModel;
-        }*/
-
         protected override void OnDisappearing() => (BindingContext as NearbyBanksViewModel).StartViewModel.ClosePageCommand.Execute(null);
     }
 }
