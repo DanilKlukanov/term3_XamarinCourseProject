@@ -39,30 +39,29 @@
                                                CommandParameter="{Binding}"/>
                                 </SwipeItems>
                             </SwipeView.RightItems>
-                            <Grid HeightRequest="55">
+                            <Grid HeightRequest="54">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1.5*"/>
-                                    <ColumnDefinition Width="1.5*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="1.45*"/>
+                                    <ColumnDefinition Width="0.55*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Text="{Binding operation_type}"
-                                       Padding="10, 0, 0, 0"
-                                       Grid.Column="0"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
-                                <Label Text="{Binding operation_time}"
-                                       Padding="30, 0, 10, 0"
-                                       Grid.Column="1"
-                                       HorizontalOptions="CenterAndExpand"
-                                       VerticalOptions="Center"/>
+                                <Grid Grid.Column="0">
+                                    <Label Text="{Binding operation_type}"
+                                       Padding="10,0,0,0"
+                                       HorizontalOptions="Start"
+                                       VerticalOptions="Start"/>
+                                    <Label Text="{Binding operation_time}"
+                                       Padding="10,30,0,0"/>
+                                </Grid>
                                 <Label Text="{Binding amount}"
-                                       Grid.Column="2"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
+                                       Grid.Column="1"
+                                       HorizontalOptions="EndAndExpand"
+                                       VerticalOptions="Center"
+                                       Padding="30,0,0,0"/>
                                 <Label Text="{Binding operation_currency}"
-                                       Grid.Column="3"
-                                       HorizontalOptions="Center"
+                                       Padding="0,0,10,0"
+                                       Grid.Column="2"
+                                       HorizontalOptions="EndAndExpand"
                                        VerticalOptions="Center">
                                     
                                 </Label>

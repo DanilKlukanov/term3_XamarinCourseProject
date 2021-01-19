@@ -13,6 +13,16 @@
                                          TypeName="CW.Models.BankCard"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="Перевести"
+                   TextColor="White"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Spacing="0" BackgroundColor="LightSkyBlue" HeightRequest="50">
