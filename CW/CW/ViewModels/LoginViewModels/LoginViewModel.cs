@@ -103,9 +103,16 @@ namespace CW.ViewModels
 
         private async void LoadExchangeRates()
         {
-            var valutes = await ExchangesRatesService.Instance.GetExchangesRates();
-            Rates = new ObservableCollection<ExchangeRatesModel>(valutes);
-            //valutes.ForEach(x => Rates.Add(x));
+            var response = await ExchangesRatesService.Instance.GetExchangesRates();
+
+            if (response.IsSuccessful)
+            {
+                Rates = new ObservableCollection<ExchangeRatesModel>(response.Value);
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Уведомление", response.ErrorMessage, "OK");
+            }
 
         }
 
@@ -146,10 +153,10 @@ namespace CW.ViewModels
             NavigationService.Instance.NavigateToAsync<ExchangesRatesViewModel>(this);
         }
 
-        private void Back()
+        private async void Back()
         {
             IsButtonEnabled = true;
-            NavigationService.Instance.RemoveLastFromBackStackAsync();
+            await NavigationService.Instance.RemoveLastFromBackStackAsync();
         }
 
         private void AddValidations()

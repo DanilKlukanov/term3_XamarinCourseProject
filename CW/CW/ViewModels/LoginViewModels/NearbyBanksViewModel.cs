@@ -41,15 +41,6 @@ namespace CW.ViewModels
             }
         }
 
-        public NearbyBanksViewModel(LoginViewModel startViewModel)
-        {
-            StartViewModel = startViewModel;
-            _places = new ObservableCollection<Place>();
-
-            // TODO (kekouke): Catch exception
-            GetUserLocation();
-        }
-
         public NearbyBanksViewModel()
         {
             _places = new ObservableCollection<Place>();
@@ -83,22 +74,41 @@ namespace CW.ViewModels
             var places = new ObservableCollection<Place>();
             var response = await MapService.Instance.Get(Position);
 
-            foreach (var place in response.results)
+            if (response.IsSuccessful)
             {
-                var opening_hours = await MapService.Instance.GetDetail(place.place_id);
-                places.Add(new Place()
+                            
+                foreach (var place in response.Value.results)
                 {
-                    PlaceName = place.name,
-                    Address = place.vicinity,
-                    Location = place.geometry.location,
-                    Position = new Position(place.geometry.location.lat, place.geometry.location.lng),
-                    OpenNow = place?.opening_hours?.open_now,
-                    OpenPeriod = opening_hours?.result?.opening_hours?.weekday_text ?? new List<string>()
-                });
+                    var opening_hours = await MapService.Instance.GetDetail(place.place_id);
+
+                    if (opening_hours.IsSuccessful)
+                    {
+                        places.Add(new Place()
+                        {
+                            PlaceName = place.name,
+                            Address = place.vicinity,
+                            Location = place.geometry.location,
+                            Position = new Position(place.geometry.location.lat, place.geometry.location.lng),
+                            OpenNow = place?.opening_hours?.open_now,
+                            OpenPeriod = opening_hours.Value?.result?.opening_hours?.weekday_text ?? new List<string>()
+                        });
+                    }
+                    else
+                    {
+                        Device.BeginInvokeOnMainThread(async () =>
+                        await Application.Current.MainPage.DisplayAlert("Уведомление", response.ErrorMessage, "ОК"));
+                    }
+                }
+
+                Places = places;
+                OnPropertyChanged("Places");
+            }
+            else
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                await Application.Current.MainPage.DisplayAlert("Уведомление", response.ErrorMessage, "ОК"));
             }
 
-            Places = places;
-            OnPropertyChanged("Places");
         }
     }
 }
