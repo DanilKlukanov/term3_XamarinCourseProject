@@ -75,10 +75,10 @@
                                         </StackLayout>
                                     </Grid>
                                     <Label Grid.Column="1"
-                                           Text="{Binding Money}"
+                                           Text="{Binding Money, StringFormat='{0:F2}'}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
-                                           Padding="40,0,0,0"/>
+                                           Padding="30,0,0,0"/>
                                     <Label Grid.Column="2"
                                            Padding="0,0,10,0"
                                            Text="{Binding Currency}"
@@ -121,10 +121,10 @@
                                                Padding="10,30,0,0"/>
                                     </Grid>
                                     <Label Grid.Column="1"
-                                           Text="{Binding Money}"
+                                           Text="{Binding Money, StringFormat='{0:F2}'}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
-                                           Padding="40,0,0,0"/>
+                                           Padding="30,0,0,0"/>
                                     <Label Grid.Column="2"
                                            Padding="0,0,10,0"
                                            Text="{Binding Currency}"
@@ -163,10 +163,10 @@
                                                Padding="10,30,0,0"/>
                                     </Grid>
                                     <Label Grid.Column="1"
-                                           Text="{Binding Money}"
+                                           Text="{Binding Money, StringFormat='{0:F2}'}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
-                                           Padding="40,0,0,0"/>
+                                           Padding="30,0,0,0"/>
                                     <Label Grid.Column="2"
                                            Text="{Binding Currency}"
                                            HorizontalOptions="EndAndExpand"
