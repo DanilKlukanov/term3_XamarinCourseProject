@@ -51,6 +51,7 @@
                        Keyboard="Numeric">
                     <Entry.Behaviors>
                         <behaviors:EntryPointValidatorBehavior/>
+                        <behaviors:EntryNullValidatorBehavior/>
                     </Entry.Behaviors>
                 </Entry>
                 <Button Text="Оплатить"

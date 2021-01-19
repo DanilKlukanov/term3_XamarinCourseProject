@@ -14,15 +14,7 @@ namespace CW.Validations
             {
                 return false;
             }
-            //if (!Value.All(char.IsDigit))
-            //{
-            //    return false;
-            //}
             if (double.Parse(Value) <= 0)
-            {
-                return false;
-            }
-            if (Value[0] == '0')
             {
                 return false;
             }
