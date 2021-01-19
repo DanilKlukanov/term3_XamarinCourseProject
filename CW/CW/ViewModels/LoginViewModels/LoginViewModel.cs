@@ -6,7 +6,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using CW.Validations;
 using CW.Views.InsideViews;
-
+using Rg.Plugins.Popup.Services;
 using CW.Services;
 using CW.Models;
 using System.Net.Http;
@@ -21,7 +21,6 @@ namespace CW.ViewModels
         public ObservableCollection<ExchangeRatesModel> Rates { get; private set; }
         public ICommand AuthorizationCommand { get; protected set; }
         public ICommand ShowLoginFormCommand { get; protected set; }
-        public ICommand HideLoginFormCommand { get; protected set; }
         public ICommand OpenMapPageCommand { get; protected set; }
         public ICommand ClosePageCommand { get; protected set; }
         public ICommand OpenExchangesRatesPageCommand { get; protected set; }
@@ -39,11 +38,8 @@ namespace CW.ViewModels
             OpenExchangesRatesPageCommand = new Command(OpenExchangesRatesPage, () => IsButtonEnabled);
             ClosePageCommand = new Command(Back);
 
-            ShowLoginFormCommand = new Command(() => IsLoginFormVisible = true);
-            HideLoginFormCommand = new Command(() => {
-                IsLoginFormVisible = false;
-                AutorizationInfo = "Введите Ваш логин и пароль";
-            });
+            ShowLoginFormCommand = new Command(OpenLoginPopupPage, () => IsButtonEnabled);
+
             UserLogin = new ValidatableObject<string>();
             UserPassword = new ValidatableObject<string>();
 
@@ -187,6 +183,13 @@ namespace CW.ViewModels
         private bool ValidatePassword()
         {
             return UserPassword.Validate();
+        }
+
+        private async void OpenLoginPopupPage()
+        {
+            IsButtonEnabled = false;
+            await PopupNavigation.Instance.PushAsync(new LoginPopupPageView(new LoginPopupPageViewModel()));
+            IsButtonEnabled = true;
         }
     }
 }

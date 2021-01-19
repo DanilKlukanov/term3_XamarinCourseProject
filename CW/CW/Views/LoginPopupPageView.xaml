@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 xmlns:convert="clr-namespace:CW.Converters"
+                 mc:Ignorable="d"
+                 x:Class="CW.Views.LoginPopupPageView">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Center"
+                                   PositionOut="Center"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <pages:PopupPage.CloseWhenBackgroundIsClicked/>
+    <StackLayout BackgroundColor="#C0808080" 
+                 VerticalOptions="Center"
+                 HorizontalOptions="Center"
+                 Margin="20,0,20,0">
+        <StackLayout Orientation="Vertical" 
+                     BackgroundColor="Transparent" 
+                     VerticalOptions="CenterAndExpand" 
+                     HorizontalOptions="CenterAndExpand">
+            <Frame BackgroundColor="White"
+                   CornerRadius="20">
+                <!-- Тут элементы всплывающего окна -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Text="Авторизация"
+                           FontSize="20"
+                           TextColor="Black"
+                           Padding="50,0"
+                           Grid.Row="0"
+                           HorizontalOptions="Center"/>
+
+                    <Entry Placeholder="Логин"
+                           Grid.Row="1"
+                           x:Name="login"
+                           Text="{Binding UserLogin.Value, Mode=OneWayToSource}"/>
+
+                    <Label Grid.Row="2"
+                           HorizontalOptions="Center"
+                           Text="{Binding UserLogin.Errors,
+                                  Converter={StaticResource FirstValidationErrorConverter}}"
+                           TextColor="Red"/>
+
+                    <Entry Placeholder="Пароль"
+                           Grid.Row="3"
+                           IsPassword="True"
+                           x:Name="password"
+                           Text="{Binding UserPassword.Value, Mode=OneWayToSource}"/>
+
+                    <Label Grid.Row="4"
+                           HorizontalOptions="Center"
+                           Text="{Binding UserPassword.Errors,
+                                  Converter={StaticResource FirstValidationErrorConverter}}"
+                           TextColor="Red"/>
+
+                    <Grid Grid.Row="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Text="Отмена"
+                                Grid.Column="0"
+                                Command="{Binding HideLoginFormCommand}"/>
+
+                        <Button Text="Войти"
+                                Grid.Column="1"
+                                Command="{Binding AuthorizationCommand}"/>
+                    </Grid>
+
+
+                </Grid>
+            </Frame>
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

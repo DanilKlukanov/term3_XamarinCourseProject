@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+<<<<<<< HEAD:CW/CW/Views/LoginViews/LoginView.xaml
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
@@ -13,6 +14,16 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     
+=======
+<ContentPage  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
+                  
+                  x:Class="CW.Views.StartPage">
+
+   
+>>>>>>> 3db3538... Disable hiding when tap on the login form:CW/CW/Views/StartPage.xaml
     <ContentPage.Content>
         <AbsoluteLayout Padding="0"
                         HorizontalOptions="FillAndExpand"
@@ -124,89 +135,6 @@
                     </Frame>
                 </Grid>
             </Grid>
-
-            <ContentView BackgroundColor="#C0808080" 
-                         x:Name="form" 
-                         Padding="0" 
-                         IsVisible="{Binding IsLoginFormVisible, Mode=OneWay}" 
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                         AbsoluteLayout.LayoutFlags="All">
-                <StackLayout VerticalOptions="FillAndExpand" 
-                             HorizontalOptions="FillAndExpand" 
-                             Margin="20,0,20,0">
-                    <StackLayout Orientation="Vertical" 
-                                 BackgroundColor="Transparent" 
-                                 VerticalOptions="CenterAndExpand" 
-                                 HorizontalOptions="CenterAndExpand">
-                        <Frame BackgroundColor="White"
-                               CornerRadius="20">
-                            <!-- Тут элементы всплывающего окна -->
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.1*"/>
-                                    <RowDefinition Height="0.2*"/>
-                                    <RowDefinition Height="0.1*"/>
-                                    <RowDefinition Height="0.2*"/>
-                                    <RowDefinition Height="0.1*"/>
-                                    <RowDefinition Height="0.2*"/>
-                                </Grid.RowDefinitions>
-
-                                <Label Text="Авторизация"
-                                       FontSize="20"
-                                       TextColor="Black"
-                                       Padding="50,0"
-                                       Grid.Row="0"
-                                       HorizontalOptions="Center"/>
-
-                                <Entry Placeholder="Логин"
-                                       Grid.Row="1"
-                                       x:Name="login"
-                                       Text="{Binding UserLogin.Value, Mode=OneWayToSource}"/>
-
-                                <Label Grid.Row="2"
-                                       HorizontalOptions="Center"
-                                       Text="{Binding UserLogin.Errors,
-                                                Converter={StaticResource FirstValidationErrorConverter}}"
-                                       TextColor="Red"/>
-
-                                <Entry Placeholder="Пароль"
-                                       Grid.Row="3"
-                                       IsPassword="True"
-                                       x:Name="password"
-                                       Text="{Binding UserPassword.Value, Mode=OneWayToSource}"/>
-                                
-                                <Label Grid.Row="4"
-                                       HorizontalOptions="Center"
-                                       Text="{Binding UserPassword.Errors,
-                                                Converter={StaticResource FirstValidationErrorConverter}}"
-                                       TextColor="Red"/>
-
-                                <Grid Grid.Row="5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Button Text="Отмена"
-                                            Grid.Column="0"
-                                            Command="{Binding HideLoginFormCommand}"/>
-                                    
-                                    <Button Text="Войти"
-                                            Grid.Column="1"
-                                            Command="{Binding AuthorizationCommand}"/>
-                                </Grid>
-
-
-                            </Grid>
-                        </Frame>
-                    </StackLayout>
-                    <!-- Обработчик тапов -->
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding HideLoginFormCommand}"></TapGestureRecognizer>
-                    </StackLayout.GestureRecognizers>
-                </StackLayout>
-            </ContentView>
         </AbsoluteLayout>
     </ContentPage.Content>
-    
 </ContentPage>
