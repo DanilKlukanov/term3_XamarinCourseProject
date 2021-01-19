@@ -13,10 +13,12 @@ namespace CW.ViewModels
     {
         private string _autorizationIngo = "Введите Ваш логин и пароль";
         private bool _isButtonEnabled;
+        private bool _isLoginFormVisible;
 
         public LoginPopupPageViewModel()
         {
             _isButtonEnabled = true;
+            _isLoginFormVisible = true;
 
             UserLogin = new ValidatableObject<string>();
             UserPassword = new ValidatableObject<string>();
@@ -59,6 +61,18 @@ namespace CW.ViewModels
             }
         }
 
+        public bool IsLoginFormVisible
+        {
+            get => _isLoginFormVisible;
+
+            set
+            {
+                if (value != _isLoginFormVisible)
+                {
+                    _isLoginFormVisible = value;
+                }
+            }
+        }
 
         private void AddValidations()
         {
@@ -83,7 +97,7 @@ namespace CW.ViewModels
 
                 if (response.Item1 == true)
                 {
-                    // IsLoginFormVisible = false; TODO
+                    IsLoginFormVisible = false;
                     MessagingCenter.Send(this, "authorized");
                 }
                 else
