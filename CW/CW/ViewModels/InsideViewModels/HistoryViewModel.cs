@@ -42,12 +42,12 @@ namespace CW.ViewModels.InsideViewModels
 
         private async Task<List<History>> GetHistoryBill(BankItemViewModel viewModel)
         {
-            return await BillsService.Instance.GetBillHistory(viewModel.SelectedBankItem.Number);
+            return await BillsService.Instance.GetPartHistory(viewModel.SelectedBankItem.Number);
         }
 
         private async Task<List<History>> GetHistoryBills()
         {
-            return await BillsService.Instance.GetBillsHistory();
+            return await BillsService.Instance.GetHistory();
         }
 
         private async void LoadAllHistory(BankItemViewModel viewModel)
@@ -66,22 +66,12 @@ namespace CW.ViewModels.InsideViewModels
 
             histories.ForEach(x => AllHistory.Add(x));
 
-            ChangeHistory();
+            //ChangeHistory();
         }
 
         private void ChangeHistory()
         {
-            foreach (var item in AllHistory)
-            {
-                if (item.type == "give")
-                {
-                    item.type = "Перевод на карту";
-                }
-                if (item.type == "get")
-                {
-                    item.type = "Входящий перевод";
-                }
-            }
+
         }
         private void Back()
         {
@@ -93,15 +83,15 @@ namespace CW.ViewModels.InsideViewModels
         }
         public async void OnAddPatternAsync (object item)
         {
-            var payment = item as History;
-            if (payment.type == "Перевод на карту") {
-                string namePattern = await Application.Current.MainPage.DisplayPromptAsync("Создание шаблона", "Введите название");
-                if (namePattern != null)
-                {
-                    string response = await PatternService.Instance.CreatePattern(namePattern, payment.from, payment.to, payment.amount);
-                    await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-                }
-            }
+            //var payment = item as History;
+            //if (payment.type == "Перевод на карту") {
+            //    string namePattern = await Application.Current.MainPage.DisplayPromptAsync("Создание шаблона", "Введите название");
+           //     if (namePattern != null)
+           //     {
+           //         string response = await PatternService.Instance.CreatePattern(namePattern, payment.from, payment.to, payment.amount);
+          //          await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+            //    }
+           // }
         }
     }
 }

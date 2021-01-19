@@ -110,7 +110,7 @@ namespace CW.ViewModels.InsideViewModels
                     int balance = GetMoney(selectedPattern);
                     if (balance - selectedPattern.amount >= 0)
                     {
-                        string response = await TransactionService.Instance.DoOperation(selectedPattern.from, selectedPattern.to, selectedPattern.amount);
+                        string response = await TransactionService.Instance.DoTransfer(selectedPattern.from, selectedPattern.to, selectedPattern.amount);
                         await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
                     }
                     else
