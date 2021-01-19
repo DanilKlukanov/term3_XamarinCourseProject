@@ -44,17 +44,17 @@ namespace CW.Services
             }
         }
 
-        public async Task<List<Card>> GetBills()
+        public async Task<List<Bill>> GetBills()
         {
             try
             {
                 string json = await _client.get_bills(App.GetUser().login);
-                return JsonConvert.DeserializeObject<List<Card>>(json);
+                return JsonConvert.DeserializeObject<List<Bill>>(json);
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Ошибка", "Нет связи с сервером", "Ок");
-                return new List<Card>();
+                return new List<Bill>();
             }
         }
 
