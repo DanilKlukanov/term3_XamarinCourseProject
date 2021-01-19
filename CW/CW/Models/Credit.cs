@@ -9,6 +9,6 @@ namespace CW.Models
         public string credit_number;
         public string credit_currency;
         public double balance;
-        public string pay_time;
+        public DateTime pay_time;
     }
 }

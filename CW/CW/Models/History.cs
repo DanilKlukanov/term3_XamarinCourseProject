@@ -11,6 +11,6 @@ namespace CW.Models
         public double amount { get; set; }
         public string operation_currency { get; set; }
         public string operation_type { get; set; }
-        public string operation_time { get; set; }
+        public DateTime operation_time { get; set; }
     }
 }

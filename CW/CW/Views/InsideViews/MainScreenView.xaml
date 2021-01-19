@@ -147,11 +147,15 @@
                                                VerticalOptions="Start"
                                                Padding="10,5,0,0"/>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding Currency}"
+                                            <Label Text="{Binding Date}"
                                                    Padding="10,0,0,0"/>
                                         </StackLayout>
                                     </StackLayout>
                                     <Label Text="{Binding Money}"
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="Center"
+                                           Padding="0,0,10,0"/>
+                                    <Label Text="{Binding Currency}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
                                            Padding="0,0,10,0"/>
