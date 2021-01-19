@@ -49,8 +49,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
                     return;
                 if (UserPassword.Validate())
                 {
-                    User user = App.GetUser();
-                    Tuple<bool, string> response = await UserService.Instance.Login(user.login, UserPassword.Value);
+                    Tuple<bool, string> response = await UserService.Instance.Login(App.GetUser().login, UserPassword.Value);
                     if (response.Item1 == true)
                     {
                         var toCard = SelectedBankItem as BankCard;
@@ -71,7 +70,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
 
         private async void TransferFromCard(BankCard toCard)
         {
-            int.TryParse(Amount.Value, out int amount);
+            double.TryParse(Amount.Value, out double amount);
             if (FromBankCard.Money - amount >= 0 && FromBankCard.Money > 0)
             {
                 string response = await TransactionService.Instance.DoTransfer(FromBankCard.Number, toCard.Number, amount);
@@ -83,7 +82,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         }
         private async void TransferFromAccount(BankCard toCard)
         {
-            int.TryParse(Amount.Value, out int amount);
+            double.TryParse(Amount.Value, out double amount);
             if (FromAccount.Money - amount >= 0 && FromAccount.Money > 0)
             {
                 string response = await TransactionService.Instance.DoTransfer(FromAccount.Number, toCard.Number, amount);

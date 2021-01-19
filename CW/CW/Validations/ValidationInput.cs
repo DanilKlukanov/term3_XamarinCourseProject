@@ -14,11 +14,11 @@ namespace CW.Validations
             {
                 return false;
             }
-            if (!Value.All(char.IsDigit))
-            {
-                return false;
-            }
-            if (int.Parse(Value) <= 0)
+            //if (!Value.All(char.IsDigit))
+            //{
+            //    return false;
+            //}
+            if (double.Parse(Value) <= 0)
             {
                 return false;
             }

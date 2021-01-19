@@ -28,7 +28,7 @@ namespace CW.Services
                 return _instance;
             }
         }
-        public async Task<string> DoTransfer(string number_from, string number_to, int amount)
+        public async Task<string> DoTransfer(string number_from, string number_to, double amount)
         {
             try
             {

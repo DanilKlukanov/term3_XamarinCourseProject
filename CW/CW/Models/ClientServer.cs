@@ -143,7 +143,7 @@ namespace CW.Models
             return json;
         }
 
-        public async Task<string> do_transfer(string number_from, string number_to, int amount)
+        public async Task<string> do_transfer(string number_from, string number_to, double amount)
         {
             var content = new FormUrlEncodedContent(new[]
             {

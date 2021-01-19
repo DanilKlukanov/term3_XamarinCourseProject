@@ -34,7 +34,7 @@
                                     <Label Text="{Binding Name}"/>
                                     <Label Text="{Binding Number, Converter={StaticResource Key=BankCardNumberConverter}}"/>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Money}"/>
+                                        <Label Text="{Binding Money, StringFormat='{0:F2}'}"/>
                                         <Label Text="{Binding Currency}"/>
                                     </StackLayout>
                                     <Image Source="{Binding ImgUrl}"

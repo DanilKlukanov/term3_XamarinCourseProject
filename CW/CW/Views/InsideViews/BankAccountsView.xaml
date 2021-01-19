@@ -28,7 +28,7 @@
                                    WidthRequest="150">
                                 <StackLayout>
                                     <Label Text="{Binding Name}"/>
-                                    <Label Text="{Binding Money}"
+                                    <Label Text="{Binding Money, StringFormat='{0:F2}'}"
                                            HorizontalOptions="Center"/>
                                     <Label Text="{Binding Number, Converter={StaticResource Key=BankAccountNumberConverter}}"/>
                                 </StackLayout>

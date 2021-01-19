@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CW.Views.InsideViews.OperationsViews.PaymentTopUpView"
-             xmlns:convert="clr-namespace:CW.Converters">
+             xmlns:convert="clr-namespace:CW.Converters"
+             xmlns:behaviors="clr-namespace:CW.Behaviors">
     <ContentPage.Resources>
         <ResourceDictionary>
             <convert:BankNumberConverter x:Key="BankCardNumberConverter"
@@ -15,7 +16,7 @@
         <StackLayout>
             <StackLayout Orientation="Horizontal" IsVisible="{Binding IsCardVisible}">
                 <StackLayout>
-                    <Label Text="Карта отправителя" 
+                    <Label Text="Карта отправителя"
                            VerticalOptions="Start"
                            Padding="10,0,0,10"/>
                     <StackLayout Orientation="Horizontal" 
@@ -24,7 +25,7 @@
                                Padding="10,0,0,10"/>
                     </StackLayout>
                 </StackLayout>
-                <Label Text="{Binding FromBankCard.Money}"
+                <Label Text="{Binding FromBankCard.Money, StringFormat='{0:F2}'}"
                        HorizontalOptions="EndAndExpand"
                        VerticalOptions="Center"
                        Padding="0,0,5,0"/>
@@ -43,7 +44,7 @@
                                Padding="10,0,0,10"/>
                     </StackLayout>
                 </StackLayout>
-                <Label Text="{Binding FromAccount.Money}"
+                <Label Text="{Binding FromAccount.Money, StringFormat='{0:F2}'}"
                        HorizontalOptions="EndAndExpand"
                        VerticalOptions="Center"
                        Padding="0,0,5,0"/>
@@ -73,7 +74,11 @@
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                 <Entry Text="{Binding Amount.Value}" 
                        Placeholder="Введите сумму"
-                       Keyboard="Numeric"/>
+                       Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <behaviors:EntryPointValidatorBehavior/>
+                    </Entry.Behaviors>
+                </Entry>
                 <Button Text="Оплатить"
                         Command="{Binding ToPayCommand}"></Button>
             </StackLayout>

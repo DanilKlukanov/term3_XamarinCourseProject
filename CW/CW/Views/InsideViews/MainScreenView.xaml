@@ -71,7 +71,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  HorizontalOptions="EndAndExpand"
                                                  Padding="10">
-                                        <Label Text="{Binding Money}"
+                                        <Label Text="{Binding Money, StringFormat='{0:F2}'}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
                                            Padding="0,0,2,0"/>
@@ -115,7 +115,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  HorizontalOptions="EndAndExpand"
                                                  Padding="10">
-                                        <Label Text="{Binding Money}"
+                                        <Label Text="{Binding Money, StringFormat='{0:F2}'}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
                                            Padding="0,0,2,0"/>
@@ -151,7 +151,7 @@
                                                    Padding="10,0,0,0"/>
                                         </StackLayout>
                                     </StackLayout>
-                                    <Label Text="{Binding Money}"
+                                    <Label Text="{Binding Money, StringFormat='{0:F2}'}"
                                            HorizontalOptions="EndAndExpand"
                                            VerticalOptions="Center"
                                            Padding="0,0,10,0"/>

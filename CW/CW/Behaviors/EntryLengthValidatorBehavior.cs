@@ -24,7 +24,7 @@ namespace CW.Behaviors
 
         void OnEntryTextChanged(object sender, TextChangedEventArgs e)
         {
-            var entry = (Entry)sender;
+            var entry = sender as Entry;
             if (entry.Text != null && entry.Text.Length > this.MaxLength)
             {
                 string entryText = entry.Text;

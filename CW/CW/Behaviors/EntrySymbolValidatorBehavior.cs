@@ -22,7 +22,7 @@ namespace CW.Behaviors
 
         void OnEntryTextChanged(object sender, TextChangedEventArgs e)
         {
-            var entry = (Entry)sender;
+            var entry = sender as Entry;
             var text = e.NewTextValue;
             if (entry.Text != null && !text.All(char.IsDigit))
             {
