@@ -22,7 +22,7 @@
             <convert:OpenPeriodConverter x:Key="OpenPeriodConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
         <Grid Margin="0" 
               BackgroundColor="White"

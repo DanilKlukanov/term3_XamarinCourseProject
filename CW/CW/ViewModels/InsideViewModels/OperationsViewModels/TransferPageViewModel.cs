@@ -47,11 +47,10 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
                     return;
                 if (UserPassword.Validate())
                 {
-                    User user = App.GetUser();
-                    Tuple<bool, string> responseCheck = await UserService.Instance.Login(user.login, UserPassword.Value);
+                    Tuple<bool, string> responseCheck = await UserService.Instance.Login(App.GetUser().login, UserPassword.Value);
                     if (responseCheck.Item1 == true)
                     {
-                        int.TryParse(Amount.Value, out int amount);
+                        double.TryParse(Amount.Value, out double amount);
                         if (FromCard.Money - amount >= 0)
                         {
                             if (NumberToCard == null)

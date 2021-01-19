@@ -30,7 +30,7 @@
                                Padding="10,0,0,10"/>
                     </StackLayout>
                 </StackLayout>
-                <Label Text="{Binding FromCard.Money}"
+                <Label Text="{Binding FromCard.Money, StringFormat='{0:F2}'}"
                        HorizontalOptions="EndAndExpand"
                        VerticalOptions="Center"
                        Padding="0,0,10,0"/>

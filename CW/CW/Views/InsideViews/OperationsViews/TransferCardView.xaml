@@ -15,7 +15,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Spacing="0" BackgroundColor="PaleVioletRed" HeightRequest="50">
+            <StackLayout Spacing="0" BackgroundColor="LightSkyBlue" HeightRequest="50">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                     <Entry Placeholder="Введите номер карты"
                            Text="{Binding NumberCard}"
@@ -54,7 +54,7 @@
                                             <Label Text="{Binding Name}"/>
                                             <Label Text="{Binding Number, Converter={StaticResource Key=BankCardNumberConverter}}"/>
                                             <StackLayout Orientation="Horizontal">
-                                                <Label Text="{Binding Money}"/>
+                                                <Label Text="{Binding Money, StringFormat='{0:F2}'}"/>
                                                 <Label Text="{Binding Currency}"/>
                                             </StackLayout>
                                             <Image Source="{Binding ImgUrl}"
