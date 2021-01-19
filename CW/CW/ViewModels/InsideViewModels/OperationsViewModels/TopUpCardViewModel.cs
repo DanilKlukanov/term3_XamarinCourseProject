@@ -25,13 +25,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         {
             Navigation = navigation;
             BankCards = new ObservableCollection<BankCard>();
-            foreach(BankCard element in cards)
-            {
-                if (element != item as BankCard)
-                {
-                    BankCards.Add(element);
-                }
-            }
+            cards.Where(x => x != item as BankCard && x.IsWorked == true).ForEach(x => BankCards.Add(x));
             BankAccounts = accounts;
             SelectedBankItem = item;
             OpenCard = new Command(() => {

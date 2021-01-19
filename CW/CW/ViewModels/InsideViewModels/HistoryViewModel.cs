@@ -75,7 +75,7 @@ namespace CW.ViewModels.InsideViewModels
             {
                 if (item.operation_type == "give")
                 {
-                    item.operation_type = "Перевод";
+                    item.operation_type = "Перевод на карту";
                 }
                 if (item.operation_type == "get")
                 {
@@ -94,15 +94,15 @@ namespace CW.ViewModels.InsideViewModels
         }
         public async void OnAddPatternAsync (object item)
         {
-            //var payment = item as History;
-            //if (payment.type == "Перевод на карту") {
-            //    string namePattern = await Application.Current.MainPage.DisplayPromptAsync("Создание шаблона", "Введите название");
-           //     if (namePattern != null)
-           //     {
-           //         string response = await PatternService.Instance.CreatePattern(namePattern, payment.from, payment.to, payment.amount);
-          //          await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-            //    }
-           // }
+            var payment = item as History;
+            if (payment.operation_type == "Перевод на карту") {
+                string namePattern = await Application.Current.MainPage.DisplayPromptAsync("Создание шаблона", "Введите название");
+                if (namePattern != null)
+                {
+                    string response = await PatternService.Instance.CreatePattern(namePattern, payment.user_number, payment.other_number, payment.amount);
+                    await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                }
+            }
         }
     }
 }

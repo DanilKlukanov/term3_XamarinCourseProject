@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.HistoryView"
              x:Name="page">
+    
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">

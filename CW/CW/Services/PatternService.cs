@@ -30,9 +30,9 @@ namespace CW.Services
             }
         }
 
-        public async Task<string> CreatePattern(string pattern_name, string from, string to, int amount)
+        public async Task<string> CreatePattern(string pattern_name, string from, string to, double amount)
         {
-            string json = await _client.create_pattern(App.GetUser().id, pattern_name, from, to, amount);
+            string json = await _client.create_pattern(App.GetUser().login, pattern_name, from, to, amount);
             try
             {
                 if (json == "\"0\"")
@@ -58,7 +58,7 @@ namespace CW.Services
         {
             try
             {
-                string json = await _client.get_patterns(App.GetUser().id);
+                string json = await _client.get_patterns(App.GetUser().login);
                 return JsonConvert.DeserializeObject<List<Pattern>>(json);
             }
             catch (Exception ex)
