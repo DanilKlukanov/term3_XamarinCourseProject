@@ -13,18 +13,12 @@ namespace CW.Views
 
     public partial class ExchangesRatesView : ContentPage
     {
-        ExchangesRatesViewModel ViewModel { get; set; }
         public ExchangesRatesView()
         {
             InitializeComponent();      
         }
 
-/*        public ExchangeRatesView(LoginViewModel s) : this()
-        {
-            ViewModel = new ExchangesRatesViewModel(s);
-            BindingContext = ViewModel;
-        }*/
-
-        protected override void OnDisappearing() => (BindingContext as ExchangesRatesViewModel).StartViewModel.ClosePageCommand.Execute(null);
+        protected override void OnDisappearing() => 
+            (BindingContext as ExchangesRatesViewModel).StartViewModel.ClosePageCommand.Execute(null);
     }
 }

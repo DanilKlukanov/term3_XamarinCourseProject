@@ -63,7 +63,7 @@ namespace CW.ViewModels.ViewModelBase
                 return;
             }
 
-            var viewModel = _container.Resolve(viewModelType);
+            var viewModel = _container.Resolve(viewModelType) as BaseViewModel;
             view.BindingContext = viewModel;
         }
     }

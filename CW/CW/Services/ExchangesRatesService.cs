@@ -35,8 +35,11 @@ namespace CW.Services
             "🇹🇲", "🇺🇿", "🇺🇦", "🇨🇿", "🇸🇪", "🇨🇭",
             "🇿🇦","🇰🇷", "🇯🇵"
         };
-        public async Task<List<ExchangeRatesModel>> GetExchangesRates()
+        public async Task<IResponse<List<ExchangeRatesModel>>> GetExchangesRates()
         {
+            var result = new ApiResponse<List<ExchangeRatesModel>>();
+            result.ErrorMessage = "Ошибка! Нет связи с сервером.";
+
             try
             {
                 var uri = "https://www.cbr-xml-daily.ru/daily_json.js";
@@ -98,18 +101,16 @@ namespace CW.Services
                             valutesArray.Add(sign.Value);
                             index++;
                         }
-                        return JsonConvert.DeserializeObject<List<ExchangeRatesModel>>(valutesArray.ToString());
-                    }
-                    else
-                    {
-                        throw new HttpRequestException("");
+                        result.Value = JsonConvert.DeserializeObject<List<ExchangeRatesModel>>(valutesArray.ToString());
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("");
+                return result;
             }
+
+            return result;
         }
     }
 }
