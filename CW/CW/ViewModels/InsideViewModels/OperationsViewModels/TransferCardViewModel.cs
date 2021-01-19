@@ -61,7 +61,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             }
             if (NumberCard.Length == 20 || NumberCard.Length == 16)
             {
-                var response = await TransactionService.Instance.CheckCard(NumberCard);
+                var response = await TransactionService.Instance.CanTransferTo(NumberCard);
                 if (!response.Item1)
                 {
                     await Application.Current.MainPage.DisplayAlert("Message", response.Item2, "OK");
