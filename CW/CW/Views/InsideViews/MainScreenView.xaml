@@ -159,7 +159,7 @@
                                         <Label Text="{Binding Number, StringFormat='Договор №: {0}'}" 
                                                VerticalOptions="Start"
                                                Padding="10,0,0,10"/>
-                                        <Label Text="{Binding Date}"
+                                        <Label Text="{Binding Date, StringFormat='{HH:mm:ss}{MM/dd/yyyy}'}"
                                                Padding="10,30,0,0"/>
                                     </Grid>
                                     <Label Grid.Column="1"

@@ -16,6 +16,16 @@
                                          TypeName="CW.Models.BankCard"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="Карты"
+                   TextColor="White"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Content>
         <StackLayout Spacing="0">
             <CarouselView x:Name="Cards"
