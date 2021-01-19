@@ -89,11 +89,11 @@
                                             <ColumnDefinition Width="3*"/>
                                             <ColumnDefinition Width="2*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Label Text="{Binding name}"
+                                        <Label Text="{Binding pattern_name}"
                                            Grid.Column="0"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"/>
-                                        <Label Text="{Binding type}"
+                                        <Label Text="{Binding from_}"
                                            Grid.Column="1"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"/>

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace CW.ViewModels.InsideViewModels.OperationsViewModels
 {
@@ -23,13 +24,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         {
             Navigation = navigation;
             BankCards = new ObservableCollection<BankCard>();
-            foreach (BankCard element in cards)
-            {
-                if (element != item as BankCard)
-                {
-                    BankCards.Add(element);
-                }
-            }
+            cards.Where(x => x != item as BankCard && x.IsWorked == true).ForEach(x => BankCards.Add(x));
             SelectedBankItem = item;
             BankAccounts = accounts;
             OpenTransferTapCommand = new Command(OpenTransferTap);
