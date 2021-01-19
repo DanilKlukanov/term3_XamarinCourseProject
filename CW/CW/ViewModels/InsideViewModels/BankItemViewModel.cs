@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using CW.Services;
 using CW.Views.InsideViews;
+using System;
 
 namespace CW.ViewModels.InsideViewModels
 {
@@ -18,12 +19,14 @@ namespace CW.ViewModels.InsideViewModels
         public ObservableCollection<BankAccount> BankAccounts { get; private set; }
         public ObservableCollection<History> BankItemHistory { get; set; }
 
-        private BankItem selectedBankItem { get; set; }
+        private BankItem selectedBankItem;
 
         public INavigation Navigation { get; private set; }
         public ICommand TopUpCard { get; private set; }
         public ICommand TransferCard { get; private set; }
         public ICommand HistoryCommand { get; private set; }
+        public ICommand BlockCardCommand { get; private set; }
+        public ICommand RenameCardCommand { get; private set; }
 
         public BankItemViewModel(MainScreenViewModel viewModel, BankItem bankItem)
         {
@@ -37,6 +40,30 @@ namespace CW.ViewModels.InsideViewModels
             TopUpCard = new Command(TopUp);
             TransferCard = new Command(Transfer);
             HistoryCommand = new Command(OpenHistory);
+            BlockCardCommand = new Command(BlockCard);
+            RenameCardCommand = new Command(RenameCard);
+        }
+
+        // TODO (Change return value for BlockCard from BillService)
+        private async void BlockCard()
+        {
+            var result = await BillsService.Instance.BlockCard(SelectedBankItem.Number);
+
+            if (result.IsSuccessful)
+            {
+                IsCardInterfaceActive = false;
+            }
+
+            await Application.Current.MainPage.DisplayAlert("Уведомление", result.ErrorMessage, "ОК");
+        }
+
+        private async void RenameCard()
+        {
+            var result = await Application.Current.MainPage.DisplayPromptAsync("Имя карты", "Введите новое имя карты", "OK");
+            if (result != null)
+            {
+                await BillsService.Instance.RenameCard(SelectedBankItem.Number, result);
+            }
         }
 
         public ObservableCollection<BankCard> BankCards
@@ -54,14 +81,31 @@ namespace CW.ViewModels.InsideViewModels
 
         public BankItem SelectedBankItem
         {
-            get { return selectedBankItem; }
+            get
+            {
+                return selectedBankItem;
+
+            }
             set
             {
                 if (selectedBankItem != value)
                 {
                     selectedBankItem = value;
+                    IsCardInterfaceActive = (selectedBankItem as BankCard).IsWorked;
                     OnPropertyChanged();
                 }
+            }
+        }
+
+        public bool IsCardInterfaceActive
+        {
+            get => (SelectedBankItem as BankCard)?.IsWorked ?? true;
+            set
+            {
+
+                    (SelectedBankItem as BankCard).IsWorked = value;
+                    OnPropertyChanged();
+                //}
             }
         }
 

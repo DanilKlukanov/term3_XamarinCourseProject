@@ -99,5 +99,52 @@ namespace CW.Services
                 return new List<History>();
             }
         }
+
+        public async Task<IResponse<string>> BlockCard(string number)
+        {
+            var result = new ApiResponse<string>();
+            result.ErrorMessage = "Ошибка. Невозможно заблокировать карту.";
+
+
+            try
+            {
+                string json = await _client.block_card(number);
+                string str = JsonConvert.DeserializeObject<string>(json);
+
+                result.IsSuccessful = str == "1" ? true : false;
+                result.ErrorMessage = result.IsSuccessful ? "Успех." : result.ErrorMessage;
+            }
+            catch (Exception ex)
+            {
+                return result;
+            }
+
+            return result;
+        }
+
+        public async Task RenameCard(string number, string name)
+        {
+            try
+            {
+                string json = await _client.rename_card(number, name);
+                string str = JsonConvert.DeserializeObject<string>(json);
+
+                if (str == "1")
+                {
+                    await Application.Current.MainPage.DisplayAlert("Уведомление", "Успех", "OK");
+
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Уведомление", "Ошибка", "OK");
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Уведомление", "Ошибка", "OK");
+            }
+        }
     }
 }
