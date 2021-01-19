@@ -15,7 +15,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Spacing="0" BackgroundColor="PaleVioletRed" HeightRequest="50">
+            <StackLayout Spacing="0" BackgroundColor="LightSkyBlue" HeightRequest="50">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                     <Entry Placeholder="Введите номер карты"
                            Text="{Binding NumberCard}"
