@@ -191,7 +191,7 @@ namespace CW.Models
         }
         public async Task<string> get_patterns(string login)
         {
-            var content = new FormUrlEncodedContent(new[] 
+            var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", "get_patterns"),
                 new KeyValuePair<string, string>("login", ToUTF8(login)),
