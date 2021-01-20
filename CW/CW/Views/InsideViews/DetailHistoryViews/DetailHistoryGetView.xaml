@@ -78,6 +78,8 @@
             <Grid HeightRequest="55" Padding="0,20,0,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1.45*"/>
+                    <ColumnDefinition Width="0.55*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" HorizontalOptions="Center">
                     <Label Text="Счет отправителя"
@@ -88,7 +90,18 @@
                            HorizontalOptions="Center"
                            Padding="0,30,0,0"/>
                 </Grid>
+                <Label Grid.Column="1"
+                       Text="{Binding Money, StringFormat='{0:F2}'}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"
+                       Padding="30,0,0,0"/>
+                <Label Grid.Column="2"
+                       Padding="0,0,10,0"
+                       Text="{Binding Currency}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"/>
             </Grid>
+            <Label Text="Счет отправителя"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
