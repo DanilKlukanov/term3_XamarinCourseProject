@@ -11,6 +11,7 @@ using CW.Models;
 using CW.Converters;
 using CW.ViewModels.InsideViewModels.OperationsViewModels;
 using CW.Commands;
+using Xamarin.Forms.Internals;
 
 namespace CW.ViewModels.InsideViewModels.PaymentsViewsModels
 {
@@ -24,7 +25,8 @@ namespace CW.ViewModels.InsideViewModels.PaymentsViewsModels
         public TransferToClientViewModel(INavigation navigation, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts)
         {
             Navigation = navigation;
-            BankCards = cards;
+            BankCards = new ObservableCollection<BankCard>();
+            cards.Where(x => x.IsWorked == true).ForEach(x => BankCards.Add(x));
             BankAccounts = accounts;
             TransferCommand = new TapCardCommand(Transfer);
         }
