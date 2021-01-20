@@ -95,11 +95,12 @@
                                 <ColumnDefinition Width="3.6*"/>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0"
-                                   Source="history2.png"
+                                   Source="clock2.png"
                                    HorizontalOptions="Center"
-                                   VerticalOptions="Center"
-                                   />
+                                   Margin="5,0,5,0"
+                                   VerticalOptions="Center"/>
                             <Label Grid.Column="1"
+                                   Padding="10,0,0,0"
                                    Text="История операций"
                                    FontSize="Body"/>
                         </Grid>
@@ -111,15 +112,15 @@
                     </Frame.GestureRecognizers>
                     <Grid HeightRequest="25">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="3.6*"/>
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0"
-                               Margin="0,0,5,0"
-                               Source="padlock.png"
+                               Source="padlock22.png"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
+                               Padding="10,0,0,0"
                                Text="Заблокировать"
                                FontSize="Body"/>
                     </Grid>
@@ -130,14 +131,15 @@
                     </Frame.GestureRecognizers>
                     <Grid HeightRequest="25">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="3.6*"/>
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0"
-                               Source="edit.png"
+                               Source="pen4.png"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"/>
                         <Label Grid.Column="1"
+                               Padding="10,0,0,0"
                                Text="Переименовать"
                                FontSize="Body"/>
                     </Grid>

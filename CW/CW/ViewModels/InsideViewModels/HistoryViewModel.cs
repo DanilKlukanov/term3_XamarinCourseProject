@@ -29,12 +29,16 @@ namespace CW.ViewModels.InsideViewModels
             BackCommand = new Command(Back, () => _isEnabled);
 
             AllHistory = new ObservableCollection<History>();
+            Imagies = new ObservableCollection<string>();
+            Imagies.Add("credit_card2.png");
+            Imagies.Add("credit_cards.png");
 
             TypeName = type;
 
             LoadAllHistory(viewModel);
         }
         public ObservableCollection<History> AllHistory { get; private set; }
+        public ObservableCollection<String> Imagies { get; private set; }
         public INavigation Navigation { get; private set; }
         public ICommand BackCommand { get; private set; }
         public ICommand OpenProfilePageCommand { get; private set; }
@@ -76,6 +80,7 @@ namespace CW.ViewModels.InsideViewModels
                 if (item.operation_type == "give")
                 {
                     item.operation_type = "Перевод";
+                    
                 }
                 if (item.operation_type == "get")
                 {
