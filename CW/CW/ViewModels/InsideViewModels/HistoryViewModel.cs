@@ -114,7 +114,7 @@ namespace CW.ViewModels.InsideViewModels
             var payment = item as History;
             if (payment.operation_type == "Перевод на карту")
             {
-                Navigation.PushAsync(new DetailHistoryGiveView(new DetailHistoryGiveModel(payment)));
+                Navigation.PushAsync(new DetailHistoryGiveView(new DetailHistoryGiveModel(payment, BankCards, BankAccounts)));
             } else
             {
                 Navigation.PushAsync(new DetailHistoryGetView(new DetailHistoryGetModel(payment, BankCards, BankAccounts)));
