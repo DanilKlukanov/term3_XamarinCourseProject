@@ -101,7 +101,20 @@
                        HorizontalOptions="EndAndExpand"
                        VerticalOptions="Center"/>
             </Grid>
-            <Label Text="Счет отправителя"/>
+            <Grid HeightRequest="54">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1.45*"/>
+                    <ColumnDefinition Width="0.55*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Label Text="Счет отправителя" 
+                           VerticalOptions="Start"
+                           Padding="10,0,0,10"/>
+                    <Label Text="{Binding Payment.other_number, Converter={StaticResource Key=BankCardNumberConverter}}"
+                           Padding="10,30,0,0"/>
+                </Grid>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
