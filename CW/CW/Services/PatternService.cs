@@ -35,22 +35,18 @@ namespace CW.Services
             string json = await _client.create_pattern(App.GetUser().login, pattern_name, from, to, amount);
             try
             {
-                if (json == "\"0\"")
+                if (json == "\"1\"")
                 {
-                    return "Операция выполнена успешно.";
-                }
-                else if (json == "\"1\"")
-                {
-                    return "Данный шаблон уже существует.";
+                    return "Операция выполнена успешно";
                 }
                 else
                 {
-                    return "Неверный счет.";
+                    return "Невозможно создать шаблон";
                 }
             }
             catch (Exception ex)
             {
-                return "Возникла непредвиденная ошибка. Повторите позднее.";
+                return "Возникла непредвиденная ошибка. Повторите позднее";
             }
         }
 
@@ -84,7 +80,7 @@ namespace CW.Services
             }
             catch (Exception ex)
             {
-                return new Tuple<bool, string>(false, "Возникла непредвиденная ошибка. Повторите позднее.");
+                return new Tuple<bool, string>(false, "Возникла непредвиденная ошибка. Повторите позднее");
             }
         }
     }
