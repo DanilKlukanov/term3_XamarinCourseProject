@@ -41,6 +41,11 @@
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <Grid HeightRequest="55">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference page},
+                                                          Path=BindingContext.OpenDetailPageCommand}"
+                                                          CommandParameter="{Binding}"/>
+                                </Grid.GestureRecognizers>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1.5*"/>
                                     <ColumnDefinition Width="1.5*"/>

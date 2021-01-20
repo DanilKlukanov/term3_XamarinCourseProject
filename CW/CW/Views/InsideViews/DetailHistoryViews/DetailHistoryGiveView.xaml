@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:convert="clr-namespace:CW.Converters"
+             x:Class="CW.Views.InsideViews.DetailHistoryViews.DetailHistoryGiveView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:BankNumberConverter x:Key="BankCardNumberConverter"
+                                         TypeName="CW.Models.BankCard"/>
+            <convert:BankNumberConverter x:Key="BankAccountNumberConverter"
+                                         TypeName="CW.Models.BankAccount"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{Binding Payment.operation_type}"/>
+            <Label Text="Счет зачисления"/>
+            <Label Text="Счет отправителя"/>
+            <Grid HeightRequest="54">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1.45*"/>
+                    <ColumnDefinition Width="0.55*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Label Text="{Binding Name}" 
+                           VerticalOptions="Start"
+                           Padding="10,0,0,10"/>
+                    <StackLayout Orientation="Horizontal" 
+                                 VerticalOptions="EndAndExpand">
+                        <Image Source="{Binding ImgUrl}"
+                               HeightRequest="20"
+                               WidthRequest="30"
+                               Margin="10,0,0,0"/>
+                        <Label Text="{Binding Payment.user_number, Converter={StaticResource Key=BankCardNumberConverter}}"/>
+                    </StackLayout>
+                </Grid>
+                <Label Grid.Column="1"
+                       Text="{Binding Money, StringFormat='{0:F2}'}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"
+                       Padding="30,0,0,0"/>
+                <Label Grid.Column="2"
+                       Padding="0,0,10,0"
+                       Text="{Binding Currency}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
