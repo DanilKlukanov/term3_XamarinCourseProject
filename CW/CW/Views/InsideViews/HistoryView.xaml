@@ -50,11 +50,19 @@
                                                           CommandParameter="{Binding}"/>
                                 </Grid.GestureRecognizers>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="2.5*"/>
                                     <ColumnDefinition Width="1.45*"/>
                                     <ColumnDefinition Width="0.55*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
+                                    <StackLayout Padding="10,0,0,0"
+                                                 VerticalOptions="Center"
+                                                 HorizontalOptions="Center">
+                                        <Image Source="credit_card2"/>
+                                    </StackLayout>
+                                </Grid>
+                                <Grid Grid.Column="1">
                                     <Label Text="{Binding operation_type}"
                                        Padding="10,0,0,0"
                                        HorizontalOptions="Start"
@@ -63,13 +71,13 @@
                                        Padding="10,30,0,0"/>
                                 </Grid>
                                 <Label Text="{Binding amount}"
-                                       Grid.Column="1"
+                                       Grid.Column="2"
                                        HorizontalOptions="EndAndExpand"
                                        VerticalOptions="Center"
                                        Padding="30,0,0,0"/>
                                 <Label Text="{Binding operation_currency}"
                                        Padding="0,0,10,0"
-                                       Grid.Column="2"
+                                       Grid.Column="3"
                                        HorizontalOptions="EndAndExpand"
                                        VerticalOptions="Center">
                                     
