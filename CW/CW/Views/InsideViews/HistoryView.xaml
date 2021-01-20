@@ -31,16 +31,12 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems>
-                                    <SwipeItem Text="Создать шаблон"
-                                               BackgroundColor="LightGreen"
-                                               Command="{Binding Source={x:Reference page},
-                                               Path=BindingContext.AddPatternCommand}"
-                                               CommandParameter="{Binding}"/>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
                             <Grid HeightRequest="54">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference page},
+                                                          Path=BindingContext.OpenDetailPageCommand}"
+                                                          CommandParameter="{Binding}"/>
+                                </Grid.GestureRecognizers>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.5*"/>
                                     <ColumnDefinition Width="2.5*"/>

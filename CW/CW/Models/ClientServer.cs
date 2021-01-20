@@ -201,12 +201,12 @@ namespace CW.Models
 
             return json;
         }
-        public async Task<string> remove_pattern(int user_id, string user_name)
+        public async Task<string> remove_pattern(string login, string user_name)
         {
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", "remove_pattern"),
-                new KeyValuePair<string, string>("id", user_id.ToString()),
+                new KeyValuePair<string, string>("login", login),
                 new KeyValuePair<string, string>("name", user_name),
             });
 
