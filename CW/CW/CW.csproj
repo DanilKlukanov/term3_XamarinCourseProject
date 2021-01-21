@@ -86,6 +86,9 @@
     <EmbeddedResource Update="Views\LoginPopupPageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\LoginViews\UserLoadingView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Map.xaml">
 	</EmbeddedResource>
     <EmbeddedResource Update="Views\LoginViews\NearbyBanksView.xaml">

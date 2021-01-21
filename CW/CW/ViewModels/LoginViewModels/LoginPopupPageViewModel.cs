@@ -1,5 +1,6 @@
 ﻿using CW.Services;
 using CW.Validations;
+using CW.Views.LoginViews;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
@@ -93,7 +94,12 @@ namespace CW.ViewModels
 
             if (Validate())
             {
+                await PopupNavigation.Instance.PopAsync();
+                PopupNavigation.Instance.PushAsync(new UserLoadingView());
+
                 Tuple<bool, string> response = await UserService.Instance.Login(UserLogin.Value, UserPassword.Value);
+
+                PopupNavigation.Instance.PopAsync();
 
                 if (response.Item1 == true)
                 {

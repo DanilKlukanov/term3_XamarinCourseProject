@@ -32,14 +32,7 @@ namespace CW.ViewModels
 
             ShowLoginFormCommand = new Command(OpenLoginPopupPage, () => IsButtonEnabled);
 
-<<<<<<< HEAD:CW/CW/ViewModels/LoginViewModels/LoginViewModel.cs
-            UserLogin = new ValidatableObject<string>();
-            UserPassword = new ValidatableObject<string>();
-
-            AddValidations();
-=======
             Rates = new ObservableCollection<ExchangeRatesModel>();
->>>>>>> 23c483a... Refactor code:CW/CW/ViewModels/StartPageViewModel.cs
             LoadExchangeRates();
         }
 
