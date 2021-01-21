@@ -111,22 +111,24 @@
                                     </SwipeView.RightItems>
                                     <Grid HeightRequest="55">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="3*"/>
-                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="0.7*"/>
+                                            <ColumnDefinition Width="2.3*"/>
+                                            <ColumnDefinition Width="1*"/>
                                         </Grid.ColumnDefinitions>
+                                        <Image Source="favorite.png"
+                                               Margin="19,13,7,15"
+                                               Grid.Column="0"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
                                         <Label Text="{Binding pattern_name}"
-                                           Grid.Column="0"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
-                                        <Label Text="{Binding from_}"
-                                           Grid.Column="1"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
+                                               Grid.Column="1"
+                                               FontSize="Body"
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Center"/>
                                         <Label Text="{Binding amount}"
-                                           Grid.Column="2"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
+                                               Grid.Column="2"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
                                     </Grid>
                                 </SwipeView>
                             </DataTemplate>
