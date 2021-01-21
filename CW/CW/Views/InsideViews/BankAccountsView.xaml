@@ -30,17 +30,20 @@
                           HeightRequest="300">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout BackgroundColor="PaleVioletRed">
+                        <StackLayout BackgroundColor="LightSkyBlue">
                             <Frame CornerRadius="20"
-                                   BackgroundColor="LightSkyBlue"
+                                   BackgroundColor="White"
                                    Margin="50"
                                    HeightRequest="200"
                                    WidthRequest="150">
                                 <StackLayout>
                                     <Label Text="{Binding Name}"/>
-                                    <Label Text="{Binding Money, StringFormat='{0:F2}'}"
-                                           HorizontalOptions="Center"/>
                                     <Label Text="{Binding Number, Converter={StaticResource Key=BankAccountNumberConverter}}"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Money, StringFormat='{0:F2}'}"
+                                           HorizontalOptions="Center"/>
+                                        <Label Text="{Binding Currency}"/>
+                                    </StackLayout>
                                 </StackLayout>
                             </Frame>
                         </StackLayout>
@@ -52,15 +55,40 @@
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding HistoryCommand}"/>
                     </Frame.GestureRecognizers>
-                    <Label Text="История операций"
-                           FontSize="Body"/>
+                    <Grid HeightRequest="25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="3.6*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                                   Source="clock2.png"
+                                   HorizontalOptions="Center"
+                                   Margin="5,0,5,0"
+                                   VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                                   Padding="10,0,0,0"
+                                   Text="История операций"
+                                   FontSize="Body"/>
+                    </Grid>
                 </Frame>
                 <Frame>
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer/>
+                        <TapGestureRecognizer Command="{Binding RenameCardCommand}"/>
                     </Frame.GestureRecognizers>
-                    <Label Text="Переименовать"
-                           FontSize="Body"/>
+                    <Grid HeightRequest="25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="3.6*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="pen4.png"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Padding="10,0,0,0"
+                               Text="Переименовать"
+                               FontSize="Body"/>
+                    </Grid>
                 </Frame>
             </StackLayout>
         </StackLayout>
