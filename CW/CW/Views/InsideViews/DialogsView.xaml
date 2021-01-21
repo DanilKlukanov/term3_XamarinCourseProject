@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.DialogsView">
+
+
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
@@ -17,11 +19,103 @@
                          Command="{Binding OpenProfilePageCommand}"/>
         </StackLayout>
     </Shell.TitleView>
-    <ContentPage.Content>
-        <StackLayout BackgroundColor="Yellow">
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
+    <Grid HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              BackgroundColor="AliceBlue"
+              VerticalOptions="FillAndExpand">
+            <ScrollView Grid.Row="0"
+                        VerticalOptions="FillAndExpand">
+                <StackLayout BindableLayout.ItemsSource="{Binding Messages}"
+                             x:Name="layout">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Frame Padding="10,0,10,0"
+                                               Margin="0"
+                                               BackgroundColor="Transparent">
+                                    <Grid BackgroundColor="{Binding col}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="2*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="8*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0"
+                                                   Text="{Binding from_}"
+                                                   HorizontalOptions="End"
+                                                   VerticalOptions="Center"/>
+                                            <Label Grid.Column="1"
+                                                   Text="->"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"/>
+                                            <Label Grid.Column="2"
+                                                   Text="{Binding to_}"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Center"/>
+                                            <Label Grid.Column="3"
+                                                   Text="{Binding msg_time}"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"/>
+                                        </Grid>
+                                        <Label Grid.Row="1"
+                                               Text="{Binding msg}"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+
+        </Grid>
+        <Grid Grid.Row="1"
+              BackgroundColor="AntiqueWhite">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Editor Grid.Column="0"
+                                MaxLength="16"                          
+                                Text="{Binding Recipient, Mode=OneWayToSource}"/>
+                        <Button Grid.Column="1"
+                                x:Name="refresh"
+                                Text="refresh"/>
+                        <Button Grid.Column="2"
+                                x:Name="send"
+                                Text="Отправить"
+                                Command="{Binding SendMessageCommand}"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Editor MaxLength="128"
+                            Keyboard="Chat"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand"
+                            Text="{Binding Message, Mode=OneWayToSource}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+
 </ContentPage>

@@ -270,5 +270,38 @@ namespace CW.Models
 
             return json;
         }
+
+        public async Task<string> get_messages(string login)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                    new KeyValuePair<string, string>("operation", nameof(get_messages)),
+                    new KeyValuePair<string, string>("login", login),
+            });
+
+            return await SendRequest(content);
+        }
+
+        public async Task<string> send_message(string login_from, string login_to, string message)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                    new KeyValuePair<string, string>("operation", nameof(send_message)),
+                    new KeyValuePair<string, string>("from_", login_from),
+                    new KeyValuePair<string, string>("to_", login_to),
+                    new KeyValuePair<string, string>("msg", message)
+            });
+
+            return await SendRequest(content);
+        }
+
+        private async Task<string> SendRequest(FormUrlEncodedContent content)
+        {
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
     }
 }
