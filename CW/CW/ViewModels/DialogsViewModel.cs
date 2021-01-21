@@ -1,9 +1,6 @@
 ﻿using CW.Models;
 using CW.Services;
-<<<<<<< HEAD
-=======
 using CW.Validations;
->>>>>>> Add Validations for fields on dialogs screen
 using CW.ViewModels.InsideViewModels;
 using CW.Views.InsideViews;
 using System;
@@ -22,40 +19,29 @@ namespace CW.ViewModels
     {
         private bool _isButtonEnabled;
         public ObservableCollection<Message> Messages { get; set; }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> Add Validations for fields on dialogs screen
         public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand SendMessageCommand { get; private set; }
         public INavigation Navigation { get; private set; }
 
-        public INavigation Navigation { get; set; }
 
         public ValidatableObject<string> Recipient { get; set; }
         public ValidatableObject<string> Message { get; set; }
 
         public DialogsViewModel(INavigation navigation)
         {
-<<<<<<< HEAD
             Navigation = navigation;
             _isButtonEnabled = true;
-=======
             AddValidations();
 
->>>>>>> Add Validations for fields on dialogs screen
             Messages = new ObservableCollection<Message>();
 
             Navigation = navigation;
 
             SendMessageCommand = new Command(SendMessage);
-<<<<<<< HEAD
             OpenProfilePageCommand = new Command(OpenProfilePage, () => IsButtonEnabled);
-=======
             OpenProfilePageCommand = new Command(OpenProfile);
 
->>>>>>> Add Validations for fields on dialogs screen
             GetMessages();
             Device.StartTimer(TimeSpan.FromSeconds(15), () => { 
                 GetMessages();
@@ -72,7 +58,6 @@ namespace CW.ViewModels
                 {
                     _isButtonEnabled = value;
 
-<<<<<<< HEAD
                     (OpenProfilePageCommand as Command)?.ChangeCanExecute();
                 }
             }
@@ -83,10 +68,9 @@ namespace CW.ViewModels
             await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
             IsButtonEnabled = true;
         }
-        private async void SendMessage()
-=======
+
+
         private void OpenProfile(object obj)
->>>>>>> Add Validations for fields on dialogs screen
         {
             Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
         }
@@ -97,10 +81,10 @@ namespace CW.ViewModels
             {
                 var response = await new DialogService().SendMessage(Recipient.Value, Message.Value);
 
-                if (response.IsSuccessful)
-                    await Application.Current.MainPage.DisplayAlert("Уведомление", response.Value, "OK");
-                else
-                    await Application.Current.MainPage.DisplayAlert("Уведомление", response.ErrorMessage, "OK");
+            if (response.IsSuccessful)
+                await Application.Current.MainPage.DisplayAlert("Уведомление", response.Value, "OK");
+            else
+                await Application.Current.MainPage.DisplayAlert("Уведомление", response.ErrorMessage, "OK");
             }
         }
 
@@ -155,7 +139,6 @@ namespace CW.ViewModels
 
         private void Refresh()
         {
-            //Device.Sto
             GetMessages();
         }
     }
