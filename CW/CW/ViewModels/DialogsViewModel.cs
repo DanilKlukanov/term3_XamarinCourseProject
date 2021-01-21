@@ -48,17 +48,17 @@ namespace CW.ViewModels
 
             foreach (var item in messages)
             {
-                Color col = Color.LightBlue;
+                Color col = Color.LightGreen;
                 if (item.from_ == App.GetUser().login)
                 {
-                    col = Color.LightGreen;
+                    col = Color.LightBlue;
                 }
                 Messages.Add(new Message()
                 {
                     from_ = item.from_,
                     to_ = item.to_,
                     msg = item.msg,
-                    msg_time = DateTime.Parse(item.msg_time).ToString("HH:mm:ss MM/dd/yyyy"),
+                    msg_time = DateTime.Parse(item.msg_time).ToString("MM/dd/yyyy HH:mm:ss"),
                     col = col
                 });
             }

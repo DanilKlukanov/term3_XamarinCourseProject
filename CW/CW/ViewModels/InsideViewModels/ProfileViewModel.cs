@@ -50,7 +50,9 @@ namespace CW.ViewModels.InsideViewModels
             {
                 string json = await UserService.Instance.GetVisitHistory(App.GetUser().login);
 
-                var dates = JsonConvert.DeserializeObject<List<string>>(json);
+                var raw_dates = JsonConvert.DeserializeObject<List<string>>(json);
+                List<string> dates = new List<string>();
+                raw_dates.ForEach(a => dates.Add(DateTime.Parse(a).ToString("MM/dd/yyyy HH:mm:ss")));
                 Navigation.PushAsync(new VisitHistoryView(dates));
             }
             catch(Exception ex)

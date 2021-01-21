@@ -66,7 +66,7 @@ namespace CW.Models
             {
                 new KeyValuePair<string, string>("operation", nameof(change_password)),
                 new KeyValuePair<string, string>("login", ToUTF8(login)),
-                new KeyValuePair<string, string>("new_password", (new_password))
+                new KeyValuePair<string, string>("new_password", ToUTF8(new_password))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -276,7 +276,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                     new KeyValuePair<string, string>("operation", nameof(get_messages)),
-                    new KeyValuePair<string, string>("login", login),
+                    new KeyValuePair<string, string>("login", ToUTF8(login)),
             });
 
             return await SendRequest(content);
@@ -287,9 +287,9 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                     new KeyValuePair<string, string>("operation", nameof(send_message)),
-                    new KeyValuePair<string, string>("from_", login_from),
-                    new KeyValuePair<string, string>("to_", login_to),
-                    new KeyValuePair<string, string>("msg", message)
+                    new KeyValuePair<string, string>("from_", ToUTF8(login_from)),
+                    new KeyValuePair<string, string>("to_", ToUTF8(login_to)),
+                    new KeyValuePair<string, string>("msg", ToUTF8(message))
             });
 
             return await SendRequest(content);
@@ -303,6 +303,7 @@ namespace CW.Models
 
             return json;
         }
+
         private string ToUTF8(string str)
         {
             var bytes = Encoding.UTF8.GetBytes(str);

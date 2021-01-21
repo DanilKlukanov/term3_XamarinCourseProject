@@ -2,6 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CW.Views.InsideViews.VisitHistoryView">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="История посещений"
+                   TextColor="White"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"/>
+        </StackLayout>
+    </Shell.TitleView>
+    
     <ContentPage.Content>
         <ListView ItemsSource="{Binding LastVisits}"
                   SelectionMode="None">

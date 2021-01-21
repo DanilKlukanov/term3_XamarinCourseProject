@@ -91,7 +91,7 @@ namespace CW.ViewModels.InsideViewModels
                 if (selectedBankItem != value)
                 {
                     selectedBankItem = value;
-                    IsCardInterfaceActive = (selectedBankItem as BankCard).IsWorked;
+                    IsCardInterfaceActive = (selectedBankItem as BankCard)?.IsWorked ?? true;
                     OnPropertyChanged();
                 }
             }
@@ -102,10 +102,11 @@ namespace CW.ViewModels.InsideViewModels
             get => (SelectedBankItem as BankCard)?.IsWorked ?? true;
             set
             {
-
+                if ((SelectedBankItem as BankCard)?.IsWorked != null)
+                {
                     (SelectedBankItem as BankCard).IsWorked = value;
                     OnPropertyChanged();
-                //}
+                }
             }
         }
 

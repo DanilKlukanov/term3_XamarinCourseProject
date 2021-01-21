@@ -4,6 +4,16 @@
              x:Class="CW.Views.InsideViews.TransferToClientView"
              xmlns:convert="clr-namespace:CW.Converters"
              x:Name="page">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="Клиенту банка"
+                   TextColor="White"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Button" x:Key="NoDefaultCapsButton">
