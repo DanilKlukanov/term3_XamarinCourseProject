@@ -114,6 +114,69 @@
                     <Label Text="{Binding Payment.other_number, Converter={StaticResource Key=BankCardNumberConverter}}"
                            Padding="10,30,0,0"/>
                 </Grid>
+            </Grid>-->
+            <StackLayout VerticalOptions="Center"
+                         HorizontalOptions="FillAndExpand"
+                         Padding="0,20,0,0"
+                         HeightRequest="250">
+                <Image Source="tick_mark" 
+                       HeightRequest="65"
+                       WidthRequest="65"/>
+                <StackLayout VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             HeightRequest="30"
+                             Margin="0,20,0,0">
+                    <Label Text="{Binding Payment.operation_type}"
+                           FontSize="19"
+                           TextColor="Black"
+                           FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             HeightRequest="30"
+                             Margin="0,0,0,0">
+                    <Label Text="{Binding Money, StringFormat='{0:F2}'}"
+                           FontSize="30"
+                           TextColor="Black"/>
+                    <Label Text="{Binding Currency}"
+                           FontSize="30"
+                           HorizontalOptions="CenterAndExpand"
+                           TextColor="Black"/>
+                </StackLayout>
+            </StackLayout>
+            <Label Text="Подробности"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   Padding="0,0,0,20"
+                   HorizontalOptions="Center"/>
+            <Grid HeightRequest="55" Padding="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" HorizontalOptions="Center">
+                    <Label Text="Счет зачисления" 
+                           TextColor="Black"
+                           VerticalOptions="Start"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding Payment.user_number, Converter={StaticResource Key=BankCardNumberConverter}}"
+                           Padding="0,30,0,0"
+                           HorizontalOptions="Center"/>
+                </Grid>
+            </Grid>
+            <Grid HeightRequest="55" Padding="0,20,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" HorizontalOptions="Center">
+                    <Label Text="Счет отправителя"
+                           TextColor="Black"
+                           VerticalOptions="Start"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding Payment.other_number, Converter={StaticResource Key=BankCardNumberConverter}}"
+                           HorizontalOptions="Center"
+                           Padding="0,30,0,0"/>
+                </Grid>
             </Grid>
         </StackLayout>
     </ContentPage.Content>
