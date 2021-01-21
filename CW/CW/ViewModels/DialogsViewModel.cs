@@ -94,6 +94,7 @@ namespace CW.ViewModels
 
         private void Refresh()
         {
+            //Device.Sto
             GetMessages();
         }
     }

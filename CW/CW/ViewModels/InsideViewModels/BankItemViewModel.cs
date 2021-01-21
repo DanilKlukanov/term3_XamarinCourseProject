@@ -123,11 +123,21 @@ namespace CW.ViewModels.InsideViewModels
             get => (SelectedBankItem as BankCard)?.IsWorked ?? true;
             set
             {
+<<<<<<< HEAD
                 if ((SelectedBankItem as BankCard)?.IsWorked != null)
+=======
+
+                    if ((SelectedBankItem as BankCard)?.IsWorked != null)
+>>>>>>> Fix Navbar
                 {
                     (SelectedBankItem as BankCard).IsWorked = value;
                     OnPropertyChanged();
                 }
+<<<<<<< HEAD
+=======
+
+                //}
+>>>>>>> Fix Navbar
             }
         }
 
