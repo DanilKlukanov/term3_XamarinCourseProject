@@ -82,10 +82,10 @@
                              HorizontalOptions="Center"
                              HeightRequest="30"
                              Margin="0,0,0,0">
-                    <Label Text="{Binding Money, StringFormat='{0:F2}'}"
+                    <Label Text="{Binding Payment.amount}"
                            FontSize="30"
                            TextColor="Black"/>
-                    <Label Text="{Binding Currency}"
+                    <Label Text="{Binding Payment.operation_currency}"
                            FontSize="30"
                            HorizontalOptions="CenterAndExpand"
                            TextColor="Black"/>
