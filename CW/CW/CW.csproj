@@ -25,7 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\InsideViews\DetailHistoryViews\DetailHistoryView.xaml">
+    <EmbeddedResource Update="Views\InsideViews\DetailHistoryViews\DetailHistoryGetView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\InsideViews\DetailHistoryViews\DetailHistoryGiveView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LoginViews\ExchangesRatesView.xaml">

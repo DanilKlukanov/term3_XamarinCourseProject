@@ -27,6 +27,7 @@ namespace CW.ViewModels.InsideViewModels
             AllPatterns = new ObservableCollection<Pattern>();
             UserPassword = new ValidatableObject<string>();
 
+            LoadPatterns();
             LoadListBankItems();
             TransferToClientCommand = new Command(OpenTransferToClient);
             TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir);
@@ -49,6 +50,11 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand CreatePatternCommand { get; private set; }
         public ICommand DeletePatternCommand { get; private set; }
         public ICommand ExecutePatternCommand { get; private set; }
+        private async void LoadPatterns()
+        {
+            var patterns = await PatternService.Instance.GetPatterns();
+            patterns.ForEach(x => AllPatterns.Add(x));
+        }
         private async void LoadListBankItems()
         {
             var cards = await BillsService.Instance.GetCards();
@@ -77,7 +83,7 @@ namespace CW.ViewModels.InsideViewModels
         {
             var selectedPattern = item as Pattern;
             if (await Application.Current.MainPage.DisplayAlert("Подтверждение", "Вы уверены?", "Да", "Нет")) {
-                var response = await PatternService.Instance.RemovePattern(selectedPattern.name);
+                var response = await PatternService.Instance.RemovePattern(selectedPattern.pattern_name);
                 if (response.Item1)
                 {
                     AllPatterns.Remove(selectedPattern);
@@ -101,14 +107,13 @@ namespace CW.ViewModels.InsideViewModels
                 return;
             if (UserPassword.Validate())
             {
-                User user = App.GetUser();
-                Tuple<bool, string> responseCheck = await UserService.Instance.Login(user.login, UserPassword.Value);
+                Tuple<bool, string> responseCheck = await UserService.Instance.Login(App.GetUser().login, UserPassword.Value);
                 if (responseCheck.Item1 == true)
                 {
                     int balance = GetMoney(selectedPattern);
                     if (balance - selectedPattern.amount >= 0)
                     {
-                        string response = await TransactionService.Instance.DoTransfer(selectedPattern.from, selectedPattern.to, selectedPattern.amount);
+                        string response = await TransactionService.Instance.DoTransfer(selectedPattern.from_, selectedPattern.to_, selectedPattern.amount);
                         await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
                     }
                     else

@@ -16,6 +16,16 @@
                                          TypeName="CW.Models.BankCard"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="Карты"
+                   TextColor="White"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Content>
         <StackLayout Spacing="0">
             <CarouselView x:Name="Cards"
@@ -38,9 +48,9 @@
                                         <Label Text="{Binding Currency}"/>
                                     </StackLayout>
                                     <Image Source="{Binding ImgUrl}"
-                                               HeightRequest="40"
-                                               WidthRequest="50"
-                                               HorizontalOptions="EndAndExpand"
+                                           HeightRequest="40"
+                                           WidthRequest="50"
+                                           HorizontalOptions="EndAndExpand"
                                            VerticalOptions="EndAndExpand"/>
                                 </StackLayout>
                             </Frame>
@@ -74,26 +84,65 @@
                         BackgroundColor="Green"/>
             </FlexLayout>
             <StackLayout IsVisible="{Binding IsCardInterfaceActive}">
-                <Frame>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding HistoryCommand}"/>
-                    </Frame.GestureRecognizers>
-                    <Label Text="История операций"
-                           FontSize="Body"/>
-                </Frame>
+                <StackLayout>
+                    <Frame>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding HistoryCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <Grid HeightRequest="25">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="3.6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0"
+                                   Source="clock2.png"
+                                   HorizontalOptions="Center"
+                                   Margin="5,0,5,0"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                                   Padding="10,0,0,0"
+                                   Text="История операций"
+                                   FontSize="Body"/>
+                        </Grid>
+                    </Frame>
+                </StackLayout>
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BlockCardCommand}"/>
                     </Frame.GestureRecognizers>
-                    <Label Text="Заблокировать"
-                           FontSize="Body"/>
+                    <Grid HeightRequest="25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="3.6*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="padlock22.png"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Padding="10,0,0,0"
+                               Text="Заблокировать"
+                               FontSize="Body"/>
+                    </Grid>
                 </Frame>
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding RenameCardCommand}"/>
                     </Frame.GestureRecognizers>
-                    <Label Text="Переименовать"
-                           FontSize="Body"/>
+                    <Grid HeightRequest="25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="3.6*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="pen4.png"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Padding="10,0,0,0"
+                               Text="Переименовать"
+                               FontSize="Body"/>
+                    </Grid>
                 </Frame>
             </StackLayout>
         </StackLayout>

@@ -22,9 +22,9 @@ namespace CW.ViewModels.InsideViewModels
         public CreatePatternViewModel(Pattern pattern)
         {
             Pattern = pattern;
-            Name = pattern.name;
-            NumberFrom = pattern.from;
-            NumberTo = pattern.to;
+            Name = pattern.pattern_name;
+            NumberFrom = pattern.from_;
+            NumberTo = pattern.to_;
             Amount = new ValidationInput();
             Amount.Value = pattern.amount.ToString();
             ChangePatternCommand = new Command(ChangePattern);

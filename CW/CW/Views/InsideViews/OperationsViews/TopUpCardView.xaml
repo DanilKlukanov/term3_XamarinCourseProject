@@ -17,6 +17,16 @@
                                          TypeName="CW.Models.BankAccount"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="Пополнить"
+                   TextColor="White"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Spacing="0"
