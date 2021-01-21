@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using CW.ViewModels.InsideViewModels;
+using CW.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace CW.Views.InsideViews
 {
@@ -15,7 +16,7 @@ namespace CW.Views.InsideViews
         public DialogsView()
         {
             InitializeComponent();
-            BindingContext = new DialogsViewModel(Navigation);
+            BindingContext = new DialogsViewModel();
         }
     }
 }
