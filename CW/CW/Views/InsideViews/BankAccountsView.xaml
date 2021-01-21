@@ -7,6 +7,16 @@
              xmlns:models="clr-namespace:CW.Models"
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.BankAccountsView">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="Счета"
+                   TextColor="White"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Resources>
         <ResourceDictionary>
             <convert:BankNumberConverter x:Key="BankAccountNumberConverter"
