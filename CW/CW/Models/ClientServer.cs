@@ -171,7 +171,7 @@ namespace CW.Models
 
             return json;
         }
-        public async Task<string> create_pattern(string login, string pattern_name, string from, string to, int amount)
+        public async Task<string> create_pattern(string login, string pattern_name, string from, string to, double amount)
         {
             var content = new FormUrlEncodedContent(new[] 
             { 
