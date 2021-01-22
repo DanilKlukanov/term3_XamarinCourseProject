@@ -16,7 +16,7 @@ namespace CW.Views.InsideViews
         public DialogsView()
         {
             InitializeComponent();
-            BindingContext = new DialogsViewModel();
+            BindingContext = new DialogsViewModel(Navigation);
         }
     }
 }
