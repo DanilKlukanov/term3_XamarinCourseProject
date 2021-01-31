@@ -11,6 +11,19 @@
                                          TypeName="CW.Models.BankAccount"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="Сумма"
+                   TextColor="White"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"/>
+        </StackLayout>
+    </Shell.TitleView>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <ContentPage.Content>
         <StackLayout>
             <Grid IsVisible="{Binding IsCardVisible}"

@@ -16,6 +16,7 @@ namespace CW.ViewModels.InsideViewModels
     public class MainScreenViewModel : BaseViewModel
     {
         private bool _isEnabled;
+        private bool _isButtonEnabled;
 
         public MainScreenViewModel(INavigation navigation)
         {
@@ -27,12 +28,13 @@ namespace CW.ViewModels.InsideViewModels
 
             LoadListBankItems();
             Navigation = navigation;
+            _isButtonEnabled = true;
             _isEnabled = true;
 
-            OpenProfilePageCommand = new Command(OpenProfilePage);
+            OpenProfilePageCommand = new Command(OpenProfilePage, () => IsButtonEnabled);
             BackCommand = new Command(Back, () => _isEnabled);
-            OpenBankCardPageCommand = new Command(OpenBankCardPage);
-            OpenBankAccountPageCommand = new Command(OpenBankAccounPage);
+            OpenBankCardPageCommand = new Command(OpenBankCardPage, (_) => IsButtonEnabled);
+            OpenBankAccountPageCommand = new Command(OpenBankAccounPage, (_) => IsButtonEnabled);
         }
         public string NameUser { get; private set; }
         public ObservableCollection<BankCard> BankCards { get; private set; }
@@ -44,6 +46,7 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand OpenBankCardPageCommand { get; private set; }
         public ICommand OpenBankAccountPageCommand { get; private set; }
+
 
         private async Task LoadListBankItems()
         {
@@ -65,34 +68,56 @@ namespace CW.ViewModels.InsideViewModels
             bankBills.ForEach(x => BankAccounts.Add(x));
             bankCredits.ForEach(x => BankCredits.Add(x));
         }
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
+
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (OpenProfilePageCommand as Command)?.ChangeCanExecute();
+                    (OpenBankCardPageCommand as Command)?.ChangeCanExecute();
+                    (OpenBankAccountPageCommand as Command)?.ChangeCanExecute();
+                }
+            }
+        }
 
         private void Back()
         {
             Navigation.PopAsync();
         }
 
-        private void OpenProfilePage()
+        private async void OpenProfilePage()
         {
-            Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+            IsButtonEnabled = true;
         }
 
-        private void OpenBankAccounPage(object item)
+        private async void OpenBankAccounPage(object item)
         {
             var bankItem = item as BankAccount;
 
             if (bankItem != null)
             {
-                Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this, bankItem)));
+                IsButtonEnabled = false;
+                await Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this, bankItem)));
+                IsButtonEnabled = true;
             }
         }
 
-        private void OpenBankCardPage(object item)
+        private async void OpenBankCardPage(object item)
         {
             var bankItem = item as BankCard;
             
             if (bankItem != null)
             {
-                Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem)));
+                IsButtonEnabled = false;
+                await Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem)));
+                IsButtonEnabled = true;
             }
         }
 

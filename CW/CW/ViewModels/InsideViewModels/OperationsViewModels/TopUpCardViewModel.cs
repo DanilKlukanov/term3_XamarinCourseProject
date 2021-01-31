@@ -13,6 +13,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
 {
     public class TopUpCardViewModel : BaseViewModel
     {
+        private bool _isButtonEnabled;
         public ObservableCollection<BankCard> BankCards { get; private set; }
         public ObservableCollection<BankAccount> BankAccounts { get; private set; }
         public BankItem SelectedBankItem { get; private set; }
@@ -24,14 +25,9 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         public TopUpCardViewModel(INavigation navigation, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts, BankItem item)
         {
             Navigation = navigation;
+            _isButtonEnabled = true;
             BankCards = new ObservableCollection<BankCard>();
-            foreach(BankCard element in cards)
-            {
-                if (element != item as BankCard)
-                {
-                    BankCards.Add(element);
-                }
-            }
+            cards.Where(x => x != item as BankCard && x.IsWorked == true).ForEach(x => BankCards.Add(x));
             BankAccounts = accounts;
             SelectedBankItem = item;
             OpenCard = new Command(() => {
@@ -42,10 +38,27 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
                 IsOpenCardVisible = false;
                 IsOpenAccountVisible = true;
             });
-            OpenTopUp = new Command(TopUp);
-            OpenTopUpAccount = new Command(TopUpAccount);
+            OpenTopUp = new Command(TopUp, (_) => IsButtonEnabled);
+            OpenTopUpAccount = new Command(TopUpAccount, (_) => IsButtonEnabled);
         }
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
+
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (OpenTopUp as Command)?.ChangeCanExecute();
+                    (OpenTopUpAccount as Command)?.ChangeCanExecute();
+                }
+            }
+        }
+
         private bool isOpenCardVisible = true;
+        
         public bool IsOpenCardVisible
         {
             get => isOpenCardVisible;
@@ -71,15 +84,19 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
                 }
             }
         }
-        private void TopUp(object item)
+        private async void TopUp(object item)
         {
             var toCard = item as BankCard;
-            Navigation.PushAsync(new PaymentTopUpView(new PaymentTopUpViewModel(SelectedBankItem, toCard)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new PaymentTopUpView(new PaymentTopUpViewModel(SelectedBankItem, toCard)));
+            IsButtonEnabled = true;
         }
-        private void TopUpAccount(object item)
+        private async void TopUpAccount(object item)
         {
             var toAccount = item as BankAccount;
-            Navigation.PushAsync(new PaymentTopUpView(new PaymentTopUpViewModel(SelectedBankItem, toAccount)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new PaymentTopUpView(new PaymentTopUpViewModel(SelectedBankItem, toAccount)));
+            IsButtonEnabled = true;
         }
     }
 }

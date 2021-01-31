@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.HistoryView"
              x:Name="page">
+    
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
@@ -23,6 +24,9 @@
                          Command="{Binding OpenProfilePageCommand}"/>
         </StackLayout>
     </Shell.TitleView>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <ContentPage.Content>
         <StackLayout>
             <CollectionView ItemsSource="{Binding AllHistory}"
@@ -40,6 +44,11 @@
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <Grid HeightRequest="55">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference page},
+                                                          Path=BindingContext.OpenDetailPageCommand}"
+                                                          CommandParameter="{Binding}"/>
+                                </Grid.GestureRecognizers>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1.5*"/>
                                     <ColumnDefinition Width="1.5*"/>

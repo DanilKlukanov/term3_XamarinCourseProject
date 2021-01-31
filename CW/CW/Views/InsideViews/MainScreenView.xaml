@@ -16,6 +16,9 @@
                                          TypeName="CW.Models.BankAccount"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
@@ -24,7 +27,8 @@
                    HorizontalOptions="StartAndExpand"
                    VerticalOptions="Center"
                    FontSize="20"/>
-            <ImageButton Source="user.png"
+            <ImageButton x:Name="ProfileButton"
+                         Source="user.png"
                          HeightRequest="40"
                          WidthRequest="40"
                          Padding="0, 0, 10, 0"
@@ -32,6 +36,7 @@
                          HorizontalOptions="EndAndExpand"
                          Command="{Binding OpenProfilePageCommand}"/>
         </StackLayout>
+        
     </Shell.TitleView>
     <ContentPage.Content>
         <StackLayout BackgroundColor="White" Spacing="0">
@@ -39,7 +44,7 @@
                    TextTransform="Uppercase"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
-                   BackgroundColor="LightGray"/>
+                   BackgroundColor="#E0F2F1"/>
             <ListView ItemsSource="{Binding BankCards}"
                       HasUnevenRows="True"
                       IsPullToRefreshEnabled="True"
@@ -95,7 +100,7 @@
                    TextTransform="Uppercase"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
-                   BackgroundColor="LightGray"/>
+                   BackgroundColor="#E0F2F1"/>
             <ListView ItemsSource="{Binding BankAccounts}"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
@@ -141,7 +146,7 @@
                    TextTransform="Uppercase"
                    VerticalOptions="Center"
                    Padding="20,10,0,10"
-                   BackgroundColor="LightGray"/>
+                   BackgroundColor="#E0F2F1"/>
             <ListView ItemsSource="{Binding BankCredits}"
                       HasUnevenRows="True"
                       SelectionMode="None">
@@ -159,7 +164,7 @@
                                         <Label Text="{Binding Number, StringFormat='Договор №: {0}'}" 
                                                VerticalOptions="Start"
                                                Padding="10,0,0,10"/>
-                                        <Label Text="{Binding Date}"
+                                        <Label Text="{Binding Date, StringFormat='{HH:mm:ss}{MM/dd/yyyy}'}"
                                                Padding="10,30,0,0"/>
                                     </Grid>
                                     <Label Grid.Column="1"

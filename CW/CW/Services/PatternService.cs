@@ -30,27 +30,23 @@ namespace CW.Services
             }
         }
 
-        public async Task<string> CreatePattern(string pattern_name, string from, string to, int amount)
+        public async Task<string> CreatePattern(string pattern_name, string from, string to, double amount)
         {
-            string json = await _client.create_pattern(App.GetUser().id, pattern_name, from, to, amount);
+            string json = await _client.create_pattern(App.GetUser().login, pattern_name, from, to, amount);
             try
             {
-                if (json == "\"0\"")
+                if (json == "\"1\"")
                 {
-                    return "Операция выполнена успешно.";
-                }
-                else if (json == "\"1\"")
-                {
-                    return "Данный шаблон уже существует.";
+                    return "Операция выполнена успешно";
                 }
                 else
                 {
-                    return "Неверный счет.";
+                    return "Невозможно создать шаблон";
                 }
             }
             catch (Exception ex)
             {
-                return "Возникла непредвиденная ошибка. Повторите позднее.";
+                return "Возникла непредвиденная ошибка. Повторите позднее";
             }
         }
 
@@ -58,7 +54,7 @@ namespace CW.Services
         {
             try
             {
-                string json = await _client.get_patterns(App.GetUser().id);
+                string json = await _client.get_patterns(App.GetUser().login);
                 return JsonConvert.DeserializeObject<List<Pattern>>(json);
             }
             catch (Exception ex)
@@ -70,7 +66,7 @@ namespace CW.Services
 
         public async Task<Tuple<bool, string>> RemovePattern(string pattern_name)
         {
-            string json = await _client.remove_pattern(App.GetUser().id, pattern_name);
+            string json = await _client.remove_pattern(App.GetUser().login, pattern_name);
             try
             {
                 if (json == "\"1\"")
@@ -84,7 +80,7 @@ namespace CW.Services
             }
             catch (Exception ex)
             {
-                return new Tuple<bool, string>(false, "Возникла непредвиденная ошибка. Повторите позднее.");
+                return new Tuple<bool, string>(false, "Возникла непредвиденная ошибка. Повторите позднее");
             }
         }
     }

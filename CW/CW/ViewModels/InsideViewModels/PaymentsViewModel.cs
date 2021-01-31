@@ -17,21 +17,24 @@ namespace CW.ViewModels.InsideViewModels
     public class PaymentsViewModel : BaseViewModel
     {
         private bool _isEnabled;
+        private bool _isButtonEnabled;
 
         public PaymentsViewModel(INavigation navigation)
         {
             Navigation = navigation;
             _isEnabled = true;
+            _isButtonEnabled = true;
             BankCards = new ObservableCollection<BankCard>();
             BankAccounts = new ObservableCollection<BankAccount>();
             AllPatterns = new ObservableCollection<Pattern>();
             UserPassword = new ValidatableObject<string>();
 
+            LoadPatterns();
             LoadListBankItems();
-            TransferToClientCommand = new Command(OpenTransferToClient);
-            TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir);
+            TransferToClientCommand = new Command(OpenTransferToClient, () => IsButtonEnabled);
+            TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir, () => IsButtonEnabled);
             CreatePatternCommand = new Command(OpenCreatePattern);
-            OpenProfilePageCommand = new Command(OpenProfilePage);
+            OpenProfilePageCommand = new Command(OpenProfilePage, () => IsButtonEnabled);
             DeletePatternCommand = new Command(DeletePattern);
             ExecutePatternCommand = new Command(ExecutePatternAsync);
             BackCommand = new Command(Back, () => _isEnabled);
@@ -49,6 +52,29 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand CreatePatternCommand { get; private set; }
         public ICommand DeletePatternCommand { get; private set; }
         public ICommand ExecutePatternCommand { get; private set; }
+
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
+
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (OpenProfilePageCommand as Command)?.ChangeCanExecute();
+                    (TransferToClientCommand as Command)?.ChangeCanExecute();
+                    (TransfeBetweenTheirCommand as Command)?.ChangeCanExecute();
+                }
+            }
+        }
+
+        private async void LoadPatterns()
+        {
+            var patterns = await PatternService.Instance.GetPatterns();
+            patterns.ForEach(x => AllPatterns.Add(x));
+        }
         private async void LoadListBankItems()
         {
             var cards = await BillsService.Instance.GetCards();
@@ -64,9 +90,11 @@ namespace CW.ViewModels.InsideViewModels
         {
             Navigation.PopAsync();
         }
-        private void OpenProfilePage()
+        private async void OpenProfilePage()
         {
-            Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+            IsButtonEnabled = true;
         }
         private void OpenCreatePattern(object item)
         {
@@ -77,7 +105,7 @@ namespace CW.ViewModels.InsideViewModels
         {
             var selectedPattern = item as Pattern;
             if (await Application.Current.MainPage.DisplayAlert("Подтверждение", "Вы уверены?", "Да", "Нет")) {
-                var response = await PatternService.Instance.RemovePattern(selectedPattern.name);
+                var response = await PatternService.Instance.RemovePattern(selectedPattern.pattern_name);
                 if (response.Item1)
                 {
                     AllPatterns.Remove(selectedPattern);
@@ -85,13 +113,17 @@ namespace CW.ViewModels.InsideViewModels
                 await Application.Current.MainPage.DisplayAlert("Message", response.Item2, "OK");
             }
         }
-        private void OpenTransferToClient()
+        private async void OpenTransferToClient()
         {
-            Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation, BankCards, BankAccounts)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation, BankCards, BankAccounts)));
+            IsButtonEnabled = true;
         }
-        private void OpenTransferBetweenTheir()
+        private async void OpenTransferBetweenTheir()
         {
-            Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation, BankCards, BankAccounts)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation, BankCards, BankAccounts)));
+            IsButtonEnabled = true;
         }
         private async void ExecutePatternAsync(object item)
         {
@@ -101,14 +133,13 @@ namespace CW.ViewModels.InsideViewModels
                 return;
             if (UserPassword.Validate())
             {
-                User user = App.GetUser();
-                Tuple<bool, string> responseCheck = await UserService.Instance.Login(user.login, UserPassword.Value);
+                Tuple<bool, string> responseCheck = await UserService.Instance.Login(App.GetUser().login, UserPassword.Value);
                 if (responseCheck.Item1 == true)
                 {
                     int balance = GetMoney(selectedPattern);
                     if (balance - selectedPattern.amount >= 0)
                     {
-                        string response = await TransactionService.Instance.DoTransfer(selectedPattern.from, selectedPattern.to, selectedPattern.amount);
+                        string response = await TransactionService.Instance.DoTransfer(selectedPattern.from_, selectedPattern.to_, selectedPattern.amount);
                         await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
                     }
                     else

@@ -15,13 +15,6 @@
                    VerticalOptions="Center"
                    FontSize="20"
                    TextColor="White"/>
-            <!--<ImageButton Source="plus.png"
-                         HeightRequest="25"
-                         WidthRequest="25"
-                         Margin="110, 0, 0, 0"
-                         BackgroundColor="Transparent"
-                         HorizontalOptions="EndAndExpand"
-                         Command="{Binding CreateTemplatesCommand}"/>-->
             <ImageButton Source="user.png"
                          HeightRequest="40"
                          WidthRequest="40"
@@ -31,33 +24,62 @@
                          Command="{Binding OpenProfilePageCommand}"/>
         </StackLayout>
     </Shell.TitleView>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="LightGray" Spacing="0">
+        <StackLayout BackgroundColor="#86c5da" Spacing="0">
             <StackLayout Spacing="0">
                 <Label Text="Платежи"
                        TextTransform="Uppercase"
                        VerticalOptions="Center"
                        HeightRequest="40"
                        Padding="20,10,0,10"
-                       BackgroundColor="LightGray"/>
+                       BackgroundColor="#E0F2F1"/>
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding TransferToClientCommand}"/>
                     </Frame.GestureRecognizers>
-                    <Label Text="Клиенту Банка"/>
+                    <Grid HeightRequest="54">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="3.6*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="tick_mark.png"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Padding="10,0,0,0"
+                               Text="Клиенту банка"
+                               FontSize="Body"/>
+                    </Grid>
                 </Frame>
                 <Frame>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding TransfeBetweenTheirCommand}"/>
                     </Frame.GestureRecognizers>
-                    <Label Text="Между своими"/>
+                    <Grid HeightRequest="54">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.4*"/>
+                            <ColumnDefinition Width="3.6*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="right_arrow.png"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Padding="10,0,0,0"
+                               Text="Между своими"
+                               FontSize="Body"/>
+                    </Grid>
                 </Frame>
                 <Label Text="Шаблоны"
                        TextTransform="Uppercase"
                        VerticalOptions="Center"
                        HeightRequest="40"
                        Padding="20,10,0,10"
-                       BackgroundColor="LightGray"/>
+                       BackgroundColor="#E0F2F1"/>
                 <StackLayout>
                     <CollectionView ItemsSource="{Binding AllPatterns}"
                             SelectionMode="None">
@@ -72,12 +94,12 @@
                                                        Path=BindingContext.ExecutePatternCommand}"
                                                        CommandParameter="{Binding}"/>
                                             <SwipeItem Text="Изменить"
-                                                       BackgroundColor="LightGreen"
+                                                       BackgroundColor="#81C784"
                                                        Command="{Binding Source={x:Reference page},
                                                        Path=BindingContext.CreatePatternCommand}"
                                                        CommandParameter="{Binding}"/>
                                             <SwipeItem Text="Удалить"
-                                                       BackgroundColor="IndianRed"
+                                                       BackgroundColor="#E57373"
                                                        Command="{Binding Source={x:Reference page},
                                                        Path=BindingContext.DeletePatternCommand}"
                                                        CommandParameter="{Binding}"/>
@@ -85,22 +107,24 @@
                                     </SwipeView.RightItems>
                                     <Grid HeightRequest="55">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="3*"/>
-                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="0.7*"/>
+                                            <ColumnDefinition Width="2.3*"/>
+                                            <ColumnDefinition Width="1*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Label Text="{Binding name}"
-                                           Grid.Column="0"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
-                                        <Label Text="{Binding type}"
-                                           Grid.Column="1"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
+                                        <Image Source="favorite.png"
+                                               Margin="19,13,7,15"
+                                               Grid.Column="0"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        <Label Text="{Binding pattern_name}"
+                                               Grid.Column="1"
+                                               FontSize="Body"
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Center"/>
                                         <Label Text="{Binding amount}"
-                                           Grid.Column="2"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
+                                               Grid.Column="2"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
                                     </Grid>
                                 </SwipeView>
                             </DataTemplate>

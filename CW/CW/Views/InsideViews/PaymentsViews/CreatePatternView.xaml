@@ -11,6 +11,9 @@
                                          TypeName="CW.Models.BankAccount"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal"
@@ -26,7 +29,7 @@
                            Padding="10,0,0,10"/>
                     <StackLayout Orientation="Horizontal" 
                                  VerticalOptions="EndAndExpand">
-                        <Label Text="{Binding Pattern.from, Converter={StaticResource Key=BankCardNumberConverter}}"
+                        <Label Text="{Binding Pattern.from_, Converter={StaticResource Key=BankCardNumberConverter}}"
                                Padding="10,0,0,10"/>
                     </StackLayout>
                 </StackLayout>
@@ -42,7 +45,7 @@
                            Padding="10,0,0,10"/>
                     <StackLayout Orientation="Horizontal" 
                                  VerticalOptions="EndAndExpand">
-                        <Label Text="{Binding Pattern.to, Converter={StaticResource Key=BankCardNumberConverter}}"
+                        <Label Text="{Binding Pattern.to_, Converter={StaticResource Key=BankCardNumberConverter}}"
                                Padding="10,0,0,10"/>
                     </StackLayout>
                 </StackLayout>
