@@ -12,6 +12,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
 {
     public class PaymentTopUpViewModel : BaseViewModel
     {
+        private bool _isButtonEnabled;
         public BankItem SelectedBankItem { get; private set; }
         public BankCard FromBankCard { get; private set; }
         public BankAccount FromAccount { get; private set; }
@@ -24,27 +25,46 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         {
             SelectedBankItem = selectedBankItem;
             FromBankCard = fromCard;
+            _isButtonEnabled = true;
             IsCardVisible = true;
             IsAccountVisible = false;
             ToPayCommand = new Command(ToPay);
             Amount = new ValidationInput();
             UserPassword = new ValidatableObject<string>();
         }
+
         public PaymentTopUpViewModel(BankItem selectedBankItem, BankAccount fromAccount)
         {
             SelectedBankItem = selectedBankItem;
             FromAccount = fromAccount;
+            _isButtonEnabled = true;
             IsCardVisible = false;
             IsAccountVisible = true;
-            ToPayCommand = new Command(ToPay);
+            ToPayCommand = new Command(ToPay, () => IsButtonEnabled);
             Amount = new ValidationInput();
             UserPassword = new ValidatableObject<string>();
+        }
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
+
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (ToPayCommand as Command)?.ChangeCanExecute();
+                }
+            }
         }
         private async void ToPay()
         {
             if (Amount.Validate())
             {
+                IsButtonEnabled = false;
                 UserPassword.Value = await Application.Current.MainPage.DisplayPromptAsync("Подтверждение", "Введите пароль");
+                IsButtonEnabled = true;
                 if (UserPassword.Value == null)
                     return;
                 if (UserPassword.Validate())

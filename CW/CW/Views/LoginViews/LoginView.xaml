@@ -12,7 +12,6 @@
             <convert:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-
     <ContentPage.Content>
         <AbsoluteLayout Padding="0"
                         HorizontalOptions="FillAndExpand"
