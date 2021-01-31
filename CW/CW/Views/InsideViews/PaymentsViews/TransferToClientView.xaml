@@ -8,6 +8,7 @@
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
             <Label Text="Клиенту банка"
+                   
                    TextColor="White"
                    HorizontalOptions="StartAndExpand"
                    VerticalOptions="Center"
