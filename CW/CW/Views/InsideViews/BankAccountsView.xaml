@@ -17,6 +17,9 @@
                    FontSize="20"/>
         </StackLayout>
     </Shell.TitleView>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <ContentPage.Resources>
         <ResourceDictionary>
             <convert:BankNumberConverter x:Key="BankAccountNumberConverter"
@@ -30,7 +33,7 @@
                           HeightRequest="300">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout BackgroundColor="LightSkyBlue">
+                        <StackLayout BackgroundColor="#86c5da">
                             <Frame CornerRadius="20"
                                    BackgroundColor="White"
                                    Margin="50"

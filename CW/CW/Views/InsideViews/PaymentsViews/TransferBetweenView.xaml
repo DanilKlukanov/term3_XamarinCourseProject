@@ -14,6 +14,9 @@
                    FontSize="20"/>
         </StackLayout>
     </Shell.TitleView>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Button" x:Key="NoDefaultCapsButton">
@@ -25,7 +28,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Spacing="0" BackgroundColor="LightSkyBlue">
+            <StackLayout Spacing="0" BackgroundColor="#86c5da" Padding="0, 10, 0, 0">
                 <ListView ItemsSource="{Binding BankCards}" RowHeight="200" SelectionMode="None" SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -33,7 +36,7 @@
                                 <ViewCell.View>
                                     <Frame CornerRadius="20"
                                            BackgroundColor="White"
-                                           Margin="50, 20, 50, 20"
+                                           Margin="50, 0, 50, 20"
                                            HeightRequest="200"
                                            WidthRequest="150">
                                         <Frame.GestureRecognizers>

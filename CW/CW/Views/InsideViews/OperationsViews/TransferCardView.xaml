@@ -23,9 +23,12 @@
                    FontSize="20"/>
         </StackLayout>
     </Shell.TitleView>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Spacing="0" BackgroundColor="LightSkyBlue" HeightRequest="50">
+            <StackLayout Spacing="0" BackgroundColor="#86c5da" HeightRequest="50">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                     <Entry Placeholder="Введите номер карты"
                            Text="{Binding NumberCard}"
@@ -52,7 +55,7 @@
                                 <ViewCell.View>
                                     <Frame CornerRadius="20"
                                            BackgroundColor="White"
-                                           Margin="50, 20, 50, 20"
+                                           Margin="50, 0, 50, 20"
                                            HeightRequest="200"
                                            WidthRequest="150">
                                         <Frame.GestureRecognizers>

@@ -12,6 +12,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
 {
     public class TransferPageViewModel : BaseViewModel
     {
+        private bool _isButtonEnabled;
         public BankCard FromCard { get; private set; }
         public BankCard ToCard { get; private set; }
         public string NumberToCard { get; private set; }
@@ -23,6 +24,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         {
             FromCard = fromCard as BankCard;
             ToCard = toCard;
+            _isButtonEnabled = true;
             NumberToCard = toCard.Number;
             PaymentReceiver = type;
             ToPayCommand = new Command(ToPay);
@@ -33,16 +35,33 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         {
             FromCard = fromCard as BankCard;
             NumberToCard = numberCard;
+            _isButtonEnabled = true;
             PaymentReceiver = type;
-            ToPayCommand = new Command(ToPay);
+            ToPayCommand = new Command(ToPay, () => IsButtonEnabled);
             Amount = new ValidationInput();
             UserPassword = new ValidatableObject<string>();
+        }
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
+
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (ToPayCommand as Command)?.ChangeCanExecute();
+                }
+            }
         }
         private async void ToPay()
         {
             if (Amount.Validate())
             {
+                IsButtonEnabled = false;
                 UserPassword.Value = await Application.Current.MainPage.DisplayPromptAsync("Подтверждение", "Введите пароль");
+                IsButtonEnabled = true;
                 if (UserPassword.Value == null)
                     return;
                 if (UserPassword.Validate())

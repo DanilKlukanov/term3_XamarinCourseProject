@@ -11,7 +11,9 @@
                                          TypeName="CW.Models.BankAccount"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal"

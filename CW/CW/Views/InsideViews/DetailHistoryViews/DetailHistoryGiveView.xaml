@@ -21,6 +21,9 @@
                    FontSize="20"/>
         </StackLayout>
     </Shell.TitleView>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <ContentPage.Content>
         <StackLayout>
             <StackLayout VerticalOptions="Center"
