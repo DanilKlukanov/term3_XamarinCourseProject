@@ -16,6 +16,7 @@ namespace CW.ViewModels.InsideViewModels
     {
         private ValidatableObject<string> _newPassword;
         private ValidatableObject<string> _newLogin;
+        private bool _isButtonEnabled;
 
         public INavigation Navigation { get; set; }
         public ICommand LogoutCommand { get; private set; }
@@ -27,10 +28,11 @@ namespace CW.ViewModels.InsideViewModels
         public ProfileViewModel(INavigation navigation)
         {
             LogoutCommand = new Command(Logout);
-            ChangeLoginCommand = new Command(ChangeLogin);
-            ChangePasswordCommand = new Command(ChangePassword);
-            OpenVisitHistoryPageCommand = new Command(OpenVisitHistoryPage);
-            OpenApplicationInfoPageCommand = new Command(OpenApplicationInfoPage);
+            ChangeLoginCommand = new Command(ChangeLogin, () => IsButtonEnabled);
+            ChangePasswordCommand = new Command(ChangePassword, () => IsButtonEnabled);
+            OpenVisitHistoryPageCommand = new Command(OpenVisitHistoryPage, () => IsButtonEnabled);
+            OpenApplicationInfoPageCommand = new Command(OpenApplicationInfoPage, () => IsButtonEnabled);
+            _isButtonEnabled = true;
             Navigation = navigation;
 
             _newLogin = new ValidatableObject<string>();
@@ -38,20 +40,43 @@ namespace CW.ViewModels.InsideViewModels
 
             AddValidations();
         }
-
-        private void OpenApplicationInfoPage()
+        private bool IsButtonEnabled
         {
-            Navigation.PushAsync(new ApplicationInfoView());
+            get => _isButtonEnabled;
+
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (ChangeLoginCommand as Command)?.ChangeCanExecute();
+                    (ChangePasswordCommand as Command)?.ChangeCanExecute();
+                    (OpenVisitHistoryPageCommand as Command)?.ChangeCanExecute();
+                    (OpenApplicationInfoPageCommand as Command)?.ChangeCanExecute();
+                }
+            }
+        }
+
+        private async void OpenApplicationInfoPage()
+        {
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new ApplicationInfoView());
+            IsButtonEnabled = true;
         }
 
         private async void OpenVisitHistoryPage()
         {
             try
             {
+                IsButtonEnabled = false;
                 string json = await UserService.Instance.GetVisitHistory(App.GetUser().login);
 
-                var dates = JsonConvert.DeserializeObject<List<string>>(json);
-                Navigation.PushAsync(new VisitHistoryView(dates));
+                var raw_dates = JsonConvert.DeserializeObject<List<string>>(json);
+                List<string> dates = new List<string>();
+                raw_dates.ForEach(a => dates.Add(DateTime.Parse(a).ToString("MM/dd/yyyy HH:mm:ss")));
+                await Navigation.PushAsync(new VisitHistoryView(dates));
+                IsButtonEnabled = true;
             }
             catch(Exception ex)
             {
@@ -62,7 +87,9 @@ namespace CW.ViewModels.InsideViewModels
 
         private async void ChangePassword()
         {
+            IsButtonEnabled = false;
             _newPassword.Value = await Application.Current.MainPage.DisplayPromptAsync("Изменение пароля", "Введите новый пароль");
+            IsButtonEnabled = true;
 
             if (_newPassword.Value == null)
                 return;
@@ -80,7 +107,9 @@ namespace CW.ViewModels.InsideViewModels
 
         private async void ChangeLogin()
         {
+            IsButtonEnabled = false;
             _newLogin.Value = await Application.Current.MainPage.DisplayPromptAsync("Изменение логина", "Введите новый логин");
+            IsButtonEnabled = true;
 
             if (_newLogin.Value == null)
                 return;
@@ -88,7 +117,9 @@ namespace CW.ViewModels.InsideViewModels
             if (ValidateInput(_newLogin))
             {
                 var response = await UserService.Instance.ChangeLogin(App.GetUser().login, _newLogin.Value);
+                IsButtonEnabled = false;
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                IsButtonEnabled = true;
             }
             else
             {

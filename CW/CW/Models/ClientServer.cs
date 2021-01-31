@@ -22,8 +22,8 @@ namespace CW.Models
            {
 
                 new KeyValuePair<string, string>("operation", nameof(login)),
-                new KeyValuePair<string, string>("login", username),
-                new KeyValuePair<string, string>("password", password)
+                new KeyValuePair<string, string>("login", ToUTF8(username)),
+                new KeyValuePair<string, string>("password", ToUTF8(password))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -37,7 +37,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", nameof(get_user_data)),
-                new KeyValuePair<string, string>("login", username)
+                new KeyValuePair<string, string>("login", ToUTF8(username))
 
             });
 
@@ -52,7 +52,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", nameof(add_visit)),
-                new KeyValuePair<string, string>("login", login)
+                new KeyValuePair<string, string>("login", ToUTF8(login))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -65,8 +65,8 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", nameof(change_password)),
-                new KeyValuePair<string, string>("login", login),
-                new KeyValuePair<string, string>("new_password", new_password)
+                new KeyValuePair<string, string>("login", ToUTF8(login)),
+                new KeyValuePair<string, string>("new_password", ToUTF8(new_password))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -79,8 +79,8 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", nameof(change_login)),
-                new KeyValuePair<string, string>("login", login),
-                new KeyValuePair<string, string>("new_login", new_login)
+                new KeyValuePair<string, string>("login", ToUTF8(login)),
+                new KeyValuePair<string, string>("new_login", ToUTF8(new_login))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -93,7 +93,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", nameof(get_auth_history)),
-                new KeyValuePair<string, string>("login", login)
+                new KeyValuePair<string, string>("login", ToUTF8(login))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -106,7 +106,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", nameof(get_cards)),
-                new KeyValuePair<string, string>("login", login)
+                new KeyValuePair<string, string>("login", ToUTF8(login))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -120,7 +120,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", nameof(get_bills)),
-                new KeyValuePair<string, string>("login", login)
+                new KeyValuePair<string, string>("login", ToUTF8(login))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -134,7 +134,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", nameof(get_credits)),
-                new KeyValuePair<string, string>("login", login)
+                new KeyValuePair<string, string>("login", ToUTF8(login))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -148,9 +148,9 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", "do_transfer"),
-                new KeyValuePair<string, string>("start_number", number_from),
-                new KeyValuePair<string, string>("target_number", number_to),
-                new KeyValuePair<string, string>("amount", amount.ToString()),
+                new KeyValuePair<string, string>("start_number", ToUTF8(number_from)),
+                new KeyValuePair<string, string>("target_number", ToUTF8(number_to)),
+                new KeyValuePair<string, string>("amount", ToUTF8(amount.ToString())),
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -163,7 +163,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                  new KeyValuePair<string, string>("operation", "can_transfer_to"),
-                 new KeyValuePair<string, string>("number", number),
+                 new KeyValuePair<string, string>("number", ToUTF8(number)),
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -176,11 +176,11 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[] 
             { 
                 new KeyValuePair<string, string>("operation", "create_pattern"),
-                new KeyValuePair<string, string>("login", login),
-                new KeyValuePair<string, string>("name", pattern_name),
-                new KeyValuePair<string, string>("from", from),
-                new KeyValuePair<string, string>("to", to),
-                new KeyValuePair<string, string>("amount", amount.ToString()),
+                new KeyValuePair<string, string>("login", ToUTF8(login)),
+                new KeyValuePair<string, string>("name", ToUTF8(pattern_name)),
+                new KeyValuePair<string, string>("from", ToUTF8(from)),
+                new KeyValuePair<string, string>("to", ToUTF8(to)),
+                new KeyValuePair<string, string>("amount", ToUTF8(amount.ToString())),
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -190,10 +190,10 @@ namespace CW.Models
         }
         public async Task<string> get_patterns(string login)
         {
-            var content = new FormUrlEncodedContent(new[]
+            var content = new FormUrlEncodedContent(new[] 
             {
                 new KeyValuePair<string, string>("operation", "get_patterns"),
-                new KeyValuePair<string, string>("login", login),
+                new KeyValuePair<string, string>("login", ToUTF8(login)),
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -201,13 +201,13 @@ namespace CW.Models
 
             return json;
         }
-        public async Task<string> remove_pattern(string login, string user_name)
+        public async Task<string> remove_pattern(string login, string name)
         {
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", "remove_pattern"),
-                new KeyValuePair<string, string>("login", login),
-                new KeyValuePair<string, string>("name", user_name),
+                new KeyValuePair<string, string>("login", ToUTF8(login)),
+                new KeyValuePair<string, string>("name", ToUTF8(name)),
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -220,7 +220,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", "get_history"),
-                new KeyValuePair<string, string>("login", login)
+                new KeyValuePair<string, string>("login", ToUTF8(login))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -233,7 +233,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", "get_part_history"),
-                new KeyValuePair<string, string>("number", number)
+                new KeyValuePair<string, string>("number", ToUTF8(number))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -247,7 +247,7 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             { 
                 new KeyValuePair<string, string>("operation", nameof(block_card)),
-                new KeyValuePair<string, string>("number", number)
+                new KeyValuePair<string, string>("number", ToUTF8(number))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
@@ -261,14 +261,58 @@ namespace CW.Models
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("operation", nameof(rename_card)),
-                new KeyValuePair<string, string>("number", number),
-                new KeyValuePair<string, string>("name", name)
+                new KeyValuePair<string, string>("number", ToUTF8(number)),
+                new KeyValuePair<string, string>("name", ToUTF8(name))
             });
 
             var response = await client.PostAsync("http://77.34.49.138", content);
             var json = await response.Content.ReadAsStringAsync();
 
             return json;
+        }
+
+        public async Task<string> get_messages(string login)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                    new KeyValuePair<string, string>("operation", nameof(get_messages)),
+                    new KeyValuePair<string, string>("login", ToUTF8(login)),
+            });
+
+            return await SendRequest(content);
+        }
+
+        public async Task<string> send_message(string login_from, string login_to, string message)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                    new KeyValuePair<string, string>("operation", nameof(send_message)),
+                    new KeyValuePair<string, string>("from_", ToUTF8(login_from)),
+                    new KeyValuePair<string, string>("to_", ToUTF8(login_to)),
+                    new KeyValuePair<string, string>("msg", ToUTF8(message))
+            });
+
+            return await SendRequest(content);
+        }
+
+        private async Task<string> SendRequest(FormUrlEncodedContent content)
+        {
+
+            var response = await client.PostAsync("http://77.34.49.138", content);
+            var json = await response.Content.ReadAsStringAsync();
+
+            return json;
+        }
+
+        private string ToUTF8(string str)
+        {
+            var bytes = Encoding.UTF8.GetBytes(str);
+            string new_str = "";
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                new_str += "%" + Convert.ToString(bytes[i], 16);
+            }
+            return new_str;
         }
     }
 }

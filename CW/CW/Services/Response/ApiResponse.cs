@@ -3,6 +3,11 @@
     public class ApiResponse<T> : IResponse<T>
     {
 
+/*        public ApiResponse()
+        {
+            _value = Activator.
+        }*/
+
         private T _value;
         public T Value
         {

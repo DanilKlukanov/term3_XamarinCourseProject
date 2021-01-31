@@ -5,9 +5,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="CW.Views.InsideViews.DialogsView">
+
+
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
+            <Label Text="Диалоги"
+                   TextColor="White"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="20"/>
             <ImageButton Source="user.png"
                          HeightRequest="40"
                          WidthRequest="40"
@@ -17,11 +24,142 @@
                          Command="{Binding OpenProfilePageCommand}"/>
         </StackLayout>
     </Shell.TitleView>
-    <ContentPage.Content>
-        <StackLayout BackgroundColor="Yellow">
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
+
+    <Grid HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand"
+          Padding="5,5,5,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              BackgroundColor="Transparent"
+              VerticalOptions="FillAndExpand">
+            <ScrollView Grid.Row="0"
+                        VerticalOptions="FillAndExpand"
+                        Padding="0"
+                        Margin="0">
+                <StackLayout BindableLayout.ItemsSource="{Binding Messages}"
+                             x:Name="layout">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Margin="0"
+                                         Padding="0">
+                                <Frame Padding="0"
+                                       Margin="0"
+                                       BackgroundColor="Transparent"
+                                       CornerRadius="5">
+                                    <Grid BackgroundColor="{Binding col}"
+                                          Margin="0"
+                                          Padding="0,10,0,10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Margin="0"
+                                              Padding="10,0,10,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*"/>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="5*"/>
+                                                <ColumnDefinition Width="8*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0"
+                                                   Text="{Binding from_}"
+                                                   FontAttributes="Bold"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="End"/>
+                                            <Label Grid.Column="1"
+                                                   Text="->"
+                                                   FontAttributes="Bold"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="End"/>
+                                            <Label Grid.Column="2"
+                                                   Text="{Binding to_}"
+                                                   FontAttributes="Bold"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="End"/>
+                                            <Label Grid.Column="3"
+                                                   Text="{Binding msg_time}"
+                                                   FontAttributes="Bold"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="End"/>
+                                        </Grid>
+                                        <Label Grid.Row="1"
+                                               Padding="10,0,10,0"
+                                               Text="{Binding msg}"
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Start"/>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+
+        </Grid>
+        <Grid Grid.Row="1"
+              BackgroundColor="Transparent">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Frame Grid.Column="0"
+                               Padding="0"
+                               Margin="0"
+                               CornerRadius="5"
+                               HasShadow="False"
+                               BorderColor="LightBlue">
+                            <Editor MaxLength="16"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="EndAndExpand"
+                                    Text="{Binding Recipient, Mode=OneWayToSource}"
+                                    Placeholder="Логин"/>
+                        </Frame>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame Grid.Column="0"
+                           Padding="0"
+                           Margin="0"
+                           CornerRadius="5"
+                           HasShadow="False"
+                           BorderColor="LightBlue">
+                        <Editor MaxLength="128"
+                                Keyboard="Chat"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                Text="{Binding Message, Mode=OneWayToSource}"
+                                Placeholder="Сообщение"/>
+                    </Frame>
+                    <ImageButton Grid.Column="1"
+                                 x:Name="send"
+                                 Source="send.png"
+                                 BackgroundColor="Transparent"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 WidthRequest="50"
+                                 HeightRequest="30"
+                                 Command="{Binding SendMessageCommand}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+
 </ContentPage>
