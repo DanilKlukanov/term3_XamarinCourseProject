@@ -28,7 +28,7 @@
             </StackLayout>
 
             <StackLayout VerticalOptions="End">
-                <Frame BackgroundColor="BlueViolet"
+                <Frame BackgroundColor="AliceBlue"
                        BorderColor="Black">
                     <Label Text="Разработчики"
                            FontSize="Large"
