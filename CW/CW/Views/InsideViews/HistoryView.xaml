@@ -37,7 +37,7 @@
                             <SwipeView.RightItems>
                                 <SwipeItems>
                                     <SwipeItem Text="Создать шаблон"
-                                               BackgroundColor="LightGreen"
+                                               BackgroundColor="#81C784"
                                                Command="{Binding Source={x:Reference page},
                                                Path=BindingContext.AddPatternCommand}"
                                                CommandParameter="{Binding}"/>
