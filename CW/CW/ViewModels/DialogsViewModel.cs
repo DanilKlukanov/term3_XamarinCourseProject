@@ -71,7 +71,7 @@ namespace CW.ViewModels
         {
             var messages = await new DialogService().GetMessages();
             Messages.Clear();
-
+            var tmp = new ObservableCollection<Message>();
             foreach (var item in messages)
             {
                 Color col = Color.LightGreen;
@@ -79,7 +79,8 @@ namespace CW.ViewModels
                 {
                     col = Color.LightBlue;
                 }
-                Messages.Add(new Message()
+
+                tmp.Add(new Message()
                 {
                     from_ = item.from_,
                     to_ = item.to_,
@@ -88,6 +89,8 @@ namespace CW.ViewModels
                     col = col
                 });
             }
+            Messages = tmp;
+            OnPropertyChanged("Messages");          
 
             //response.ForEach(x => Messages.Add(x));
         }

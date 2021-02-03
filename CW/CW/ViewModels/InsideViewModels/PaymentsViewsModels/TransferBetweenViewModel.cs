@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Windows.Input;
-using CW.Services;
 using Xamarin.Forms;
 using CW.Views.InsideViews.Operations;
 using System.Collections.ObjectModel;
 using CW.Models;
-using CW.Converters;
 using CW.ViewModels.InsideViewModels.OperationsViewModels;
-using CW.Commands;
 using Xamarin.Forms.Internals;
 
 namespace CW.ViewModels.InsideViewModels.PaymentsViewsModels
