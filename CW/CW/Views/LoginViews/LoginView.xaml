@@ -116,9 +116,9 @@
                            Text="Войти"
                            FontSize="20"
                            VerticalTextAlignment="Center"
-                               HorizontalTextAlignment="Center"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
                            x:Name="ComeIn"/>
                     </Frame>
                 </Grid>

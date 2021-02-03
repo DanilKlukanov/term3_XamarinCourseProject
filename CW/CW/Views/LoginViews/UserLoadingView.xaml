@@ -15,12 +15,12 @@
                                    ScaleIn="1.2"
                                    ScaleOut="0.8" />
     </pages:PopupPage.Animation>
-    
+
     <Frame BackgroundColor="White"
-            VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Margin="20,0,20,0"
-            CornerRadius="20">
+           VerticalOptions="Center"
+           HorizontalOptions="Center"
+           Margin="20,0,20,0"
+           CornerRadius="20">
         <ActivityIndicator IsRunning="True"
                             Color="Black"/>
     </Frame>

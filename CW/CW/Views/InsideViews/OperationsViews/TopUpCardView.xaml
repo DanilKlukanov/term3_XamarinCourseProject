@@ -38,8 +38,14 @@
                              HorizontalOptions="Center"
                              Margin="0, 20, 0, 20">
                     <Button Text="С карты"
+                            CornerRadius="10"
+                            TextColor="White"
+                            BackgroundColor="#81C784"
                             Command="{Binding OpenCard}"/>
                     <Button Text="Со счета"
+                            CornerRadius="10"
+                            TextColor="White"
+                            BackgroundColor="#81C784"
                             Command="{Binding OpenAccount}"/>
                 </StackLayout>
                 <ListView ItemsSource="{Binding BankCards}"
