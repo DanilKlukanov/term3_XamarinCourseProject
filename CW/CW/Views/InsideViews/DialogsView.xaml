@@ -125,7 +125,7 @@
                             <Editor MaxLength="16"
                                     HorizontalOptions="FillAndExpand"
                                     VerticalOptions="EndAndExpand"
-                                    Text="{Binding Recipient, Mode=OneWayToSource}"
+                                    Text="{Binding Recipient.Value, Mode=OneWayToSource}"
                                     Placeholder="Логин"/>
                         </Frame>
                     </Grid>
@@ -145,7 +145,7 @@
                                 Keyboard="Chat"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand"
-                                Text="{Binding Message, Mode=OneWayToSource}"
+                                Text="{Binding Message.Value, Mode=OneWayToSource}"
                                 Placeholder="Сообщение"/>
                     </Frame>
                     <ImageButton Grid.Column="1"
