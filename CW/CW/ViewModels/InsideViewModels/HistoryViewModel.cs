@@ -119,6 +119,7 @@ namespace CW.ViewModels.InsideViewModels
             bankCards.ForEach(x => BankCards.Add(x));
             bankBills.ForEach(x => BankAccounts.Add(x));
         }
+ 
         private void Back()
         {
             Navigation.PopAsync();
@@ -144,6 +145,7 @@ namespace CW.ViewModels.InsideViewModels
                 IsButtonEnabled = true;
             }
         }
+
         public async void OnAddPatternAsync (object item)
         {
             var payment = item as History;

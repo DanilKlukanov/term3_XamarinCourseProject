@@ -55,13 +55,22 @@
                                     <ColumnDefinition Width="0.7*"/>
                                     <ColumnDefinition Width="0.5*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Text="{Binding operation_type}"
-                                       Padding="10, 0, 0, 0"
-                                       Grid.Column="0"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
-                                <Label Text="{Binding operation_time}"
-                                       Padding="30, 0, 10, 0"
+                                <!--<Grid Grid.Column="0">
+                                    <StackLayout Padding="10,0,0,0"
+                                                 VerticalOptions="Center"
+                                                 HorizontalOptions="Center">
+                                        <Image Source="credit_card2"/>
+                                    </StackLayout>
+                                </Grid>-->
+                                <Grid Grid.Column="0">
+                                    <Label Text="{Binding operation_type}"
+                                       Padding="10,0,0,0"
+                                       HorizontalOptions="Start"
+                                       VerticalOptions="Start"/>
+                                    <Label Text="{Binding operation_time}"
+                                       Padding="10,30,0,0"/>
+                                </Grid>
+                                <Label Text="{Binding amount}"
                                        Grid.Column="1"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"/>

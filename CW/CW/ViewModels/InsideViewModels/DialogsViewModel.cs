@@ -9,6 +9,7 @@ namespace CW.ViewModels.InsideViewModels
 {
     public class DialogsViewModel : BaseInsideViewModel
     {
+
         public DialogsViewModel(INavigation navigation) : base(navigation)
         {
             OpenProfilePageCommand = new Command(OpenProfilePage);
