@@ -16,14 +16,9 @@ namespace CW.ViewModels.InsideViewModels
 {
     public class PaymentsViewModel : BaseViewModel
     {
-        private bool _isEnabled;
-        private bool _isButtonEnabled;
-
         public PaymentsViewModel(INavigation navigation)
         {
             Navigation = navigation;
-            _isEnabled = true;
-            _isButtonEnabled = true;
             BankCards = new ObservableCollection<BankCard>();
             BankAccounts = new ObservableCollection<BankAccount>();
             AllPatterns = new ObservableCollection<Pattern>();
@@ -31,13 +26,12 @@ namespace CW.ViewModels.InsideViewModels
 
             LoadPatterns();
             LoadListBankItems();
-            TransferToClientCommand = new Command(OpenTransferToClient, () => IsButtonEnabled);
-            TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir, () => IsButtonEnabled);
+            TransferToClientCommand = new Command(OpenTransferToClient);
+            TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir);
             CreatePatternCommand = new Command(OpenCreatePattern);
-            OpenProfilePageCommand = new Command(OpenProfilePage, () => IsButtonEnabled);
+            OpenProfilePageCommand = new Command(OpenProfilePage);
             DeletePatternCommand = new Command(DeletePattern);
             ExecutePatternCommand = new Command(ExecutePatternAsync);
-            BackCommand = new Command(Back, () => _isEnabled);
         }
 
         public ObservableCollection<Pattern> AllPatterns { get; private set; }
@@ -45,30 +39,12 @@ namespace CW.ViewModels.InsideViewModels
         public ObservableCollection<BankAccount> BankAccounts { get; private set; }
         public ValidatableObject<string> UserPassword { get; set; }
         public INavigation Navigation { get; private set; }
-        public ICommand BackCommand { get; private set; }
         public ICommand TransferToClientCommand { get; private set; }
         public ICommand TransfeBetweenTheirCommand { get; private set; }
         public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand CreatePatternCommand { get; private set; }
         public ICommand DeletePatternCommand { get; private set; }
         public ICommand ExecutePatternCommand { get; private set; }
-
-        private bool IsButtonEnabled
-        {
-            get => _isButtonEnabled;
-
-            set
-            {
-                if (value != _isButtonEnabled)
-                {
-                    _isButtonEnabled = value;
-
-                    (OpenProfilePageCommand as Command)?.ChangeCanExecute();
-                    (TransferToClientCommand as Command)?.ChangeCanExecute();
-                    (TransfeBetweenTheirCommand as Command)?.ChangeCanExecute();
-                }
-            }
-        }
 
         private async void LoadPatterns()
         {
@@ -86,15 +62,9 @@ namespace CW.ViewModels.InsideViewModels
             bankCards.ForEach(x => BankCards.Add(x));
             bankBills.ForEach(x => BankAccounts.Add(x));
         }
-        private void Back()
-        {
-            Navigation.PopAsync();
-        }
         private async void OpenProfilePage()
         {
-            IsButtonEnabled = false;
-            await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
-            IsButtonEnabled = true;
+            await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation))));
         }
         private void OpenCreatePattern(object item)
         {
@@ -115,15 +85,13 @@ namespace CW.ViewModels.InsideViewModels
         }
         private async void OpenTransferToClient()
         {
-            IsButtonEnabled = false;
-            await Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation, BankCards, BankAccounts)));
-            IsButtonEnabled = true;
+            await RunIsBusyTaskAsync(async () => 
+                await Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation, BankCards, BankAccounts))));
         }
         private async void OpenTransferBetweenTheir()
         {
-            IsButtonEnabled = false;
-            await Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation, BankCards, BankAccounts)));
-            IsButtonEnabled = true;
+            await RunIsBusyTaskAsync(async () => 
+                await Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation, BankCards, BankAccounts))));
         }
         private async void ExecutePatternAsync(object item)
         {

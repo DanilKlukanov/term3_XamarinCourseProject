@@ -28,10 +28,10 @@ namespace CW.ViewModels.InsideViewModels
         public ProfileViewModel(INavigation navigation)
         {
             LogoutCommand = new Command(Logout);
-            ChangeLoginCommand = new Command(ChangeLogin, () => IsButtonEnabled);
-            ChangePasswordCommand = new Command(ChangePassword, () => IsButtonEnabled);
+            ChangeLoginCommand = new Command(ChangeLogin);
+            ChangePasswordCommand = new Command(ChangePassword);
             OpenVisitHistoryPageCommand = new Command(OpenVisitHistoryPage, () => IsButtonEnabled);
-            OpenApplicationInfoPageCommand = new Command(OpenApplicationInfoPage, () => IsButtonEnabled);
+            OpenApplicationInfoPageCommand = new Command(OpenApplicationInfoPage);
             _isButtonEnabled = true;
             Navigation = navigation;
 
@@ -50,19 +50,14 @@ namespace CW.ViewModels.InsideViewModels
                 {
                     _isButtonEnabled = value;
 
-                    (ChangeLoginCommand as Command)?.ChangeCanExecute();
-                    (ChangePasswordCommand as Command)?.ChangeCanExecute();
                     (OpenVisitHistoryPageCommand as Command)?.ChangeCanExecute();
-                    (OpenApplicationInfoPageCommand as Command)?.ChangeCanExecute();
                 }
             }
         }
 
         private async void OpenApplicationInfoPage()
         {
-            IsButtonEnabled = false;
-            await Navigation.PushAsync(new ApplicationInfoView());
-            IsButtonEnabled = true;
+            await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new ApplicationInfoView()));
         }
 
         private async void OpenVisitHistoryPage()
@@ -78,18 +73,15 @@ namespace CW.ViewModels.InsideViewModels
                 await Navigation.PushAsync(new VisitHistoryView(dates));
                 IsButtonEnabled = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Message", "Возникла непредвиденная ошибка. Повторите позднее.", "OK");
-            }          
-
+            }
         }
 
         private async void ChangePassword()
         {
-            IsButtonEnabled = false;
-            _newPassword.Value = await Application.Current.MainPage.DisplayPromptAsync("Изменение пароля", "Введите новый пароль");
-            IsButtonEnabled = true;
+            await RunIsBusyTaskAsync(async () => _newPassword.Value = await Application.Current.MainPage.DisplayPromptAsync("Изменение пароля", "Введите новый пароль"));
 
             if (_newPassword.Value == null)
                 return;
@@ -107,9 +99,7 @@ namespace CW.ViewModels.InsideViewModels
 
         private async void ChangeLogin()
         {
-            IsButtonEnabled = false;
-            _newLogin.Value = await Application.Current.MainPage.DisplayPromptAsync("Изменение логина", "Введите новый логин");
-            IsButtonEnabled = true;
+            await RunIsBusyTaskAsync(async () => _newLogin.Value = await Application.Current.MainPage.DisplayPromptAsync("Изменение логина", "Введите новый логин"));
 
             if (_newLogin.Value == null)
                 return;
@@ -117,9 +107,8 @@ namespace CW.ViewModels.InsideViewModels
             if (ValidateInput(_newLogin))
             {
                 var response = await UserService.Instance.ChangeLogin(App.GetUser().login, _newLogin.Value);
-                IsButtonEnabled = false;
-                await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-                IsButtonEnabled = true;
+               
+                await RunIsBusyTaskAsync(async () => await Application.Current.MainPage.DisplayAlert("Message", response, "OK"));
             }
             else
             {
