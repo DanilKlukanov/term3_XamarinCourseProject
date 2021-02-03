@@ -22,11 +22,7 @@ namespace CW.ViewModels.InsideViewModels
         {
             var user = App.GetUser();
             NameUser = user.firstname + " " + user.surnamme;
-            BankCards = new ObservableCollection<BankCard>();
-            BankAccounts = new ObservableCollection<BankAccount>();
-            BankCredits = new ObservableCollection<BankCredit>();
 
-            LoadListBankItems();
             Navigation = navigation;
             _isButtonEnabled = true;
             _isEnabled = true;
@@ -47,7 +43,6 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand OpenBankCardPageCommand { get; private set; }
         public ICommand OpenBankAccountPageCommand { get; private set; }
 
-
         private async Task LoadListBankItems()
         {
             var cards = await BillsService.Instance.GetCards();
@@ -58,15 +53,16 @@ namespace CW.ViewModels.InsideViewModels
             var bankBills = bills.Select(x => new BankAccount(x)).ToList();
             var bankCredits = credits.Select(x => new BankCredit(x)).ToList();
 
+            BankCards = new ObservableCollection<BankCard>(bankCards);
+            BankAccounts = new ObservableCollection<BankAccount>(bankBills);
+            BankCredits = new ObservableCollection<BankCredit>(bankCredits);
+
+            foreach (var propName in new List<string>{ "BankCards", "BankAccounts", "BankCredits" })
+            {
+                OnPropertyChanged(propName);
+            }
 
 
-            // bankCards = bills.Where(x => x.type != "bill" && x.type != "cred").Select(x => new BankCard(x)).ToList();
-            //var bankAccounts = bills.Where(x => x.type == "bill" && x.type != "cred").Select(x => new BankAccount(x)).ToList();
-            //var bankCredits = bills.Where(x => x.type == "cred").Select(x => new BankCredit(x)).ToList();
-
-            bankCards.ForEach(x => BankCards.Add(x));
-            bankBills.ForEach(x => BankAccounts.Add(x));
-            bankCredits.ForEach(x => BankCredits.Add(x));
         }
         private bool IsButtonEnabled
         {
@@ -138,10 +134,6 @@ namespace CW.ViewModels.InsideViewModels
                 return new Command(async () =>
                 {
                     IsRefreshing = true;
-
-                    BankCards.Clear();
-                    BankAccounts.Clear();
-                    BankCredits.Clear();
 
                     await LoadListBankItems();
                     IsRefreshing = false;

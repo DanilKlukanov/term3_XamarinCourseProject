@@ -91,11 +91,15 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         private async void TransferFromCard(BankCard toCard)
         {
             double.TryParse(Amount.Value, out double amount);
-            if (FromBankCard.Money - amount >= 0 && FromBankCard.Money > 0)
+            if (FromBankCard.Money - amount >= 0)
             {
                 string response = await TransactionService.Instance.DoTransfer(FromBankCard.Number, toCard.Number, amount);
+
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-            } else
+                await (Application.Current.MainPage as Shell).Navigation.PopToRootAsync();
+
+            }
+            else
             {
                 await Application.Current.MainPage.DisplayAlert("Message", "Недостаточно средств на карте", "OK");
             }
@@ -107,7 +111,9 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
             {
                 string response = await TransactionService.Instance.DoTransfer(FromAccount.Number, toCard.Number, amount);
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-            } else
+                await (Application.Current.MainPage as Shell).Navigation.PopToRootAsync();
+            }
+            else
             {
                 await Application.Current.MainPage.DisplayAlert("Message", "Недостаточно средств на счету", "OK");
             }

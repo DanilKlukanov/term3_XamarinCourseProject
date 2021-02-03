@@ -12,10 +12,19 @@ namespace CW.Views.InsideViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainScreenView : ContentPage
     {
+
+        MainScreenViewModel ViewModel;
         public MainScreenView()
         {
             InitializeComponent();
-            BindingContext = new MainScreenViewModel(Navigation);
+            ViewModel = new MainScreenViewModel(Navigation);
+            BindingContext = ViewModel;
+            Appearing += UpdatePageInfo;
+        }
+
+        private async void UpdatePageInfo(object sender, EventArgs e)
+        {
+           ViewModel.RefreshCommand.Execute(null);
         }
     }
 }
