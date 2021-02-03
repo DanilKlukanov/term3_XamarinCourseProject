@@ -72,7 +72,9 @@ namespace CW.Services
 
             if (page is LoginView)
             {
-                Application.Current.MainPage = new NavigationPage(page);
+                NavigationPage navPage = new NavigationPage(new LoginView());
+                navPage.BarBackgroundColor = Color.FromHex("#86c5da");
+                Application.Current.MainPage = navPage;
             } 
             else
             {

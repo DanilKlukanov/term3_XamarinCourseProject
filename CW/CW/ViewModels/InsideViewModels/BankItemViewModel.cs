@@ -123,10 +123,11 @@ namespace CW.ViewModels.InsideViewModels
             get => (SelectedBankItem as BankCard)?.IsWorked ?? true;
             set
             {
+
                 if ((SelectedBankItem as BankCard)?.IsWorked != null)
                 {
                     (SelectedBankItem as BankCard).IsWorked = value;
-                    OnPropertyChanged();
+                        OnPropertyChanged();
                 }
             }
         }
