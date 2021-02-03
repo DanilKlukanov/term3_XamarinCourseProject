@@ -119,17 +119,7 @@ namespace CW.ViewModels.InsideViewModels
             bankCards.ForEach(x => BankCards.Add(x));
             bankBills.ForEach(x => BankAccounts.Add(x));
         }
-        private async Task LoadListBankItems()
-        {
-            var cards = await BillsService.Instance.GetCards();
-            var bills = await BillsService.Instance.GetBills();
-
-            var bankCards = cards.Select(x => new BankCard(x)).ToList();
-            var bankBills = bills.Select(x => new BankAccount(x)).ToList();
-
-            bankCards.ForEach(x => BankCards.Add(x));
-            bankBills.ForEach(x => BankAccounts.Add(x));
-        }
+ 
         private void Back()
         {
             Navigation.PopAsync();
@@ -155,17 +145,7 @@ namespace CW.ViewModels.InsideViewModels
                 IsButtonEnabled = true;
             }
         }
-        private void OpenDetailPage(object item)
-        {
-            var payment = item as History;
-            if (payment.operation_type == "Перевод на карту")
-            {
-                Navigation.PushAsync(new DetailHistoryGiveView(new DetailHistoryGiveModel(payment, BankCards, BankAccounts)));
-            } else
-            {
-                Navigation.PushAsync(new DetailHistoryGetView(new DetailHistoryGetModel(payment, BankCards, BankAccounts)));
-            }
-        }
+
         public async void OnAddPatternAsync (object item)
         {
             var payment = item as History;
