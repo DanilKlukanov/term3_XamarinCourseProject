@@ -30,24 +30,12 @@ namespace CW.ViewModels
         public DialogsViewModel(INavigation navigation)
         {
             Navigation = navigation;
-<<<<<<< HEAD
-            _isButtonEnabled = true;
-            AddValidations();
-
-=======
->>>>>>> bdb6f70 (Add a new method to prevent double-click and use it)
             Messages = new ObservableCollection<Message>();
 
             Navigation = navigation;
 
             SendMessageCommand = new Command(SendMessage);
-<<<<<<< HEAD
-            OpenProfilePageCommand = new Command(OpenProfilePage, () => IsButtonEnabled);
-            OpenProfilePageCommand = new Command(OpenProfile);
-
-=======
             OpenProfilePageCommand = new Command(OpenProfilePage);
->>>>>>> bdb6f70 (Add a new method to prevent double-click and use it)
             GetMessages();
             Device.StartTimer(TimeSpan.FromSeconds(15), () => {
                 GetMessages();
@@ -58,16 +46,6 @@ namespace CW.ViewModels
         private async void OpenProfilePage()
         {
             await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation))));
-        }
-
-<<<<<<< HEAD
-
-        private void OpenProfile(object obj)
-=======
-        private async void SendMessage()
->>>>>>> bdb6f70 (Add a new method to prevent double-click and use it)
-        {
-            Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
         }
 
         private async void SendMessage()
@@ -104,8 +82,6 @@ namespace CW.ViewModels
                     col = col
                 });
             }
-
-
 
             Messages = tmpMessages;
             OnPropertyChanged("Messages");

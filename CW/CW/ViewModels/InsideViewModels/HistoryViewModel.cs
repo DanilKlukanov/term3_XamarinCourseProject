@@ -96,14 +96,6 @@ namespace CW.ViewModels.InsideViewModels
             bankCards.ForEach(x => BankCards.Add(x));
             bankBills.ForEach(x => BankAccounts.Add(x));
         }
-<<<<<<< HEAD
- 
-        private void Back()
-        {
-            Navigation.PopAsync();
-        }
-=======
->>>>>>> bdb6f70 (Add a new method to prevent double-click and use it)
         private async void OpenProfilePage()
         {
             await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation))));
