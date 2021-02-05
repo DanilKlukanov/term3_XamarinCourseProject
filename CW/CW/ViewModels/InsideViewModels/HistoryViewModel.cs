@@ -18,16 +18,19 @@ namespace CW.ViewModels.InsideViewModels
     public class HistoryViewModel : BaseViewModel
     {
         public string TypeName { get; set; }
+        private List<History> _histories;
 
         public HistoryViewModel(INavigation navigation, string type, BankItemViewModel viewModel = null)
         {
             Navigation = navigation;
 
+            _histories = new List<History>();
+
             OpenProfilePageCommand = new Command(OpenProfilePage);
             AddPatternCommand = new Command(OnAddPatternAsync);
             OpenDetailPageCommand = new Command(OpenDetailPage);
 
-            AllHistory = new ObservableCollection<History>();
+            //AllHistory = new ObservableCollection<History>();
             BankCards = new ObservableCollection<BankCard>();
             BankAccounts = new ObservableCollection<BankAccount>();
 
@@ -36,7 +39,16 @@ namespace CW.ViewModels.InsideViewModels
             LoadAllHistory(viewModel);
             LoadListBankItems();
         }
-        public ObservableCollection<History> AllHistory { get; private set; }
+        public List<History> AllHistory
+        {
+            get => _histories;
+
+            set
+            {
+                _histories = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<BankCard> BankCards { get; private set; }
         public ObservableCollection<BankAccount> BankAccounts { get; private set; }
         public INavigation Navigation { get; private set; }
@@ -44,31 +56,32 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand AddPatternCommand { get; private set; }
         public ICommand OpenDetailPageCommand { get; private set; }
 
-        private async Task<List<History>> GetHistoryBill(BankItemViewModel viewModel)
+        private async Task GetHistoryBill(BankItemViewModel viewModel)
         {
-            return await BillsService.Instance.GetPartHistory(viewModel.SelectedBankItem.Number);
+            AllHistory = await BillsService.Instance.GetPartHistory(viewModel.SelectedBankItem.Number);
         }
-        private async Task<List<History>> GetHistoryBills()
+        private async Task GetHistoryBills()
         {
-            return await BillsService.Instance.GetHistory();
+            AllHistory =  await BillsService.Instance.GetHistory();
         }
-        private async void LoadAllHistory(BankItemViewModel viewModel)
+        public async Task LoadAllHistory(BankItemViewModel viewModel = null)
         {      
             List<History> histories = new List<History>();
 
-            if (Type.GetType(TypeName) == typeof(BankItemViewModel))
+            if (viewModel != null && Type.GetType(TypeName) == typeof(BankItemViewModel))
             {
-                histories = await GetHistoryBill(viewModel);
+                await GetHistoryBill(viewModel);
             }
 
             if (Type.GetType(TypeName) == typeof(HistoryView))
             {
-                histories = await GetHistoryBills();
+                await GetHistoryBills();
             }
 
-            histories.ForEach(x => AllHistory.Add(x));
+            //_histories.ForEach(x => AllHistory.Add(x));
 
             ChangeHistory();
+            AllHistory = _histories;
         }
         private void ChangeHistory()
         {

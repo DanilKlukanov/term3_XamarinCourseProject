@@ -104,7 +104,7 @@ namespace CW.ViewModels.InsideViewModels
                 Tuple<bool, string> responseCheck = await UserService.Instance.Login(App.GetUser().login, UserPassword.Value);
                 if (responseCheck.Item1 == true)
                 {
-                    int balance = GetMoney(selectedPattern);
+                    double balance = GetMoney(selectedPattern);
                     if (balance - selectedPattern.amount >= 0)
                     {
                         string response = await TransactionService.Instance.DoTransfer(selectedPattern.from_, selectedPattern.to_, selectedPattern.amount);
@@ -121,17 +121,16 @@ namespace CW.ViewModels.InsideViewModels
                 }
             }
         }
-        private int GetMoney(Pattern pattern)
+        private double GetMoney(Pattern pattern)
         {
-            /*            if (pattern.from.Length == 16)
-                        {
-                            return decimal.ToInt32(BankCards.Where(card => card.Number == pattern.from).FirstOrDefault().Money);
-                        }
-                        else
-                        {
-                            return decimal.ToInt32(BankAccounts.Where(card => card.Number == pattern.from).FirstOrDefault().Money);
-                        }*/
-            return 1;
+            if (pattern.from_.Length == 16)
+            {
+                return BankCards.Where(card => card.Number == pattern.from_).FirstOrDefault().Money;
+            }
+            else
+            {
+                return BankAccounts.Where(card => card.Number == pattern.from_).FirstOrDefault().Money;
+            }
         }
     }
 }

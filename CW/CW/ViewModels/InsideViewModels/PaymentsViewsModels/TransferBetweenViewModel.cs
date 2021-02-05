@@ -11,7 +11,6 @@ namespace CW.ViewModels.InsideViewModels.PaymentsViewsModels
 {
     public class TransferBetweenViewModel : BaseViewModel
     {
-        private bool _isButtonEnabled;
         public INavigation Navigation { get; private set; }
         public ICommand TransferCommand { get; private set; }
         public ObservableCollection<BankCard> BankCards { get; private set; }
@@ -19,32 +18,16 @@ namespace CW.ViewModels.InsideViewModels.PaymentsViewsModels
         public TransferBetweenViewModel(INavigation navigation, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts)
         {
             Navigation = navigation;
-            _isButtonEnabled = true;
             BankCards = new ObservableCollection<BankCard>();
             cards.Where(x => x.IsWorked == true).ForEach(x => BankCards.Add(x));
             BankAccounts = accounts;
-            TransferCommand = new Command(Transfer, (_) => IsButtonEnabled);
+            TransferCommand = new Command(Transfer);
         }
-        private bool IsButtonEnabled
-        {
-            get => _isButtonEnabled;
 
-            set
-            {
-                if (value != _isButtonEnabled)
-                {
-                    _isButtonEnabled = value;
-
-                    (TransferCommand as Command)?.ChangeCanExecute();
-                }
-            }
-        }
         private async void Transfer(object item)
         {
             var selectedItem = item as BankCard;
-            IsButtonEnabled = false;
-            await Navigation.PushAsync(new TopUpCardView(new TopUpCardViewModel(Navigation, BankCards, BankAccounts, selectedItem)));
-            IsButtonEnabled = true;
+            await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new TopUpCardView(new TopUpCardViewModel(Navigation, BankCards, BankAccounts, selectedItem))));
         }
     }
 }

@@ -16,6 +16,11 @@ namespace CW.Views.InsideViews
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+        }
+
         protected override bool OnBackButtonPressed()
         {
 
@@ -64,6 +69,110 @@ namespace CW.Views.InsideViews
                     item.Stack[1].Navigation.PopToRootAsync();
                 }
             }
+
+           
+
+             UpdatePages();
+            //UpdateChildrenLayout();
+
+        }
+
+        private void UpdatePages()
+        {
+            /*foreach (var tab in tabs.Items)
+            {
+                if (tab.CurrentItem.Content != null)
+                {
+                    tab.CurrentItem.Content.LoadFromXaml(tab.Title);
+                }
+
+                tab.CurrentItem.ContentTemplate.CreateContent();
+            }*/
+
+            /*List<DataTemplate> templates = new List<DataTemplate>()
+            {
+                new DataTemplate(() => new MainScreenView()),
+                new DataTemplate(() => new PaymentsView()),
+                new DataTemplate(() => new HistoryView()),
+                new DataTemplate(() => new DialogsView())
+            };
+            foreach (var tab in tabs.Items)
+            {
+                tab.CurrentItem.ContentTemplate.CreateContent();
+            }*/
+
+            //tabs.CurrentItem.CurrentItem.ContentTemplate.CreateContent();
+
+            //int index = tabs.CurrentItem.TabIndex;
+
+            //tabs.Items[index].Items[0].ContentTemplate = templates[index];
+            //tabs.Items[index].CurrentItem.ContentTemplate.CreateContent();
+            //tabs.Items.RemoveAt(index);
+            //tabs.Items.Insert(index, shellContents[index]);
+
+            /*tabs.Items.Clear();
+
+            var shellContents = new List<ShellContent>()
+            {
+                new ShellContent()
+                {
+                    Content = new MainScreenView(),
+                    Title = "Главный",
+                    Icon="main.png"
+                },
+                new ShellContent()
+                {
+                    Content = new PaymentsView(),
+                    Title = "Платежи",
+                    Icon="credit_card.png"
+                },
+                new ShellContent()
+                {
+                    Content = new HistoryView(),
+                    Title = "История",
+                    Icon="history.png"
+                },
+                new ShellContent()
+                {
+                    Content = new DialogsView(),
+                    Title = "Диалоги",
+                    Icon="speech_bubble.png"
+                }
+            };
+
+            shellContents.ForEach(x => tabs.Items.Add(x));
+
+           *//* var shellContent = new ShellContent()
+            {
+                Content = new MainScreenView(),
+                Title = "Main"
+            };*/
+
+            /*            tabs.Items.Add(shellContent);
+
+                        shellContent = new ShellContent()
+                        {
+                            Content = new PaymentsView(),
+                            Title = "Payments"
+                        };
+
+                        tabs.Items.Add(shellContent);
+
+                        shellContent = new ShellContent()
+                        {
+                            Content = new HistoryView(),
+                            Title = "History"
+                        };
+
+                        tabs.Items.Add(shellContent);
+
+                        shellContent = new ShellContent()
+                        {
+                            Content = new DialogsView(),
+                            Title = "Dialogs"
+                        };
+
+                        tabs.Items.Add(shellContent);*/
         }
     }
 }

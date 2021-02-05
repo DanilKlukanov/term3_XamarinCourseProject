@@ -27,5 +27,10 @@ namespace CW.Views.InsideViews
             InitializeComponent();
             BindingContext = ViewModel;
         }
+
+        protected override async void OnAppearing()
+        {
+            await ViewModel.LoadAllHistory();
+        }
     }
 }
