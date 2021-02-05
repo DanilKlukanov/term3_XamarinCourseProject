@@ -28,6 +28,9 @@ namespace CW.Behaviors
                 if (text.Length > 1 && text[0] == '0' && text[1] == '0')
                 {
                     entry.Text = e.OldTextValue;
+                } else if (text.Length > 1 && text[0] == '0' && text[1] != ',' && text[1] != '0')
+                {
+                    entry.Text = text.Remove(0, 1);
                 }
             }
         }

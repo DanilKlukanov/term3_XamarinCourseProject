@@ -61,7 +61,7 @@ namespace CW.ViewModels.InsideViewModels
             patterns.ForEach(x =>
             {
                 x.current = GetCurrent(x.from_);
-                AllPatterns.Add(x);
+                AllPatterns.Insert(0, x);
             });
 
             foreach (var propName in new List<string> { "BankCards", "BankAccounts", "AllPatterns" })

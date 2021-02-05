@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CW.Views.InsideViews.OperationsViews.PaymentTopUpView"
-             xmlns:convert="clr-namespace:CW.Converters">
+             xmlns:convert="clr-namespace:CW.Converters"
+             xmlns:behaviors="clr-namespace:CW.Behaviors">
     <ContentPage.Resources>
         <ResourceDictionary>
             <convert:BankNumberConverter x:Key="BankCardNumberConverter"
@@ -103,7 +104,12 @@
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                 <Entry Text="{Binding Amount.Value}" 
                        Placeholder="Введите сумму"
-                       Keyboard="Numeric"/>
+                       Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <behaviors:EntryNullValidatorBehavior/>
+                        <behaviors:EntryPointValidatorBehavior/>
+                    </Entry.Behaviors>
+                </Entry>
                 <Button Text="Оплатить"
                         Command="{Binding ToPayCommand}"></Button>
             </StackLayout>

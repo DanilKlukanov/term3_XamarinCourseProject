@@ -33,7 +33,7 @@
 
                 <Label Grid.Row="0"
                    FontSize="36"
-                   Text="Bank Name"
+                   Text="WorldSkills Bank"
                    TextColor="White"
                    VerticalOptions="Start"
                    HorizontalOptions="Center"

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:convert="clr-namespace:CW.Converters"
+             xmlns:behaviors="clr-namespace:CW.Behaviors"
              x:Class="CW.Views.InsideViews.PaymentsViews.CreatePatternView">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -53,7 +54,12 @@
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                 <Entry Text="{Binding Amount.Value}" 
                        Placeholder="Введите сумму"
-                       Keyboard="Numeric"/>
+                       Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <behaviors:EntryNullValidatorBehavior/>
+                        <behaviors:EntryPointValidatorBehavior/>
+                    </Entry.Behaviors>
+                </Entry>
                 <Button Text="Изменить"
                         Command="{Binding ChangePatternCommand}"></Button>
             </StackLayout>

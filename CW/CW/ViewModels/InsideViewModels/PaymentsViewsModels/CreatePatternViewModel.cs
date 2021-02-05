@@ -27,6 +27,7 @@ namespace CW.ViewModels.InsideViewModels
             NumberTo = pattern.to_;
             Amount = new ValidationInput();
             Amount.Value = pattern.amount.ToString();
+            oldValue = Amount.Value;
             ChangePatternCommand = new Command(ChangePattern);
 
             if (NumberTo.Length == 16)
@@ -37,14 +38,15 @@ namespace CW.ViewModels.InsideViewModels
                 TypeReceiver = "Счет получателя";
             }
         }
+        private string oldValue;
         private async void ChangePattern()
         {
-            if (Amount.Validate())
+            if (Amount.Validate() && Amount.Value != oldValue)
             {
                 if (await Application.Current.MainPage.DisplayAlert("Подтверждение", "Вы уверены?", "Да", "Нет"))
                 {
                     await PatternService.Instance.RemovePattern(Name);
-                    string response = await PatternService.Instance.CreatePattern(Name, NumberFrom, NumberTo, int.Parse(Amount.Value));
+                    string response = await PatternService.Instance.CreatePattern(Name, NumberFrom, NumberTo, double.Parse(Amount.Value));
                     await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
                 }
             }

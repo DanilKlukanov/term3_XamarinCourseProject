@@ -88,11 +88,6 @@
                                 <SwipeView>
                                     <SwipeView.RightItems>
                                         <SwipeItems>
-                                            <SwipeItem Text="Выполнить"
-                                                       BackgroundColor="AliceBlue"
-                                                       Command="{Binding Source={x:Reference page},
-                                                       Path=BindingContext.ExecutePatternCommand}"
-                                                       CommandParameter="{Binding}"/>
                                             <SwipeItem Text="Изменить"
                                                        BackgroundColor="#81C784"
                                                        Command="{Binding Source={x:Reference page},
@@ -105,6 +100,15 @@
                                                        CommandParameter="{Binding}"/>
                                         </SwipeItems>
                                     </SwipeView.RightItems>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Выполнить"
+                                                       BackgroundColor="#BB8FCE"
+                                                       Command="{Binding Source={x:Reference page},
+                                                       Path=BindingContext.ExecutePatternCommand}"
+                                                       CommandParameter="{Binding}"/>
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
                                     <Grid HeightRequest="55">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.7*"/>
