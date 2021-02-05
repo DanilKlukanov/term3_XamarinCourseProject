@@ -2,9 +2,6 @@
 using CW.Services;
 using CW.Validations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -76,11 +73,13 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
                         if (IsCardVisible)
                         {
                             TransferFromCard(toCard);
-                        } else if (IsAccountVisible)
+                        }
+                        else if (IsAccountVisible)
                         {
                             TransferFromAccount(toCard);
                         }
-                    } else
+                    }
+                    else
                     {
                         await Application.Current.MainPage.DisplayAlert("Message", "Неправильно введен пароль", "OK");
                     }
@@ -91,32 +90,16 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         private async void TransferFromCard(BankCard toCard)
         {
             double.TryParse(Amount.Value, out double amount);
-            if (FromBankCard.Money - amount >= 0)
-            {
-                string response = await TransactionService.Instance.DoTransfer(FromBankCard.Number, toCard.Number, amount);
-
-                await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-                await (Application.Current.MainPage as Shell).Navigation.PopToRootAsync();
-
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Message", "Недостаточно средств на карте", "OK");
-            }
+            string response = await TransactionService.Instance.DoTransfer(FromBankCard.Number, toCard.Number, amount);
+            await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+            await (Application.Current.MainPage as Shell).Navigation.PopToRootAsync();
         }
         private async void TransferFromAccount(BankCard toCard)
         {
             double.TryParse(Amount.Value, out double amount);
-            if (FromAccount.Money - amount >= 0 && FromAccount.Money > 0)
-            {
-                string response = await TransactionService.Instance.DoTransfer(FromAccount.Number, toCard.Number, amount);
-                await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-                await (Application.Current.MainPage as Shell).Navigation.PopToRootAsync();
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Message", "Недостаточно средств на счету", "OK");
-            }
+            string response = await TransactionService.Instance.DoTransfer(FromAccount.Number, toCard.Number, amount);
+            await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+            await (Application.Current.MainPage as Shell).Navigation.PopToRootAsync();
         }
     }
 }

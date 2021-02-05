@@ -1,16 +1,14 @@
-﻿using CW.Views.InsideViews;
+﻿using CW.Models;
+using CW.Services;
+using CW.Validations;
+using CW.ViewModels.InsideViewModels.PaymentsViewsModels;
+using CW.Views.InsideViews;
+using CW.Views.InsideViews.PaymentsViews;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
-using CW.Models;
-using System.Collections.ObjectModel;
-using CW.Views.InsideViews.PaymentsViews;
-using CW.ViewModels.InsideViewModels.PaymentsViewsModels;
-using CW.Services;
-using System.Linq;
-using CW.Validations;
 
 namespace CW.ViewModels.InsideViewModels
 {
@@ -104,7 +102,8 @@ namespace CW.ViewModels.InsideViewModels
         private async void DeletePattern(object item)
         {
             var selectedPattern = item as Pattern;
-            if (await Application.Current.MainPage.DisplayAlert("Подтверждение", "Вы уверены?", "Да", "Нет")) {
+            if (await Application.Current.MainPage.DisplayAlert("Подтверждение", "Вы уверены?", "Да", "Нет"))
+            {
                 var response = await PatternService.Instance.RemovePattern(selectedPattern.pattern_name);
                 if (response.Item1)
                 {
@@ -136,34 +135,14 @@ namespace CW.ViewModels.InsideViewModels
                 Tuple<bool, string> responseCheck = await UserService.Instance.Login(App.GetUser().login, UserPassword.Value);
                 if (responseCheck.Item1 == true)
                 {
-                    int balance = GetMoney(selectedPattern);
-                    if (balance - selectedPattern.amount >= 0)
-                    {
-                        string response = await TransactionService.Instance.DoTransfer(selectedPattern.from_, selectedPattern.to_, selectedPattern.amount);
-                        await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Message", "Недостаточно средств на карте", "OK");
-                    }
+                    string response = await TransactionService.Instance.DoTransfer(selectedPattern.from_, selectedPattern.to_, selectedPattern.amount);
+                    await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
                 }
                 else
                 {
                     await Application.Current.MainPage.DisplayAlert("Message", "Неправильно введен пароль", "OK");
                 }
             }
-        }
-        private int GetMoney(Pattern pattern)
-        {
-            /*            if (pattern.from.Length == 16)
-                        {
-                            return decimal.ToInt32(BankCards.Where(card => card.Number == pattern.from).FirstOrDefault().Money);
-                        }
-                        else
-                        {
-                            return decimal.ToInt32(BankAccounts.Where(card => card.Number == pattern.from).FirstOrDefault().Money);
-                        }*/
-            return 1;
         }
     }
 }

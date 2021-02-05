@@ -74,25 +74,6 @@
                                    FontSize="Body"/>
                     </Grid>
                 </Frame>
-                <Frame>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding RenameCardCommand}"/>
-                    </Frame.GestureRecognizers>
-                    <Grid HeightRequest="25">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.4*"/>
-                            <ColumnDefinition Width="3.6*"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0"
-                               Source="pen4.png"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
-                        <Label Grid.Column="1"
-                               Padding="10,0,0,0"
-                               Text="Переименовать"
-                               FontSize="Body"/>
-                    </Grid>
-                </Frame>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -2,9 +2,6 @@
 using CW.Services;
 using CW.Validations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -70,25 +67,18 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
                     if (responseCheck.Item1 == true)
                     {
                         double.TryParse(Amount.Value, out double amount);
-                        if (FromCard.Money - amount >= 0)
+                        string response = String.Empty;
+                        if (NumberToCard == null)
                         {
-                            string response = String.Empty;
-                            if (NumberToCard == null)
-                            {
-                                response = await TransactionService.Instance.DoTransfer(FromCard.Number, ToCard.Number, amount);
-                            } else
-                            {
-                                response = await TransactionService.Instance.DoTransfer(FromCard.Number, NumberToCard, amount);
-                            }
-
-                            await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-                            await (Application.Current.MainPage as Shell).Navigation.PopToRootAsync();
-
+                            response = await TransactionService.Instance.DoTransfer(FromCard.Number, ToCard.Number, amount);
                         }
                         else
                         {
-                            await Application.Current.MainPage.DisplayAlert("Message", "Недостаточно средств на карте", "OK");
+                            response = await TransactionService.Instance.DoTransfer(FromCard.Number, NumberToCard, amount);
                         }
+
+                        await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                        await (Application.Current.MainPage as Shell).Navigation.PopToRootAsync();
                     }
                     else
                     {
