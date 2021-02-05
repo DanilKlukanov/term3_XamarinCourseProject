@@ -26,10 +26,10 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <StackLayout BackgroundColor="#C0808080" 
+    <StackLayout BackgroundColor="Transparent" 
                  VerticalOptions="Center"
                  HorizontalOptions="Center"
-                 Margin="20,0,20,0">
+                 Margin="20,-10,20,0">
         <StackLayout Orientation="Vertical" 
                      BackgroundColor="Transparent" 
                      VerticalOptions="CenterAndExpand" 

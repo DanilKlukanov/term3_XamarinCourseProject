@@ -18,41 +18,38 @@
     </Shell.BackgroundColor>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout HorizontalOptions="Center"
-                         VerticalOptions="CenterAndExpand">
-                <Label Text="Мобильное приложение BankName Online"
-                       TextColor="Black"/>
-                <Label Text="Версия 1.0.0"
-                       TextColor="Black"
-                       HorizontalOptions="Center"/>
+            <StackLayout VerticalOptions="Start">
+                <Frame BackgroundColor="#E0F2F1">
+                    <Label Text="Приложение"
+                           FontSize="Large"/>
+                </Frame>
+                <StackLayout HorizontalOptions="StartAndExpand"
+                             Padding="20,10,0,10">
+                    <Label Text="Мобильное приложение WorldSkills Bank"
+                               TextColor="Black"/>
+                    <Label Text="Версия 1.0.0"
+                               TextColor="Black"/>
+                </StackLayout>
             </StackLayout>
 
             <StackLayout VerticalOptions="End">
-                <Frame BackgroundColor="BlueViolet"
-                       BorderColor="Black">
+                <Frame BackgroundColor="#E0F2F1">
                     <Label Text="Разработчики"
-                           FontSize="Large"
-                           TextColor="Black"/>
+                           FontSize="Large"/>
                 </Frame>
-                <Frame>
-                    <StackLayout HorizontalOptions="Center">
-                        <Label Text="Басов Никита"
-                       TextColor="Black"
-/>
-                        <Label Text="Козицкий Михаил"
-                       TextColor="Black"
-/>
-                        <Label Text="Донская Мария"
-                       TextColor="Black"
-/>
-                        <Label Text="Клюканова Диана"
-                       TextColor="Black"
-/>
-                        <Label Text="Уткин Данил"
-                       TextColor="Black"
-/>
-                    </StackLayout>
-                </Frame>
+                <StackLayout HorizontalOptions="StartAndExpand"
+                             Padding="20,10,0,0">
+                    <Label Text="Басов Никита"
+                               TextColor="Black"/>
+                    <Label Text="Козицкий Михаил"
+                               TextColor="Black"/>
+                    <Label Text="Донская Мария"
+                               TextColor="Black"/>
+                    <Label Text="Клюканова Диана"
+                               TextColor="Black"/>
+                    <Label Text="Уткин Данил"
+                               TextColor="Black"/>
+                </StackLayout>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
