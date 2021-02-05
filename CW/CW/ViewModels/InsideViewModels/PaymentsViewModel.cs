@@ -5,8 +5,10 @@ using CW.ViewModels.InsideViewModels.PaymentsViewsModels;
 using CW.Views.InsideViews;
 using CW.Views.InsideViews.PaymentsViews;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -17,12 +19,8 @@ namespace CW.ViewModels.InsideViewModels
         public PaymentsViewModel(INavigation navigation)
         {
             Navigation = navigation;
-            BankCards = new ObservableCollection<BankCard>();
-            BankAccounts = new ObservableCollection<BankAccount>();
-            AllPatterns = new ObservableCollection<Pattern>();
             UserPassword = new ValidatableObject<string>();
 
-            LoadListBankItems();
             TransferToClientCommand = new Command(OpenTransferToClient);
             TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir);
             CreatePatternCommand = new Command(OpenCreatePattern);
@@ -43,17 +41,11 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand DeletePatternCommand { get; private set; }
         public ICommand ExecutePatternCommand { get; private set; }
 
-        private async void LoadPatterns()
+        public async Task LoadAllItems()
         {
-            var patterns = await PatternService.Instance.GetPatterns();
-            patterns.ForEach(x =>
-            {
-                x.current = GetCurrent(x.from_);
-                AllPatterns.Add(x);
-            });
-        }
-        private async void LoadListBankItems()
-        {
+            BankCards = new ObservableCollection<BankCard>();
+            BankAccounts = new ObservableCollection<BankAccount>();
+
             var cards = await BillsService.Instance.GetCards();
             var bills = await BillsService.Instance.GetBills();
 
@@ -63,7 +55,19 @@ namespace CW.ViewModels.InsideViewModels
             bankCards.ForEach(x => BankCards.Add(x));
             bankBills.ForEach(x => BankAccounts.Add(x));
 
-            LoadPatterns();
+            AllPatterns = new ObservableCollection<Pattern>();
+
+            var patterns = await PatternService.Instance.GetPatterns();
+            patterns.ForEach(x =>
+            {
+                x.current = GetCurrent(x.from_);
+                AllPatterns.Add(x);
+            });
+
+            foreach (var propName in new List<string> { "BankCards", "BankAccounts", "AllPatterns" })
+            {
+                OnPropertyChanged(propName);
+            }
         }
         private async void OpenProfilePage()
         {

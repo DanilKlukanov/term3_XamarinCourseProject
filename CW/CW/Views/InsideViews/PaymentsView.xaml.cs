@@ -12,10 +12,17 @@ namespace CW.Views.InsideViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PaymentsView : ContentPage
     {
+        PaymentsViewModel ViewModel;
         public PaymentsView()
         {
             InitializeComponent();
-            BindingContext = new PaymentsViewModel(Navigation);
+            ViewModel = new PaymentsViewModel(Navigation);
+            BindingContext = ViewModel;
+            Appearing += UpdatePageInfo;
+        }
+        private async void UpdatePageInfo(object sender, EventArgs e)
+        {
+            await ViewModel.LoadAllItems();
         }
     }
 }

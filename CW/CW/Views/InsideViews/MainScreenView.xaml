@@ -46,10 +46,7 @@
                    Padding="20,10,0,10"
                    BackgroundColor="#E0F2F1"/>
             <ListView ItemsSource="{Binding BankCards}"
-                      HasUnevenRows="True"
-                      IsPullToRefreshEnabled="True"
-                      RefreshCommand="{Binding RefreshCommand}"
-                      IsRefreshing="{Binding IsRefreshing}">
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

@@ -106,10 +106,7 @@ namespace CW.ViewModels.InsideViewModels
             {
                 return new Command(async () =>
                 {
-                    IsRefreshing = true;
-
                     await LoadListBankItems();
-                    IsRefreshing = false;
                 });
             }
         }
