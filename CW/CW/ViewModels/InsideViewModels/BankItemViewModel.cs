@@ -13,6 +13,7 @@ namespace CW.ViewModels.InsideViewModels
 {
     public class BankItemViewModel : BaseViewModel
     {
+        private bool _isButtonEnabled;
         private string _path = "CW.ViewModels.InsideViewModels.";
 
         private ObservableCollection<BankCard> bankCards { get; set; }
@@ -36,14 +37,31 @@ namespace CW.ViewModels.InsideViewModels
             SelectedBankItem = bankItem;
 
             BankItemHistory = new ObservableCollection<History>();
-
-            TopUpCard = new Command(TopUp);
-            TransferCard = new Command(Transfer);
-            HistoryCommand = new Command(OpenHistory);
-            BlockCardCommand = new Command(BlockCard);
-            RenameCardCommand = new Command(RenameCard);
+            _isButtonEnabled = true;
+            TopUpCard = new Command(TopUp, () => IsButtonEnabled);
+            TransferCard = new Command(Transfer, () => IsButtonEnabled);
+            HistoryCommand = new Command(OpenHistory, () => IsButtonEnabled);
+            BlockCardCommand = new Command(BlockCard, () => IsButtonEnabled);
+            RenameCardCommand = new Command(RenameCard, () => IsButtonEnabled);
         }
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
 
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (TopUpCard as Command)?.ChangeCanExecute();
+                    (TransferCard as Command)?.ChangeCanExecute();
+                    (HistoryCommand as Command)?.ChangeCanExecute();
+                    (BlockCardCommand as Command)?.ChangeCanExecute();
+                    (RenameCardCommand as Command)?.ChangeCanExecute();
+                }
+            }
+        }
         // TODO (Change return value for BlockCard from BillService)
         private async void BlockCard()
         {
@@ -53,13 +71,16 @@ namespace CW.ViewModels.InsideViewModels
             {
                 IsCardInterfaceActive = false;
             }
-
+            IsButtonEnabled = false;
             await Application.Current.MainPage.DisplayAlert("Уведомление", result.ErrorMessage, "ОК");
+            IsButtonEnabled = true;
         }
 
         private async void RenameCard()
         {
+            IsButtonEnabled = false;
             var result = await Application.Current.MainPage.DisplayPromptAsync("Имя карты", "Введите новое имя карты", "OK");
+            IsButtonEnabled = true;
             if (result != null)
             {
                 await BillsService.Instance.RenameCard(SelectedBankItem.Number, result);
@@ -91,7 +112,7 @@ namespace CW.ViewModels.InsideViewModels
                 if (selectedBankItem != value)
                 {
                     selectedBankItem = value;
-                    IsCardInterfaceActive = (selectedBankItem as BankCard).IsWorked;
+                    IsCardInterfaceActive = (selectedBankItem as BankCard)?.IsWorked ?? true;
                     OnPropertyChanged();
                 }
             }
@@ -103,25 +124,33 @@ namespace CW.ViewModels.InsideViewModels
             set
             {
 
+                if ((SelectedBankItem as BankCard)?.IsWorked != null)
+                {
                     (SelectedBankItem as BankCard).IsWorked = value;
-                    OnPropertyChanged();
-                //}
+                        OnPropertyChanged();
+                }
             }
         }
 
-        private void TopUp()
+        private async void TopUp()
         {
-            Navigation.PushAsync(new TopUpCardView(new TopUpCardViewModel(Navigation, BankCards, BankAccounts, SelectedBankItem)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new TopUpCardView(new TopUpCardViewModel(Navigation, BankCards, BankAccounts, SelectedBankItem)));
+            IsButtonEnabled = true;
         }
 
-        private void Transfer()
+        private async void Transfer()
         {
-            Navigation.PushAsync(new TransferCardView(new TransferCardViewModel(Navigation, BankCards, BankAccounts, SelectedBankItem)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new TransferCardView(new TransferCardViewModel(Navigation, BankCards, BankAccounts, SelectedBankItem)));
+            IsButtonEnabled = true;
         }
 
-        private void OpenHistory()
+        private async void OpenHistory()
         {
-            Navigation.PushAsync(new HistoryView(new HistoryViewModel(Navigation, _path + "BankItemViewModel", this)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new HistoryView(new HistoryViewModel(Navigation, _path + "BankItemViewModel", this)));
+            IsButtonEnabled = true;
         }
     }
 }

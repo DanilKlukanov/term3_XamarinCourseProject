@@ -12,6 +12,7 @@ namespace CW.ViewModels.InsideViewModels.DetailHistoryModels
 {
     public class DetailHistoryGiveModel : BaseViewModel
     {
+        private bool _isButtonEnabled;
         public History Payment { get; private set; }
         public string Name { get; private set; }
         public string ImgUrl { get; private set; }
@@ -23,11 +24,28 @@ namespace CW.ViewModels.InsideViewModels.DetailHistoryModels
         public DetailHistoryGiveModel(History payment, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts)
         {
             Payment = payment;
+            _isButtonEnabled = true;
             Cards = cards;
             Accounts = accounts;
-            CreatePatternCommand = new Command(CreatePattern);
+            CreatePatternCommand = new Command(CreatePattern, () => IsButtonEnabled);
             LoadInfo();
         }
+
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
+
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (CreatePatternCommand as Command)?.ChangeCanExecute();
+                }
+            }
+        }
+
         private void LoadInfo()
         {
             if (Payment.user_number.Length == 16)
@@ -51,7 +69,9 @@ namespace CW.ViewModels.InsideViewModels.DetailHistoryModels
             if (namePattern != null)
             {
                 string response = await PatternService.Instance.CreatePattern(namePattern, Payment.user_number, Payment.other_number, Payment.amount);
+                IsButtonEnabled = false;
                 await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                IsButtonEnabled = true;
             }
         }
     }

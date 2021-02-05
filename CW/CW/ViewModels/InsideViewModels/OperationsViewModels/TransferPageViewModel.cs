@@ -12,6 +12,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
 {
     public class TransferPageViewModel : BaseViewModel
     {
+        private bool _isButtonEnabled;
         public BankCard FromCard { get; private set; }
         public BankCard ToCard { get; private set; }
         public string NumberToCard { get; private set; }
@@ -23,6 +24,7 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         {
             FromCard = fromCard as BankCard;
             ToCard = toCard;
+            _isButtonEnabled = true;
             NumberToCard = toCard.Number;
             PaymentReceiver = type;
             ToPayCommand = new Command(ToPay);
@@ -33,16 +35,33 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
         {
             FromCard = fromCard as BankCard;
             NumberToCard = numberCard;
+            _isButtonEnabled = true;
             PaymentReceiver = type;
-            ToPayCommand = new Command(ToPay);
+            ToPayCommand = new Command(ToPay, () => IsButtonEnabled);
             Amount = new ValidationInput();
             UserPassword = new ValidatableObject<string>();
+        }
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
+
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (ToPayCommand as Command)?.ChangeCanExecute();
+                }
+            }
         }
         private async void ToPay()
         {
             if (Amount.Validate())
             {
+                IsButtonEnabled = false;
                 UserPassword.Value = await Application.Current.MainPage.DisplayPromptAsync("Подтверждение", "Введите пароль");
+                IsButtonEnabled = true;
                 if (UserPassword.Value == null)
                     return;
                 if (UserPassword.Validate())
@@ -53,15 +72,18 @@ namespace CW.ViewModels.InsideViewModels.OperationsViewModels
                         double.TryParse(Amount.Value, out double amount);
                         if (FromCard.Money - amount >= 0)
                         {
+                            string response = String.Empty;
                             if (NumberToCard == null)
                             {
-                                string response = await TransactionService.Instance.DoTransfer(FromCard.Number, ToCard.Number, amount);
-                                await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                                response = await TransactionService.Instance.DoTransfer(FromCard.Number, ToCard.Number, amount);
                             } else
                             {
-                                string response = await TransactionService.Instance.DoTransfer(FromCard.Number, NumberToCard, amount);
-                                await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                                response = await TransactionService.Instance.DoTransfer(FromCard.Number, NumberToCard, amount);
                             }
+
+                            await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+                            await (Application.Current.MainPage as Shell).Navigation.PopToRootAsync();
+
                         }
                         else
                         {

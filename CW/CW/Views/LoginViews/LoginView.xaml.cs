@@ -9,6 +9,7 @@ namespace CW.Views
         {
             InitializeComponent();
             //BindingContext = new LoginViewModel() { Navigation = this.Navigation };
+
         }
     }
 }

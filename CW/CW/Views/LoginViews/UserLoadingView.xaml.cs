@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using CW.ViewModels;
-using System.Collections.ObjectModel;
 
-namespace CW.Views.InsideViews
+namespace CW.Views.LoginViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DialogsView : ContentPage
+    public partial class UserLoadingView : Rg.Plugins.Popup.Pages.PopupPage
     {
-        public DialogsView()
+        public UserLoadingView()
         {
             InitializeComponent();
-            BindingContext = new DialogsViewModel(Navigation);
+        }
+        protected override bool OnBackgroundClicked()
+        {
+            return false;
         }
     }
 }

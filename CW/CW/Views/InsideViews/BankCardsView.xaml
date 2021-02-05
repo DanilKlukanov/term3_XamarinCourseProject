@@ -26,6 +26,9 @@
                    FontSize="20"/>
         </StackLayout>
     </Shell.TitleView>
+    <Shell.BackgroundColor>
+        #86c5da
+    </Shell.BackgroundColor>
     <ContentPage.Content>
         <StackLayout Spacing="0">
             <CarouselView x:Name="Cards"
@@ -34,7 +37,7 @@
                           HeightRequest="300">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout BackgroundColor="LightSkyBlue">
+                        <StackLayout BackgroundColor="#86c5da">
                             <Frame CornerRadius="20"
                                    BackgroundColor="White"
                                    Margin="50"
@@ -62,7 +65,7 @@
             <FlexLayout JustifyContent="SpaceEvenly"
                         HeightRequest="50"
                         Padding="0,10,0,10"
-                        BackgroundColor="LightSkyBlue"
+                        BackgroundColor="#86c5da"
                         IsVisible="{Binding IsCardInterfaceActive}">
                 <Button Text="Пополнить"
                         Command="{Binding TopUpCard}"
@@ -72,7 +75,7 @@
                         HeightRequest="35"
                         CornerRadius="10"
                         TextColor="White"
-                        BackgroundColor="Red"/>
+                        BackgroundColor="#E57373"/>
                 <Button Text="Перевести"
                         Command="{Binding TransferCard}"
                         Style="{x:StaticResource NoDefaultCapsButton}"
@@ -81,7 +84,7 @@
                         HeightRequest="35"
                         CornerRadius="10"
                         TextColor="White"
-                        BackgroundColor="Green"/>
+                        BackgroundColor="#81C784"/>
             </FlexLayout>
             <StackLayout IsVisible="{Binding IsCardInterfaceActive}">
                 <StackLayout>

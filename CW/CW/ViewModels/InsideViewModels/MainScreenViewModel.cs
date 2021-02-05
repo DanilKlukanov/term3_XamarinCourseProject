@@ -16,23 +16,21 @@ namespace CW.ViewModels.InsideViewModels
     public class MainScreenViewModel : BaseViewModel
     {
         private bool _isEnabled;
+        private bool _isButtonEnabled;
 
         public MainScreenViewModel(INavigation navigation)
         {
             var user = App.GetUser();
             NameUser = user.firstname + " " + user.surnamme;
-            BankCards = new ObservableCollection<BankCard>();
-            BankAccounts = new ObservableCollection<BankAccount>();
-            BankCredits = new ObservableCollection<BankCredit>();
 
-            LoadListBankItems();
             Navigation = navigation;
+            _isButtonEnabled = true;
             _isEnabled = true;
 
-            OpenProfilePageCommand = new Command(OpenProfilePage);
+            OpenProfilePageCommand = new Command(OpenProfilePage, () => IsButtonEnabled);
             BackCommand = new Command(Back, () => _isEnabled);
-            OpenBankCardPageCommand = new Command(OpenBankCardPage);
-            OpenBankAccountPageCommand = new Command(OpenBankAccounPage);
+            OpenBankCardPageCommand = new Command(OpenBankCardPage, (_) => IsButtonEnabled);
+            OpenBankAccountPageCommand = new Command(OpenBankAccounPage, (_) => IsButtonEnabled);
         }
         public string NameUser { get; private set; }
         public ObservableCollection<BankCard> BankCards { get; private set; }
@@ -55,15 +53,32 @@ namespace CW.ViewModels.InsideViewModels
             var bankBills = bills.Select(x => new BankAccount(x)).ToList();
             var bankCredits = credits.Select(x => new BankCredit(x)).ToList();
 
+            BankCards = new ObservableCollection<BankCard>(bankCards);
+            BankAccounts = new ObservableCollection<BankAccount>(bankBills);
+            BankCredits = new ObservableCollection<BankCredit>(bankCredits);
+
+            foreach (var propName in new List<string>{ "BankCards", "BankAccounts", "BankCredits" })
+            {
+                OnPropertyChanged(propName);
+            }
 
 
-            // bankCards = bills.Where(x => x.type != "bill" && x.type != "cred").Select(x => new BankCard(x)).ToList();
-            //var bankAccounts = bills.Where(x => x.type == "bill" && x.type != "cred").Select(x => new BankAccount(x)).ToList();
-            //var bankCredits = bills.Where(x => x.type == "cred").Select(x => new BankCredit(x)).ToList();
+        }
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
 
-            bankCards.ForEach(x => BankCards.Add(x));
-            bankBills.ForEach(x => BankAccounts.Add(x));
-            bankCredits.ForEach(x => BankCredits.Add(x));
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (OpenProfilePageCommand as Command)?.ChangeCanExecute();
+                    (OpenBankCardPageCommand as Command)?.ChangeCanExecute();
+                    (OpenBankAccountPageCommand as Command)?.ChangeCanExecute();
+                }
+            }
         }
 
         private void Back()
@@ -71,28 +86,34 @@ namespace CW.ViewModels.InsideViewModels
             Navigation.PopAsync();
         }
 
-        private void OpenProfilePage()
+        private async void OpenProfilePage()
         {
-            Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+            IsButtonEnabled = true;
         }
 
-        private void OpenBankAccounPage(object item)
+        private async void OpenBankAccounPage(object item)
         {
             var bankItem = item as BankAccount;
 
             if (bankItem != null)
             {
-                Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this, bankItem)));
+                IsButtonEnabled = false;
+                await Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this, bankItem)));
+                IsButtonEnabled = true;
             }
         }
 
-        private void OpenBankCardPage(object item)
+        private async void OpenBankCardPage(object item)
         {
             var bankItem = item as BankCard;
             
             if (bankItem != null)
             {
-                Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem)));
+                IsButtonEnabled = false;
+                await Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem)));
+                IsButtonEnabled = true;
             }
         }
 
@@ -113,10 +134,6 @@ namespace CW.ViewModels.InsideViewModels
                 return new Command(async () =>
                 {
                     IsRefreshing = true;
-
-                    BankCards.Clear();
-                    BankAccounts.Clear();
-                    BankCredits.Clear();
 
                     await LoadListBankItems();
                     IsRefreshing = false;

@@ -17,11 +17,13 @@ namespace CW.ViewModels.InsideViewModels
     public class PaymentsViewModel : BaseViewModel
     {
         private bool _isEnabled;
+        private bool _isButtonEnabled;
 
         public PaymentsViewModel(INavigation navigation)
         {
             Navigation = navigation;
             _isEnabled = true;
+            _isButtonEnabled = true;
             BankCards = new ObservableCollection<BankCard>();
             BankAccounts = new ObservableCollection<BankAccount>();
             AllPatterns = new ObservableCollection<Pattern>();
@@ -29,10 +31,10 @@ namespace CW.ViewModels.InsideViewModels
 
             LoadPatterns();
             LoadListBankItems();
-            TransferToClientCommand = new Command(OpenTransferToClient);
-            TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir);
+            TransferToClientCommand = new Command(OpenTransferToClient, () => IsButtonEnabled);
+            TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir, () => IsButtonEnabled);
             CreatePatternCommand = new Command(OpenCreatePattern);
-            OpenProfilePageCommand = new Command(OpenProfilePage);
+            OpenProfilePageCommand = new Command(OpenProfilePage, () => IsButtonEnabled);
             DeletePatternCommand = new Command(DeletePattern);
             ExecutePatternCommand = new Command(ExecutePatternAsync);
             BackCommand = new Command(Back, () => _isEnabled);
@@ -50,6 +52,24 @@ namespace CW.ViewModels.InsideViewModels
         public ICommand CreatePatternCommand { get; private set; }
         public ICommand DeletePatternCommand { get; private set; }
         public ICommand ExecutePatternCommand { get; private set; }
+
+        private bool IsButtonEnabled
+        {
+            get => _isButtonEnabled;
+
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+
+                    (OpenProfilePageCommand as Command)?.ChangeCanExecute();
+                    (TransferToClientCommand as Command)?.ChangeCanExecute();
+                    (TransfeBetweenTheirCommand as Command)?.ChangeCanExecute();
+                }
+            }
+        }
+
         private async void LoadPatterns()
         {
             var patterns = await PatternService.Instance.GetPatterns();
@@ -70,9 +90,11 @@ namespace CW.ViewModels.InsideViewModels
         {
             Navigation.PopAsync();
         }
-        private void OpenProfilePage()
+        private async void OpenProfilePage()
         {
-            Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+            IsButtonEnabled = true;
         }
         private void OpenCreatePattern(object item)
         {
@@ -91,13 +113,17 @@ namespace CW.ViewModels.InsideViewModels
                 await Application.Current.MainPage.DisplayAlert("Message", response.Item2, "OK");
             }
         }
-        private void OpenTransferToClient()
+        private async void OpenTransferToClient()
         {
-            Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation, BankCards, BankAccounts)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation, BankCards, BankAccounts)));
+            IsButtonEnabled = true;
         }
-        private void OpenTransferBetweenTheir()
+        private async void OpenTransferBetweenTheir()
         {
-            Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation, BankCards, BankAccounts)));
+            IsButtonEnabled = false;
+            await Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation, BankCards, BankAccounts)));
+            IsButtonEnabled = true;
         }
         private async void ExecutePatternAsync(object item)
         {
