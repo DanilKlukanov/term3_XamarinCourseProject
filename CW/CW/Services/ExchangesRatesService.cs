@@ -24,8 +24,8 @@ namespace CW.Services
                 return _instance;
             }
         }
-        private readonly decimal RatioBuy = 0.013556m;
-        private readonly decimal RatioSell = -0.0260691m;
+        private readonly decimal RatioBuy = 0.013304m;
+        private readonly decimal RatioSell = -0.026503m;
         private List<string> FlagCode = new List<string>
         {
             "🇦🇺", "🇦🇿", "🇬🇧", "🇦🇲", "🇧🇾", "🇧🇬",
