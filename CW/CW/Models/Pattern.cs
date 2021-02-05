@@ -10,5 +10,6 @@ namespace CW.Models
         public string from_ { get; set; }
         public string to_ { get; set; }
         public double amount { get; set; }
+        public string current { get; set; }
     }
 }

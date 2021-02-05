@@ -1,16 +1,14 @@
-﻿using CW.Views.InsideViews;
+﻿using CW.Models;
+using CW.Services;
+using CW.Validations;
+using CW.ViewModels.InsideViewModels.PaymentsViewsModels;
+using CW.Views.InsideViews;
+using CW.Views.InsideViews.PaymentsViews;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
-using CW.Models;
-using System.Collections.ObjectModel;
-using CW.Views.InsideViews.PaymentsViews;
-using CW.ViewModels.InsideViewModels.PaymentsViewsModels;
-using CW.Services;
-using System.Linq;
-using CW.Validations;
 
 namespace CW.ViewModels.InsideViewModels
 {
@@ -24,7 +22,6 @@ namespace CW.ViewModels.InsideViewModels
             AllPatterns = new ObservableCollection<Pattern>();
             UserPassword = new ValidatableObject<string>();
 
-            LoadPatterns();
             LoadListBankItems();
             TransferToClientCommand = new Command(OpenTransferToClient);
             TransfeBetweenTheirCommand = new Command(OpenTransferBetweenTheir);
@@ -49,7 +46,11 @@ namespace CW.ViewModels.InsideViewModels
         private async void LoadPatterns()
         {
             var patterns = await PatternService.Instance.GetPatterns();
-            patterns.ForEach(x => AllPatterns.Add(x));
+            patterns.ForEach(x =>
+            {
+                x.current = GetCurrent(x.from_);
+                AllPatterns.Add(x);
+            });
         }
         private async void LoadListBankItems()
         {
@@ -61,6 +62,8 @@ namespace CW.ViewModels.InsideViewModels
 
             bankCards.ForEach(x => BankCards.Add(x));
             bankBills.ForEach(x => BankAccounts.Add(x));
+
+            LoadPatterns();
         }
         private async void OpenProfilePage()
         {
@@ -74,7 +77,8 @@ namespace CW.ViewModels.InsideViewModels
         private async void DeletePattern(object item)
         {
             var selectedPattern = item as Pattern;
-            if (await Application.Current.MainPage.DisplayAlert("Подтверждение", "Вы уверены?", "Да", "Нет")) {
+            if (await Application.Current.MainPage.DisplayAlert("Подтверждение", "Вы уверены?", "Да", "Нет"))
+            {
                 var response = await PatternService.Instance.RemovePattern(selectedPattern.pattern_name);
                 if (response.Item1)
                 {
@@ -85,12 +89,12 @@ namespace CW.ViewModels.InsideViewModels
         }
         private async void OpenTransferToClient()
         {
-            await RunIsBusyTaskAsync(async () => 
+            await RunIsBusyTaskAsync(async () =>
                 await Navigation.PushAsync(new TransferToClientView(new TransferToClientViewModel(Navigation, BankCards, BankAccounts))));
         }
         private async void OpenTransferBetweenTheir()
         {
-            await RunIsBusyTaskAsync(async () => 
+            await RunIsBusyTaskAsync(async () =>
                 await Navigation.PushAsync(new TransferBetweenView(new TransferBetweenViewModel(Navigation, BankCards, BankAccounts))));
         }
         private async void ExecutePatternAsync(object item)
@@ -104,16 +108,9 @@ namespace CW.ViewModels.InsideViewModels
                 Tuple<bool, string> responseCheck = await UserService.Instance.Login(App.GetUser().login, UserPassword.Value);
                 if (responseCheck.Item1 == true)
                 {
-                    double balance = GetMoney(selectedPattern);
-                    if (balance - selectedPattern.amount >= 0)
-                    {
-                        string response = await TransactionService.Instance.DoTransfer(selectedPattern.from_, selectedPattern.to_, selectedPattern.amount);
-                        await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Message", "Недостаточно средств на карте", "OK");
-                    }
+                    string response = await TransactionService.Instance.DoTransfer(selectedPattern.from_, selectedPattern.to_, selectedPattern.amount);
+                    await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
+
                 }
                 else
                 {
@@ -121,15 +118,21 @@ namespace CW.ViewModels.InsideViewModels
                 }
             }
         }
-        private double GetMoney(Pattern pattern)
+        private void AddCurrentInto()
         {
-            if (pattern.from_.Length == 16)
+            foreach (var pattern in AllPatterns)
             {
-                return BankCards.Where(card => card.Number == pattern.from_).FirstOrDefault().Money;
+                pattern.current = GetCurrent(pattern.from_);
             }
-            else
+        }
+        private string GetCurrent(string number)
+        {
+            if (number.Length == 16)
             {
-                return BankAccounts.Where(card => card.Number == pattern.from_).FirstOrDefault().Money;
+                return BankCards.Where(item => item.Number == number).FirstOrDefault().Currency;
+            } else
+            {
+                return BankAccounts.Where(item => item.Number == number).FirstOrDefault().Currency;
             }
         }
     }

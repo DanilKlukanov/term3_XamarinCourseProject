@@ -19,16 +19,11 @@ namespace CW.ViewModels.InsideViewModels.DetailHistoryModels
         public double Money { get; private set; }
         public string Currency { get; private set; }
         public ICommand CreatePatternCommand { get; private set; }
-        private ObservableCollection<BankCard> Cards;
-        private ObservableCollection<BankAccount> Accounts;
-        public DetailHistoryGiveModel(History payment, ObservableCollection<BankCard> cards, ObservableCollection<BankAccount> accounts)
+        public DetailHistoryGiveModel(History payment)
         {
             Payment = payment;
             _isButtonEnabled = true;
-            Cards = cards;
-            Accounts = accounts;
             CreatePatternCommand = new Command(CreatePattern, () => IsButtonEnabled);
-            LoadInfo();
         }
 
         private bool IsButtonEnabled
@@ -46,23 +41,6 @@ namespace CW.ViewModels.InsideViewModels.DetailHistoryModels
             }
         }
 
-        private void LoadInfo()
-        {
-            if (Payment.user_number.Length == 16)
-            {
-                var cardInfo = Cards.Where(card => card.Number == Payment.user_number).FirstOrDefault();
-                Name = cardInfo.Name;
-                Money = cardInfo.Money;
-                Currency = cardInfo.Currency;
-            }
-            else
-            {
-                var cardInfo = Accounts.Where(card => card.Number == Payment.user_number).FirstOrDefault();
-                Name = cardInfo.Name;
-                Money = cardInfo.Money;
-                Currency = cardInfo.Currency;
-            }
-        }
         private async void CreatePattern()
         {
             string namePattern = await Application.Current.MainPage.DisplayPromptAsync("Создание шаблона", "Введите название");

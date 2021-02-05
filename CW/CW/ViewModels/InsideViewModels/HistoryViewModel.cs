@@ -27,17 +27,13 @@ namespace CW.ViewModels.InsideViewModels
             _histories = new List<History>();
 
             OpenProfilePageCommand = new Command(OpenProfilePage);
-            AddPatternCommand = new Command(OnAddPatternAsync);
             OpenDetailPageCommand = new Command(OpenDetailPage);
 
             //AllHistory = new ObservableCollection<History>();
-            BankCards = new ObservableCollection<BankCard>();
-            BankAccounts = new ObservableCollection<BankAccount>();
 
             TypeName = type;
 
             LoadAllHistory(viewModel);
-            LoadListBankItems();
         }
         public List<History> AllHistory
         {
@@ -49,11 +45,8 @@ namespace CW.ViewModels.InsideViewModels
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<BankCard> BankCards { get; private set; }
-        public ObservableCollection<BankAccount> BankAccounts { get; private set; }
         public INavigation Navigation { get; private set; }
         public ICommand OpenProfilePageCommand { get; private set; }
-        public ICommand AddPatternCommand { get; private set; }
         public ICommand OpenDetailPageCommand { get; private set; }
 
         private async Task GetHistoryBill(BankItemViewModel viewModel)
@@ -98,17 +91,7 @@ namespace CW.ViewModels.InsideViewModels
             }
 
         }
-        private async Task LoadListBankItems()
-        {
-            var cards = await BillsService.Instance.GetCards();
-            var bills = await BillsService.Instance.GetBills();
 
-            var bankCards = cards.Select(x => new BankCard(x)).ToList();
-            var bankBills = bills.Select(x => new BankAccount(x)).ToList();
-
-            bankCards.ForEach(x => BankCards.Add(x));
-            bankBills.ForEach(x => BankAccounts.Add(x));
-        }
         private async void OpenProfilePage()
         {
             await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation))));
@@ -118,23 +101,10 @@ namespace CW.ViewModels.InsideViewModels
             var payment = item as History;
             if (payment.operation_type == "Перевод на карту")
             {
-                await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new DetailHistoryGiveView(new DetailHistoryGiveModel(payment, BankCards, BankAccounts))));
+                await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new DetailHistoryGiveView(new DetailHistoryGiveModel(payment))));
             } else
             {
-                await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new DetailHistoryGetView(new DetailHistoryGetModel(payment, BankCards, BankAccounts))));
-            }
-        }
-
-        public async void OnAddPatternAsync (object item)
-        {
-            var payment = item as History;
-            if (payment.operation_type == "Перевод на карту") {
-                string namePattern = await Application.Current.MainPage.DisplayPromptAsync("Создание шаблона", "Введите название");
-                if (namePattern != null)
-                {
-                    string response = await PatternService.Instance.CreatePattern(namePattern, payment.user_number, payment.other_number, payment.amount);
-                    await Application.Current.MainPage.DisplayAlert("Message", response, "OK");
-                }
+                await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new DetailHistoryGetView(new DetailHistoryGetModel(payment))));
             }
         }
     }

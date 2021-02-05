@@ -109,7 +109,8 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.7*"/>
                                             <ColumnDefinition Width="2.3*"/>
-                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1.45*"/>
+                                            <ColumnDefinition Width="0.55*"/>
                                         </Grid.ColumnDefinitions>
                                         <Image Source="favorite.png"
                                                Margin="19,13,7,15"
@@ -123,7 +124,13 @@
                                                VerticalOptions="Center"/>
                                         <Label Text="{Binding amount}"
                                                Grid.Column="2"
-                                               HorizontalOptions="Center"
+                                               HorizontalOptions="EndAndExpand"
+                                               VerticalOptions="Center"
+                                               Padding="30,0,0,0"/>
+                                        <Label Text="{Binding current}"
+                                               Padding="0,0,10,0"
+                                               Grid.Column="3"
+                                               HorizontalOptions="EndAndExpand"
                                                VerticalOptions="Center"/>
                                     </Grid>
                                 </SwipeView>
