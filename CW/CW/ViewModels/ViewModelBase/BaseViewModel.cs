@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -14,6 +15,24 @@ namespace CW.ViewModels
         {
             return;
         }
+        
+        public bool IsBusy { get; set; }
 
+        protected async Task RunIsBusyTaskAsync(Func<Task> awaitableTask)
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                await awaitableTask();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
     }
 }

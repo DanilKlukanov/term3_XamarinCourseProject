@@ -17,7 +17,6 @@ namespace CW.ViewModels
 {
     public class DialogsViewModel : BaseViewModel
     {
-        private bool _isButtonEnabled;
         public ObservableCollection<Message> Messages { get; set; }
 
         public ICommand OpenProfilePageCommand { get; private set; }
@@ -31,48 +30,22 @@ namespace CW.ViewModels
         public DialogsViewModel(INavigation navigation)
         {
             Navigation = navigation;
-            _isButtonEnabled = true;
-            AddValidations();
-
             Messages = new ObservableCollection<Message>();
 
             Navigation = navigation;
 
             SendMessageCommand = new Command(SendMessage);
-            OpenProfilePageCommand = new Command(OpenProfilePage, () => IsButtonEnabled);
-            OpenProfilePageCommand = new Command(OpenProfile);
-
+            OpenProfilePageCommand = new Command(OpenProfilePage);
             GetMessages();
             Device.StartTimer(TimeSpan.FromSeconds(15), () => {
                 GetMessages();
                 return true;
             });
         }
-        private bool IsButtonEnabled
-        {
-            get => _isButtonEnabled;
 
-            set
-            {
-                if (value != _isButtonEnabled)
-                {
-                    _isButtonEnabled = value;
-
-                    (OpenProfilePageCommand as Command)?.ChangeCanExecute();
-                }
-            }
-        }
         private async void OpenProfilePage()
         {
-            IsButtonEnabled = false;
-            await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
-            IsButtonEnabled = true;
-        }
-
-
-        private void OpenProfile(object obj)
-        {
-            Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
+            await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation))));
         }
 
         private async void SendMessage()
@@ -109,8 +82,6 @@ namespace CW.ViewModels
                     col = col
                 });
             }
-
-
 
             Messages = tmpMessages;
             OnPropertyChanged("Messages");

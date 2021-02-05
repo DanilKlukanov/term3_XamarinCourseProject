@@ -17,23 +17,20 @@ namespace CW.ViewModels.InsideViewModels
 {
     public class HistoryViewModel : BaseViewModel
     {
-        private bool _isEnabled;
-        private bool _isButtonEnabled;
-
         public string TypeName { get; set; }
+        private List<History> _histories;
 
         public HistoryViewModel(INavigation navigation, string type, BankItemViewModel viewModel = null)
         {
             Navigation = navigation;
-            _isEnabled = true;
-            _isButtonEnabled = true;
 
-            OpenProfilePageCommand = new Command(OpenProfilePage, () => IsButtonEnabled);
+            _histories = new List<History>();
+
+            OpenProfilePageCommand = new Command(OpenProfilePage);
             AddPatternCommand = new Command(OnAddPatternAsync);
-            BackCommand = new Command(Back, () => _isEnabled);
-            OpenDetailPageCommand = new Command(OpenDetailPage, (_) => IsButtonEnabled);
+            OpenDetailPageCommand = new Command(OpenDetailPage);
 
-            AllHistory = new ObservableCollection<History>();
+            //AllHistory = new ObservableCollection<History>();
             BankCards = new ObservableCollection<BankCard>();
             BankAccounts = new ObservableCollection<BankAccount>();
 
@@ -42,56 +39,49 @@ namespace CW.ViewModels.InsideViewModels
             LoadAllHistory(viewModel);
             LoadListBankItems();
         }
-        public ObservableCollection<History> AllHistory { get; private set; }
+        public List<History> AllHistory
+        {
+            get => _histories;
+
+            set
+            {
+                _histories = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<BankCard> BankCards { get; private set; }
         public ObservableCollection<BankAccount> BankAccounts { get; private set; }
         public INavigation Navigation { get; private set; }
-        public ICommand BackCommand { get; private set; }
         public ICommand OpenProfilePageCommand { get; private set; }
         public ICommand AddPatternCommand { get; private set; }
         public ICommand OpenDetailPageCommand { get; private set; }
 
-        private bool IsButtonEnabled
+        private async Task GetHistoryBill(BankItemViewModel viewModel)
         {
-            get => _isButtonEnabled;
-
-            set
-            {
-                if (value != _isButtonEnabled)
-                {
-                    _isButtonEnabled = value;
-
-                    (OpenProfilePageCommand as Command)?.ChangeCanExecute();
-                    (OpenDetailPageCommand as Command)?.ChangeCanExecute();
-                }
-            }
+            AllHistory = await BillsService.Instance.GetPartHistory(viewModel.SelectedBankItem.Number);
         }
-
-        private async Task<List<History>> GetHistoryBill(BankItemViewModel viewModel)
+        private async Task GetHistoryBills()
         {
-            return await BillsService.Instance.GetPartHistory(viewModel.SelectedBankItem.Number);
+            AllHistory =  await BillsService.Instance.GetHistory();
         }
-        private async Task<List<History>> GetHistoryBills()
-        {
-            return await BillsService.Instance.GetHistory();
-        }
-        private async void LoadAllHistory(BankItemViewModel viewModel)
+        public async Task LoadAllHistory(BankItemViewModel viewModel = null)
         {      
             List<History> histories = new List<History>();
 
-            if (Type.GetType(TypeName) == typeof(BankItemViewModel))
+            if (viewModel != null && Type.GetType(TypeName) == typeof(BankItemViewModel))
             {
-                histories = await GetHistoryBill(viewModel);
+                await GetHistoryBill(viewModel);
             }
 
             if (Type.GetType(TypeName) == typeof(HistoryView))
             {
-                histories = await GetHistoryBills();
+                await GetHistoryBills();
             }
 
-            histories.ForEach(x => AllHistory.Add(x));
+            //_histories.ForEach(x => AllHistory.Add(x));
 
             ChangeHistory();
+            AllHistory = _histories;
         }
         private void ChangeHistory()
         {
@@ -119,30 +109,19 @@ namespace CW.ViewModels.InsideViewModels
             bankCards.ForEach(x => BankCards.Add(x));
             bankBills.ForEach(x => BankAccounts.Add(x));
         }
- 
-        private void Back()
-        {
-            Navigation.PopAsync();
-        }
         private async void OpenProfilePage()
         {
-            IsButtonEnabled = false;
-            await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
-            IsButtonEnabled = true;
+            await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation))));
         }
         private async void OpenDetailPage(object item)
         {
             var payment = item as History;
             if (payment.operation_type == "Перевод на карту")
             {
-                IsButtonEnabled = false;
-                await Navigation.PushAsync(new DetailHistoryGiveView(new DetailHistoryGiveModel(payment, BankCards, BankAccounts)));
-                IsButtonEnabled = true;
+                await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new DetailHistoryGiveView(new DetailHistoryGiveModel(payment, BankCards, BankAccounts))));
             } else
             {
-                IsButtonEnabled = false;
-                await Navigation.PushAsync(new DetailHistoryGetView(new DetailHistoryGetModel(payment, BankCards, BankAccounts)));
-                IsButtonEnabled = true;
+                await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new DetailHistoryGetView(new DetailHistoryGetModel(payment, BankCards, BankAccounts))));
             }
         }
 

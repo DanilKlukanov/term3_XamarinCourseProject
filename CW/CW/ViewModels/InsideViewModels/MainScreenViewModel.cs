@@ -15,22 +15,17 @@ namespace CW.ViewModels.InsideViewModels
 {
     public class MainScreenViewModel : BaseViewModel
     {
-        private bool _isEnabled;
-        private bool _isButtonEnabled;
-
         public MainScreenViewModel(INavigation navigation)
         {
             var user = App.GetUser();
             NameUser = user.firstname + " " + user.surnamme;
 
             Navigation = navigation;
-            _isButtonEnabled = true;
-            _isEnabled = true;
 
-            OpenProfilePageCommand = new Command(OpenProfilePage, () => IsButtonEnabled);
-            BackCommand = new Command(Back, () => _isEnabled);
-            OpenBankCardPageCommand = new Command(OpenBankCardPage, (_) => IsButtonEnabled);
-            OpenBankAccountPageCommand = new Command(OpenBankAccounPage, (_) => IsButtonEnabled);
+            OpenProfilePageCommand = new Command(OpenProfilePage);
+            BackCommand = new Command(Back);
+            OpenBankCardPageCommand = new Command(OpenBankCardPage);
+            OpenBankAccountPageCommand = new Command(OpenBankAccounPage);
         }
         public string NameUser { get; private set; }
         public ObservableCollection<BankCard> BankCards { get; private set; }
@@ -64,22 +59,6 @@ namespace CW.ViewModels.InsideViewModels
 
 
         }
-        private bool IsButtonEnabled
-        {
-            get => _isButtonEnabled;
-
-            set
-            {
-                if (value != _isButtonEnabled)
-                {
-                    _isButtonEnabled = value;
-
-                    (OpenProfilePageCommand as Command)?.ChangeCanExecute();
-                    (OpenBankCardPageCommand as Command)?.ChangeCanExecute();
-                    (OpenBankAccountPageCommand as Command)?.ChangeCanExecute();
-                }
-            }
-        }
 
         private void Back()
         {
@@ -88,9 +67,7 @@ namespace CW.ViewModels.InsideViewModels
 
         private async void OpenProfilePage()
         {
-            IsButtonEnabled = false;
-            await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation)));
-            IsButtonEnabled = true;
+            await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new ProfileView(new ProfileViewModel(Navigation))));
         }
 
         private async void OpenBankAccounPage(object item)
@@ -99,9 +76,7 @@ namespace CW.ViewModels.InsideViewModels
 
             if (bankItem != null)
             {
-                IsButtonEnabled = false;
-                await Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this, bankItem)));
-                IsButtonEnabled = true;
+                await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new BankAccountsView(new BankItemViewModel(this, bankItem))));
             }
         }
 
@@ -111,9 +86,7 @@ namespace CW.ViewModels.InsideViewModels
             
             if (bankItem != null)
             {
-                IsButtonEnabled = false;
-                await Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem)));
-                IsButtonEnabled = true;
+                await RunIsBusyTaskAsync(async () => await Navigation.PushAsync(new BankCardsView(new BankItemViewModel(this, bankItem))));
             }
         }
 
